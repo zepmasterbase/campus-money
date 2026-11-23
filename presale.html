@@ -1,0 +1,1343 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#070707">
+  <meta name="description" content="Discover the proposed Campus Money presale, designed for the Zep Swipe student economy. Explore planned presale rounds, utility and KOVÉR heritage rewards.">
+  <title>Campus Money Presale | Your Campus. Your Money.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #070707;
+      --panel: #111411;
+      --panel2: #171b15;
+      --lime: #b8ff3b;
+      --white: #f5f7f2;
+      --muted: #a1a79b;
+      --line: rgba(184,255,59,.17);
+      --gold: #d8b46b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1120px, 91%);
+      margin: auto;
+    }
+
+    /* HEADER */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7,7,7,.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 900;
+      letter-spacing: -.7px;
+      font-size: 19px;
+    }
+
+    .brand img {
+      width: 39px;
+      height: 39px;
+      object-fit: contain;
+    }
+
+    .brand span {
+      color: var(--lime);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--lime);
+    }
+
+    .nav-cta {
+      background: var(--lime);
+      color: #080a06;
+      padding: 11px 17px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--white);
+      border-radius: 7px;
+      padding: 8px 11px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0 85px;
+      background:
+        radial-gradient(ellipse at 75% 20%, rgba(184,255,59,.12), transparent 38%),
+        radial-gradient(ellipse at 10% 90%, rgba(184,255,59,.06), transparent 35%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 55px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--lime);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 7px 12px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--lime);
+      box-shadow: 0 0 12px var(--lime);
+    }
+
+    h1 {
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.03;
+      letter-spacing: -3.5px;
+      font-weight: 900;
+      margin-bottom: 24px;
+    }
+
+    h1 span {
+      color: var(--lime);
+    }
+
+    .hero-copy {
+      max-width: 570px;
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 7px;
+      padding: 14px 20px;
+      font-size: 12px;
+      font-weight: 900;
+      transition: .2s;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--lime);
+      color: #080a06;
+    }
+
+    .btn-primary:hover {
+      background: #d0ff79;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border-color: rgba(255,255,255,.2);
+      color: var(--white);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--lime);
+      color: var(--lime);
+    }
+
+    .hero-art {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 330px;
+    }
+
+    .hero-art img {
+      width: min(100%, 420px);
+      max-height: 390px;
+      object-fit: contain;
+      filter: drop-shadow(0 15px 45px rgba(184,255,59,.12));
+    }
+
+    /* NOTICE */
+
+    .notice {
+      border: 1px solid rgba(216,180,107,.28);
+      background: rgba(216,180,107,.07);
+      color: #e9d4a9;
+      padding: 17px 19px;
+      border-radius: 10px;
+      margin-top: -20px;
+      margin-bottom: 55px;
+      font-size: 12px;
+    }
+
+    .notice strong {
+      color: var(--gold);
+    }
+
+    /* SECTIONS */
+
+    section {
+      padding: 75px 0;
+    }
+
+    .section-heading {
+      max-width: 700px;
+      margin-bottom: 36px;
+    }
+
+    .section-heading .eyebrow {
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      font-size: clamp(29px, 4vw, 43px);
+      line-height: 1.15;
+      letter-spacing: -1.6px;
+      margin-bottom: 14px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* STATS */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 24px 18px;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--lime);
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin-bottom: 5px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* ROUNDS */
+
+    .rounds {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .round {
+      position: relative;
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 27px 23px;
+    }
+
+    .round.featured {
+      border-color: var(--lime);
+      background: linear-gradient(145deg, #17200e, #10130e);
+    }
+
+    .round-label {
+      color: var(--lime);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .round h3 {
+      font-size: 21px;
+      margin: 13px 0 5px;
+    }
+
+    .round-price {
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      margin: 14px 0;
+    }
+
+    .round-price small {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .round p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .round-details {
+      border-top: 1px solid var(--line);
+      margin-top: 20px;
+      padding-top: 17px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .round-details strong {
+      color: var(--white);
+    }
+
+    /* REWARDS */
+
+    .rewards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .reward {
+      background: linear-gradient(145deg, #17140f, #10100e);
+      border: 1px solid rgba(216,180,107,.24);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .reward img {
+      width: 100%;
+      height: 145px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 19px;
+      background: #202018;
+    }
+
+    .reward-label {
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .reward h3 {
+      font-size: 21px;
+      margin: 9px 0;
+    }
+
+    .reward .threshold {
+      color: var(--gold);
+      font-size: 23px;
+      font-weight: 900;
+      margin: 13px 0;
+    }
+
+    .reward p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .reward-note {
+      margin-top: 20px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* CALCULATOR */
+
+    .calculator {
+      background: linear-gradient(135deg, #151b10, #10110e);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 35px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 35px;
+      align-items: center;
+    }
+
+    .calculator h2 {
+      font-size: 30px;
+    }
+
+    .calculator p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .calc-box {
+      background: #090b08;
+      border: 1px solid var(--line);
+      padding: 23px;
+      border-radius: 10px;
+    }
+
+    .calc-box label {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      margin-bottom: 9px;
+    }
+
+    .calc-box input {
+      width: 100%;
+      padding: 14px;
+      background: #171b15;
+      color: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      font-size: 18px;
+      outline: none;
+      margin-bottom: 17px;
+    }
+
+    .calc-result {
+      border-top: 1px solid var(--line);
+      padding-top: 17px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .calc-result strong {
+      color: var(--lime);
+      text-align: right;
+    }
+
+    .calc-warning {
+      font-size: 10px !important;
+      margin-top: 15px;
+    }
+
+    /* UTILITY */
+
+    .utility-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13px;
+    }
+
+    .utility {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 22px;
+    }
+
+    .utility-icon {
+      font-size: 25px;
+      margin-bottom: 14px;
+    }
+
+    .utility h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .utility p {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* PROCESS */
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13px;
+    }
+
+    .step {
+      border-left: 2px solid var(--lime);
+      padding: 5px 0 5px 17px;
+    }
+
+    .step span {
+      color: var(--lime);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .step h3 {
+      font-size: 14px;
+      margin: 8px 0;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* CTA */
+
+    .final-cta {
+      text-align: center;
+      padding: 75px 25px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background:
+        radial-gradient(ellipse at center, rgba(184,255,59,.12), transparent 65%),
+        #10120e;
+    }
+
+    .final-cta h2 {
+      max-width: 650px;
+      margin: 0 auto 15px;
+    }
+
+    .final-cta p {
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 560px;
+      margin: 0 auto 25px;
+    }
+
+    /* FAQ */
+
+    .faq-list {
+      max-width: 800px;
+    }
+
+    details {
+      border-bottom: 1px solid var(--line);
+      padding: 18px 0;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    details p {
+      color: var(--muted);
+      font-size: 12px;
+      padding-top: 13px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 38px 0;
+      margin-top: 65px;
+    }
+
+    .footer-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer-bottom {
+      color: #747b6e;
+      font-size: 10px;
+      margin-top: 24px;
+      max-width: 850px;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width: 850px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .hero-art {
+        min-height: 220px;
+      }
+
+      .hero-art img {
+        max-height: 260px;
+      }
+
+      .stats,
+      .utility-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .rounds,
+      .rewards {
+        grid-template-columns: 1fr;
+      }
+
+      .calculator {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media(max-width: 650px) {
+      .nav {
+        min-height: 68px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        padding: 20px 5%;
+        background: #090b08;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-cta {
+        text-align: center;
+      }
+
+      .hero {
+        padding: 70px 0 65px;
+      }
+
+      h1 {
+        letter-spacing: -2px;
+      }
+
+      section {
+        padding: 55px 0;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .calculator {
+        padding: 22px;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .notice {
+        margin-bottom: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+
+      <a href="index.html" class="brand">
+        <img src="assets/campus-money-logo.png" alt="Campus Money logo">
+        <div>CAMPUS <span>MONEY</span></div>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">☰</button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="#rounds">Presale</a>
+        <a href="#rewards">KOVÉR Rewards</a>
+        <a href="legal.html">Legal</a>
+        <a href="buy.html" class="nav-cta">Purchase Access</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+
+        <div>
+          <div class="eyebrow">
+            <span class="dot"></span>
+            CAMPUS MONEY PRESALE
+          </div>
+
+          <h1>
+            The future of the student economy <span>starts here.</span>
+          </h1>
+
+          <p class="hero-copy">
+            Campus Money is being developed as a digital utility currency
+            for the Zep Swipe African student economy — connecting students
+            to opportunities, services, rewards and ecosystem access.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#rounds" class="btn btn-primary">Explore Presale Structure</a>
+            <a href="ecosystem.html" class="btn btn-outline">Explore Ecosystem</a>
+          </div>
+        </div>
+
+        <div class="hero-art">
+          <img src="assets/campus-money-logo.png" alt="Campus Money digital currency">
+        </div>
+
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="notice">
+        <strong>Pre-launch notice:</strong>
+        The presale structure displayed here is proposed and subject to
+        final legal review, published terms, payment arrangements and
+        technical readiness. No token purchase is currently enabled on
+        this page. Do not send funds to any wallet address based on this page.
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="eyebrow">THE PROPOSED STRUCTURE</div>
+          <h2>A digital utility layer for the student economy.</h2>
+          <p>
+            Campus Money is designed to support participation and access
+            across a growing network of student opportunities and services.
+            It is not equity in Zep Swipe or an ownership interest in any company.
+          </p>
+        </div>
+
+        <div class="stats">
+
+          <div class="stat">
+            <strong>1B</strong>
+            <span>Proposed total token supply</span>
+          </div>
+
+          <div class="stat">
+            <strong>1%</strong>
+            <span>Proposed public presale allocation</span>
+          </div>
+
+          <div class="stat">
+            <strong>Base</strong>
+            <span>Planned blockchain network</span>
+          </div>
+
+          <div class="stat">
+            <strong>Utility</strong>
+            <span>Designed for ecosystem access</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PRESALE ROUNDS -->
+    <section id="rounds">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="eyebrow">PROPOSED PRESALE ROUNDS</div>
+          <h2>Three planned access rounds.</h2>
+          <p>
+            The following prices and quantities are illustrative planning
+            figures. Final availability, eligibility, pricing and terms
+            will be published before any sale begins.
+          </p>
+        </div>
+
+        <div class="rounds">
+
+          <article class="round">
+            <div class="round-label">ROUND 01</div>
+            <h3>Founder's Access</h3>
+            <p>Proposed first presale allocation.</p>
+
+            <div class="round-price">$0.05 <small>/ CM</small></div>
+
+            <div class="round-details">
+              <p>Proposed allocation: <strong>3,000,000 CM</strong></p>
+              <p>Illustrative gross amount: <strong>$150,000</strong></p>
+            </div>
+          </article>
+
+          <article class="round featured">
+            <div class="round-label">ROUND 02</div>
+            <h3>Early Ecosystem Access</h3>
+            <p>Proposed second presale allocation.</p>
+
+            <div class="round-price">$0.06 <small>/ CM</small></div>
+
+            <div class="round-details">
+              <p>Proposed allocation: <strong>3,000,000 CM</strong></p>
+              <p>Illustrative gross amount: <strong>$180,000</strong></p>
+            </div>
+          </article>
+
+          <article class="round">
+            <div class="round-label">ROUND 03</div>
+            <h3>Community Access</h3>
+            <p>Proposed third presale allocation.</p>
+
+            <div class="round-price">$0.075 <small>/ CM</small></div>
+
+            <div class="round-details">
+              <p>Proposed allocation: <strong>4,000,000 CM</strong></p>
+              <p>Illustrative gross amount: <strong>$300,000</strong></p>
+            </div>
+          </article>
+
+        </div>
+
+        <p style="color:var(--muted);font-size:11px;margin-top:18px;">
+          Illustrative combined allocation: 10,000,000 CM.
+          Illustrative gross proceeds if fully sold: $630,000.
+          These figures are not a guarantee of fundraising or token value.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- KOVER REWARDS -->
+    <section id="rewards">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="eyebrow">KOVÉR HERITAGE COLLECTION</div>
+          <h2>A piece of heritage. A symbol of legacy.</h2>
+          <p>
+            The proposed presale reward programme is designed to recognise
+            qualifying participants with a KOVÉR timepiece. Each eligible
+            participant would qualify for the highest reward tier achieved,
+            subject to the final published reward terms.
+          </p>
+        </div>
+
+        <div class="rewards">
+
+          <article class="reward">
+            <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=900&q=85" alt="Luxury wristwatch inspiration">
+
+            <div class="reward-label">TIER 01</div>
+            <h3>KOVÉR Heritage</h3>
+            <div class="threshold">$1,000</div>
+            <p>
+              Proposed cumulative qualifying contribution threshold
+              for the Heritage reward.
+            </p>
+          </article>
+
+          <article class="reward">
+            <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=900&q=85" alt="Premium watch inspiration">
+
+            <div class="reward-label">TIER 02</div>
+            <h3>KOVÉR Prestige</h3>
+            <div class="threshold">$2,500</div>
+            <p>
+              Proposed cumulative qualifying contribution threshold
+              for the Prestige reward.
+            </p>
+          </article>
+
+          <article class="reward">
+            <img src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=900&q=85" alt="Classic luxury watch inspiration">
+
+            <div class="reward-label">TIER 03</div>
+            <h3>KOVÉR Legacy</h3>
+            <div class="threshold">$5,000</div>
+            <p>
+              Proposed cumulative qualifying contribution threshold
+              for the Legacy reward.
+            </p>
+          </article>
+
+        </div>
+
+        <p class="reward-note">
+          Watch images are visual inspiration only and do not represent
+          final manufactured products. Reward eligibility, specifications,
+          delivery, availability, taxes and shipping will be governed by
+          separate published terms. No watch is guaranteed by this page.
+        </p>
+
+        <p style="color:var(--gold);font-size:12px;margin-top:15px;">
+          KOVÉR — HONOUR • COURAGE • EXCELLENCE • LEGACY
+        </p>
+
+      </div>
+    </section>
+
+    <!-- CALCULATOR -->
+    <section id="calculator">
+      <div class="container">
+
+        <div class="calculator">
+
+          <div>
+            <div class="eyebrow">ILLUSTRATIVE CALCULATOR</div>
+            <h2>Explore the proposed token quantities.</h2>
+            <p>
+              Enter an illustrative contribution amount to see how many
+              Campus Money tokens it would represent at the proposed
+              Round 01 price. This is not a purchase quote or an offer
+              to sell tokens.
+            </p>
+          </div>
+
+          <div class="calc-box">
+
+            <label for="amount">Illustrative amount in USD ($)</label>
+            <input
+              type="number"
+              id="amount"
+              min="0"
+              step="1"
+              value="100"
+              placeholder="Enter amount"
+            >
+
+            <div class="calc-result">
+              <span>Proposed Round 01 price</span>
+              <strong>$0.05</strong>
+            </div>
+
+            <div class="calc-result">
+              <span>Illustrative token quantity</span>
+              <strong id="tokenResult">2,000 CM</strong>
+            </div>
+
+            <div class="calc-result">
+              <span>Proposed reward tier</span>
+              <strong id="tierResult">No watch tier</strong>
+            </div>
+
+            <p class="calc-warning">
+              Reward thresholds are based on proposed cumulative qualifying
+              contributions, not a promise of investment return.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- UTILITY -->
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="eyebrow">ECOSYSTEM UTILITY</div>
+          <h2>Built around participation, not speculation.</h2>
+          <p>
+            Campus Money is intended to support useful activity across
+            the student economy as the ecosystem develops.
+          </p>
+        </div>
+
+        <div class="utility-grid">
+
+          <article class="utility">
+            <div class="utility-icon">🎓</div>
+            <h3>Student Opportunities</h3>
+            <p>Designed to support access to student-focused opportunities.</p>
+          </article>
+
+          <article class="utility">
+            <div class="utility-icon">💼</div>
+            <h3>Student Services</h3>
+            <p>Planned utility within participating services and businesses.</p>
+          </article>
+
+          <article class="utility">
+            <div class="utility-icon">🤝</div>
+            <h3>Partner Access</h3>
+            <p>Designed to connect participating partners with the student economy.</p>
+          </article>
+
+          <article class="utility">
+            <div class="utility-icon">🌍</div>
+            <h3>Community Ecosystem</h3>
+            <p>Supporting a wider network of students and participating communities.</p>
+          </article>
+
+        </div>
+
+        <p style="color:var(--muted);font-size:11px;margin-top:18px;">
+          These are intended use cases. Availability depends on the
+          development of the ecosystem and participating providers.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="eyebrow">PARTICIPATION PROCESS</div>
+          <h2>Designed to be simple and transparent.</h2>
+          <p>
+            Before any presale opens, participants will be able to review
+            the applicable terms and understand the process.
+          </p>
+        </div>
+
+        <div class="steps">
+
+          <div class="step">
+            <span>STEP 01</span>
+            <h3>Review</h3>
+            <p>Read the project information, eligibility requirements and legal disclosures.</p>
+          </div>
+
+          <div class="step">
+            <span>STEP 02</span>
+            <h3>Register</h3>
+            <p>Create an account and complete any required identity and eligibility checks.</p>
+          </div>
+
+          <div class="step">
+            <span>STEP 03</span>
+            <h3>Connect</h3>
+            <p>Connect a compatible wallet on Base if participation is permitted.</p>
+          </div>
+
+          <div class="step">
+            <span>STEP 04</span>
+            <h3>Confirmation</h3>
+            <p>Follow the official instructions and receive confirmation of any completed transaction.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section>
+      <div class="container">
+
+        <div class="final-cta">
+          <div class="eyebrow">THE STUDENT ECONOMY</div>
+
+          <h2>Your Campus. Your Money. Your Opportunities.</h2>
+
+          <p>
+            Discover the vision behind Campus Money and the Zep Swipe
+            ecosystem. Official participation information will be published
+            when the project is ready.
+          </p>
+
+          <a href="ecosystem.html" class="btn btn-primary">
+            Explore Campus Money
+          </a>
+
+          <a href="legal.html" class="btn btn-outline" style="margin-left:8px;">
+            Read Legal Information
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="eyebrow">QUESTIONS & ANSWERS</div>
+          <h2>Presale information.</h2>
+        </div>
+
+        <div class="faq-list">
+
+          <details>
+            <summary>What is Campus Money?</summary>
+            <p>
+              Campus Money is a digital currency project being developed
+              for utility and ecosystem access across the Zep Swipe
+              African student economy.
+            </p>
+          </details>
+
+          <details>
+            <summary>Which blockchain will Campus Money use?</summary>
+            <p>
+              Campus Money is planned for the Base blockchain. The official
+              token contract address will only be published after deployment
+              and verification.
+            </p>
+          </details>
+
+          <details>
+            <summary>Does holding Campus Money give me company ownership?</summary>
+            <p>
+              No. The proposed holder rights are limited to utility and
+              ecosystem access. Campus Money does not represent shares,
+              equity, voting rights or ownership in Zep Swipe or another company.
+            </p>
+          </details>
+
+          <details>
+            <summary>Does Campus Money guarantee financial returns?</summary>
+            <p>
+              No. There are no promised profits, appreciation, dividends,
+              buybacks or guaranteed resale opportunities.
+            </p>
+          </details>
+
+          <details>
+            <summary>How do the KOVÉR watch rewards work?</summary>
+            <p>
+              The proposed programme uses cumulative qualifying contribution
+              thresholds. A participant would qualify for the highest
+              eligible tier achieved, subject to final reward terms.
+              Watch production, specifications and fulfilment arrangements
+              must be confirmed before rewards are offered.
+            </p>
+          </details>
+
+          <details>
+            <summary>Can I buy Campus Money right now?</summary>
+            <p>
+              This page does not currently accept payments or token purchases.
+              Official participation instructions will be published only
+              after the necessary legal and technical preparations are complete.
+            </p>
+          </details>
+
+          <details>
+            <summary>Is Campus Money legal tender?</summary>
+            <p>
+              No. Campus Money is not presented as legal tender or as
+              currency issued or guaranteed by a central bank.
+            </p>
+          </details>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+
+      <div class="footer-content">
+
+        <a href="index.html" class="brand">
+          <img src="assets/campus-money-logo.png" alt="Campus Money logo">
+          <div>CAMPUS <span>MONEY</span></div>
+        </a>
+
+        <div class="footer-links">
+          <a href="index.html">Home</a>
+          <a href="ecosystem.html">Ecosystem</a>
+          <a href="kover.html">KOVÉR</a>
+          <a href="account.html">Account</a>
+          <a href="legal.html">Legal</a>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          Campus Money is a digital utility currency project under development.
+          It is not legal tender, a deposit, a share, an equity interest or
+          an investment product promising financial returns. Token utility,
+          availability, eligibility, presale arrangements and reward terms
+          are subject to final documentation and applicable law.
+        </p>
+
+        <p style="margin-top:13px;">
+          © <span id="year"></span> Campus Money. All rights reserved.
+          Developed for the Zep Swipe student economy.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    // ==========================================
+    // CAMPUS MONEY PRESALE PAGE SETTINGS
+    // ==========================================
+
+    // This page is informational only.
+    // Do not enable a sale until all required
+    // legal and technical checks are complete.
+
+    const CONFIG = {
+      ROUND_ONE_PRICE: 0.05,
+      PRESALE_OPEN: false
+    };
+
+    // MOBILE NAVIGATION
+
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", function () {
+      navLinks.classList.toggle("open");
+    });
+
+    navLinks.querySelectorAll("a").forEach(function(link) {
+      link.addEventListener("click", function() {
+        navLinks.classList.remove("open");
+      });
+    });
+
+    // ILLUSTRATIVE TOKEN CALCULATOR
+
+    const amountInput = document.getElementById("amount");
+    const tokenResult = document.getElementById("tokenResult");
+    const tierResult = document.getElementById("tierResult");
+
+    function updateCalculator() {
+      const amount = Math.max(0, Number(amountInput.value) || 0);
+
+      const tokens = amount / CONFIG.ROUND_ONE_PRICE;
+
+      tokenResult.textContent =
+        Math.floor(tokens).toLocaleString("en-US") + " CM";
+
+      if (amount >= 5000) {
+        tierResult.textContent = "KOVÉR Legacy*";
+      } else if (amount >= 2500) {
+        tierResult.textContent = "KOVÉR Prestige*";
+      } else if (amount >= 1000) {
+        tierResult.textContent = "KOVÉR Heritage*";
+      } else {
+        tierResult.textContent = "No watch tier";
+      }
+    }
+
+    amountInput.addEventListener("input", updateCalculator);
+
+    updateCalculator();
+
+    // FOOTER YEAR
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>
