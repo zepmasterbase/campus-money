@@ -1,0 +1,1428 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070707">
+<meta name="description" content="Register for Campus Money presale access, connect your Base wallet and explore proposed KOVÉR heritage rewards.">
+<title>Campus Money | Register & Connect Wallet</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#070707;
+  --panel:#111411;
+  --panel2:#171b15;
+  --lime:#b8ff3b;
+  --white:#f5f7f2;
+  --muted:#9da598;
+  --line:rgba(184,255,59,.18);
+  --gold:#d8b46b;
+  --red:#ff7777;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+  background:var(--bg);
+  color:var(--white);
+  font-family:Inter,sans-serif;
+  line-height:1.6;
+}
+
+a {
+  text-decoration:none;
+  color:inherit;
+}
+
+button,input,select {
+  font:inherit;
+}
+
+.container {
+  width:min(1080px,92%);
+  margin:auto;
+}
+
+/* HEADER */
+
+header {
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(7,7,7,.96);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(15px);
+}
+
+.nav {
+  min-height:75px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logo {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:19px;
+  font-weight:900;
+  letter-spacing:-.7px;
+}
+
+.logo img {
+  width:39px;
+  height:39px;
+  object-fit:contain;
+}
+
+.logo span {
+  color:var(--lime);
+}
+
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:22px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.nav-links a:hover {
+  color:var(--lime);
+}
+
+.menu-toggle {
+  display:none;
+  color:white;
+  background:transparent;
+  border:1px solid var(--line);
+  padding:8px 12px;
+  border-radius:7px;
+  cursor:pointer;
+}
+
+/* HERO */
+
+.hero {
+  padding:65px 0 45px;
+  text-align:center;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(184,255,59,.13),transparent 65%);
+}
+
+.eyebrow {
+  display:inline-block;
+  color:var(--lime);
+  border:1px solid var(--line);
+  padding:7px 13px;
+  border-radius:30px;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.4px;
+  margin-bottom:18px;
+}
+
+h1 {
+  font-size:clamp(36px,6vw,58px);
+  line-height:1.08;
+  letter-spacing:-2.5px;
+  font-weight:900;
+  margin-bottom:17px;
+}
+
+h1 span {
+  color:var(--lime);
+}
+
+.hero p {
+  color:var(--muted);
+  font-size:14px;
+  max-width:650px;
+  margin:auto;
+}
+
+.status {
+  display:inline-block;
+  margin-top:25px;
+  padding:10px 15px;
+  border-radius:8px;
+  border:1px solid rgba(216,180,107,.3);
+  background:rgba(216,180,107,.07);
+  color:var(--gold);
+  font-size:10px;
+  font-weight:800;
+}
+
+/* PAGE GRID */
+
+.main-grid {
+  display:grid;
+  grid-template-columns:.9fr 1.2fr;
+  gap:23px;
+  align-items:start;
+  padding:25px 0 75px;
+}
+
+.panel {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:25px;
+}
+
+.panel h2 {
+  font-size:21px;
+  letter-spacing:-.7px;
+  margin-bottom:8px;
+}
+
+.intro {
+  color:var(--muted);
+  font-size:12px;
+  margin-bottom:22px;
+}
+
+/* LEFT SUMMARY */
+
+.summary-card {
+  background:linear-gradient(145deg,#17200e,#10130e);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:20px;
+  margin-bottom:17px;
+}
+
+.summary-label {
+  color:var(--lime);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.3px;
+}
+
+.summary-card h3 {
+  font-size:21px;
+  margin:8px 0;
+}
+
+.summary-card p {
+  color:var(--muted);
+  font-size:11px;
+}
+
+.info-row {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+  font-size:11px;
+}
+
+.info-row span {
+  color:var(--muted);
+}
+
+.info-row strong {
+  text-align:right;
+}
+
+.reward-box {
+  margin-top:20px;
+  padding:18px;
+  background:#17140f;
+  border:1px solid rgba(216,180,107,.25);
+  border-radius:10px;
+}
+
+.reward-box h3 {
+  color:var(--gold);
+  font-size:15px;
+  margin-bottom:12px;
+}
+
+.reward-line {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:9px 0;
+  border-bottom:1px solid rgba(216,180,107,.13);
+  font-size:11px;
+}
+
+.reward-line span {
+  color:var(--muted);
+}
+
+.reward-line:last-child {
+  border:0;
+}
+
+.small-note {
+  color:var(--muted);
+  font-size:10px;
+  margin-top:13px;
+}
+
+/* FORM */
+
+.form-section {
+  margin-bottom:26px;
+}
+
+.form-section h3 {
+  font-size:13px;
+  color:var(--lime);
+  margin-bottom:15px;
+  letter-spacing:.3px;
+}
+
+.field {
+  margin-bottom:15px;
+}
+
+.field label {
+  display:block;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.field label small {
+  color:var(--muted);
+  font-weight:400;
+}
+
+.field input,
+.field select {
+  width:100%;
+  padding:13px 14px;
+  background:#090b08;
+  color:var(--white);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:7px;
+  outline:none;
+  font-size:12px;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color:var(--lime);
+}
+
+.field input::placeholder {
+  color:#73796e;
+}
+
+.field select option {
+  background:#111411;
+}
+
+.two-columns {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+.helper {
+  color:var(--muted);
+  font-size:10px;
+  margin-top:6px;
+}
+
+/* WALLET */
+
+.wallet-card {
+  background:linear-gradient(145deg,#17200e,#0b0e09);
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:20px;
+}
+
+.wallet-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:15px;
+}
+
+.wallet-top h4 {
+  font-size:15px;
+}
+
+.network-badge {
+  font-size:9px;
+  color:var(--lime);
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:5px 9px;
+  font-weight:800;
+}
+
+.wallet-description {
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:16px;
+}
+
+.wallet-button {
+  width:100%;
+  border:0;
+  background:var(--lime);
+  color:#080a06;
+  padding:14px;
+  border-radius:7px;
+  font-weight:900;
+  font-size:11px;
+  cursor:pointer;
+}
+
+.wallet-button:disabled {
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.wallet-secondary {
+  background:transparent;
+  border:1px solid rgba(255,255,255,.2);
+  color:var(--white);
+  padding:10px 13px;
+  border-radius:7px;
+  font-size:10px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.wallet-connected {
+  display:none;
+  margin-top:14px;
+  background:#090b08;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:14px;
+}
+
+.connected-status {
+  color:var(--lime);
+  font-size:10px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.wallet-address {
+  color:white;
+  font-size:11px;
+  word-break:break-all;
+  margin-bottom:12px;
+}
+
+.wallet-meta {
+  color:var(--muted);
+  font-size:10px;
+  margin-bottom:12px;
+}
+
+.wallet-message {
+  min-height:18px;
+  font-size:10px;
+  color:var(--muted);
+  margin-top:10px;
+}
+
+.wallet-message.error {
+  color:var(--red);
+}
+
+.wallet-message.success {
+  color:var(--lime);
+}
+
+/* CHECKBOXES */
+
+.check-row {
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  margin:14px 0;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.check-row input {
+  accent-color:var(--lime);
+  margin-top:3px;
+  flex-shrink:0;
+}
+
+.check-row a {
+  color:var(--lime);
+  text-decoration:underline;
+}
+
+/* SUBMIT */
+
+.submit-button {
+  width:100%;
+  border:0;
+  background:var(--lime);
+  color:#080a06;
+  padding:16px;
+  border-radius:7px;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+  margin-top:12px;
+}
+
+.submit-button:disabled {
+  opacity:.4;
+  cursor:not-allowed;
+}
+
+.form-note {
+  text-align:center;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:12px;
+}
+
+/* PURCHASE PREVIEW */
+
+.purchase-preview {
+  margin-top:22px;
+  background:#17140f;
+  border:1px solid rgba(216,180,107,.22);
+  border-radius:10px;
+  padding:18px;
+}
+
+.purchase-preview h3 {
+  color:var(--gold);
+  font-size:14px;
+  margin-bottom:8px;
+}
+
+.purchase-preview p {
+  color:var(--muted);
+  font-size:11px;
+}
+
+.purchase-preview button {
+  width:100%;
+  padding:13px;
+  margin-top:13px;
+  border:1px solid rgba(216,180,107,.25);
+  color:var(--gold);
+  background:transparent;
+  border-radius:7px;
+  font-size:11px;
+  font-weight:900;
+  cursor:not-allowed;
+  opacity:.55;
+}
+
+/* CONFIRMATION */
+
+.confirmation {
+  display:none;
+  margin-top:20px;
+  padding:20px;
+  border:1px solid var(--lime);
+  background:#10170b;
+  border-radius:10px;
+}
+
+.confirmation h3 {
+  color:var(--lime);
+  margin-bottom:10px;
+}
+
+.confirmation p {
+  color:var(--muted);
+  font-size:11px;
+  margin-top:7px;
+  overflow-wrap:anywhere;
+}
+
+/* FOOTER */
+
+footer {
+  border-top:1px solid var(--line);
+  padding:35px 0;
+}
+
+.footer-content {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.footer-links {
+  display:flex;
+  flex-wrap:wrap;
+  gap:17px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.footer-bottom {
+  font-size:10px;
+  color:#73796e;
+  margin-top:23px;
+  max-width:900px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:820px) {
+  .main-grid {
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:650px) {
+  .nav-links {
+    display:none;
+    position:absolute;
+    top:75px;
+    left:0;
+    right:0;
+    background:#090b08;
+    border-bottom:1px solid var(--line);
+    padding:20px 5%;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .nav-links.open {
+    display:flex;
+  }
+
+  .menu-toggle {
+    display:block;
+  }
+
+  .two-columns {
+    grid-template-columns:1fr;
+    gap:0;
+  }
+
+  .panel {
+    padding:19px;
+  }
+
+  .hero {
+    padding-top:48px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container nav">
+
+    <a href="index.html" class="logo">
+      <!-- REPLACE LOGO LINK HERE -->
+      <img src="assets/campus-money-logo.png" alt="Campus Money logo">
+      <div>CAMPUS <span>MONEY</span></div>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="presale.html">Presale</a>
+      <a href="ecosystem.html">Ecosystem</a>
+      <a href="kover.html">KOVÉR</a>
+      <a href="account.html">My Account</a>
+      <a href="legal.html">Legal</a>
+    </nav>
+
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+
+    <div class="eyebrow">CAMPUS MONEY PARTICIPANT PORTAL</div>
+
+    <h1>
+      Your campus.<br>
+      <span>Your opportunities.</span>
+    </h1>
+
+    <p>
+      Register your interest, connect your Base wallet and prepare
+      for participation in the Campus Money ecosystem.
+    </p>
+
+    <div class="status">
+      ● PRE-LAUNCH — REGISTRATION AND PAYMENT PREVIEW
+    </div>
+
+  </div>
+</section>
+
+<main class="container">
+
+<div class="main-grid">
+
+  <!-- LEFT COLUMN -->
+  <aside>
+
+    <div class="panel">
+
+      <h2>Your participation</h2>
+
+      <p class="intro">
+        Review the proposed Campus Money structure.
+      </p>
+
+      <div class="summary-card">
+        <div class="summary-label">CAMPUS MONEY</div>
+        <h3>Digital Utility Currency</h3>
+        <p>
+          Designed to support utility and ecosystem access
+          across the Zep Swipe African student economy.
+        </p>
+      </div>
+
+      <div class="info-row">
+        <span>Planned blockchain</span>
+        <strong>Base</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Proposed total supply</span>
+        <strong>1 billion CM</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Proposed presale allocation</span>
+        <strong>10 million CM</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Round 01 proposed price</span>
+        <strong>$0.05 / CM</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Holder rights</span>
+        <strong>Utility only</strong>
+      </div>
+
+      <div class="reward-box">
+
+        <h3>KOVÉR Heritage Rewards</h3>
+
+        <div class="reward-line">
+          <span>Heritage</span>
+          <strong>$1,000</strong>
+        </div>
+
+        <div class="reward-line">
+          <span>Prestige</span>
+          <strong>$2,500</strong>
+        </div>
+
+        <div class="reward-line">
+          <span>Legacy</span>
+          <strong>$5,000</strong>
+        </div>
+
+        <p class="small-note">
+          Proposed cumulative qualifying contribution thresholds.
+          Final eligibility and reward terms will be published separately.
+        </p>
+
+      </div>
+
+      <p class="small-note">
+        Figures shown are proposals, not a live sale or guaranteed offer.
+      </p>
+
+    </div>
+
+  </aside>
+
+  <!-- RIGHT COLUMN -->
+  <section class="panel">
+
+    <h2>Participant registration</h2>
+
+    <p class="intro">
+      Complete your details, connect your Base wallet and submit
+      your expression of interest.
+    </p>
+
+    <form id="registrationForm">
+
+      <!-- PERSONAL DETAILS -->
+      <div class="form-section">
+
+        <h3>01 — Personal information</h3>
+
+        <div class="two-columns">
+
+          <div class="field">
+            <label for="firstName">First name *</label>
+            <input id="firstName" name="firstName"
+              type="text" placeholder="First name" required>
+          </div>
+
+          <div class="field">
+            <label for="lastName">Last name *</label>
+            <input id="lastName" name="lastName"
+              type="text" placeholder="Last name" required>
+          </div>
+
+        </div>
+
+        <div class="field">
+          <label for="email">Email address *</label>
+          <input id="email" name="email"
+            type="email" placeholder="you@example.com" required>
+        </div>
+
+        <div class="two-columns">
+
+          <div class="field">
+            <label for="phone">Phone number *</label>
+            <input id="phone" name="phone"
+              type="tel" placeholder="+27..." required>
+          </div>
+
+          <div class="field">
+            <label for="country">Country *</label>
+            <select id="country" name="country" required>
+              <option value="">Select country</option>
+              <option>South Africa</option>
+              <option>Ghana</option>
+              <option>Nigeria</option>
+              <option>Kenya</option>
+              <option>Uganda</option>
+              <option>Tanzania</option>
+              <option>Rwanda</option>
+              <option>Zimbabwe</option>
+              <option>Botswana</option>
+              <option>Namibia</option>
+              <option>United Kingdom</option>
+              <option>United States</option>
+              <option>Canada</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="field">
+          <label for="participantType">Participant category *</label>
+          <select id="participantType" name="participantType" required>
+            <option value="">Choose category</option>
+            <option>Student</option>
+            <option>Graduate</option>
+            <option>Working professional</option>
+            <option>Business owner</option>
+            <option>Strategic partner</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="institution">University or organisation <small>(optional)</small></label>
+          <input id="institution" name="institution"
+            type="text" placeholder="University or organisation">
+        </div>
+
+      </div>
+
+      <!-- PRESALE DETAILS -->
+      <div class="form-section">
+
+        <h3>02 — Proposed participation</h3>
+
+        <div class="field">
+          <label for="round">Preferred presale round *</label>
+          <select id="round" name="round" required>
+            <option value="">Select proposed round</option>
+            <option value="Round 01">Round 01 — $0.05 per CM</option>
+            <option value="Round 02">Round 02 — $0.06 per CM</option>
+            <option value="Round 03">Round 03 — $0.075 per CM</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="amount">Intended contribution amount (USD) *</label>
+          <select id="amount" name="amount" required>
+            <option value="">Select amount</option>
+            <option value="100">$100</option>
+            <option value="250">$250</option>
+            <option value="500">$500</option>
+            <option value="1000">$1,000</option>
+            <option value="2500">$2,500</option>
+            <option value="5000">$5,000</option>
+            <option value="10000">$10,000</option>
+            <option value="Other">Other / To be discussed</option>
+          </select>
+          <p class="helper">
+            This is an indication of interest only, not a payment commitment.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- WALLET CONNECTION -->
+      <div class="form-section">
+
+        <h3>03 — Connect your Base wallet</h3>
+
+        <div class="wallet-card">
+
+          <div class="wallet-top">
+            <h4>Base wallet connection</h4>
+            <span class="network-badge">BASE MAINNET</span>
+          </div>
+
+          <p class="wallet-description">
+            Connect your wallet to associate its public address
+            with your participant registration. Connecting does not
+            purchase tokens or move funds.
+          </p>
+
+          <button type="button" class="wallet-button" id="connectWallet">
+            CONNECT BASE WALLET
+          </button>
+
+          <div class="wallet-connected" id="walletConnected">
+
+            <div class="connected-status">
+              ✓ WALLET CONNECTED
+            </div>
+
+            <div class="wallet-address" id="walletAddress">
+              Not connected
+            </div>
+
+            <div class="wallet-meta" id="walletNetwork">
+              Base Mainnet
+            </div>
+
+            <button type="button" class="wallet-secondary" id="disconnectWallet">
+              Disconnect wallet
+            </button>
+
+          </div>
+
+          <div class="wallet-message" id="walletMessage" aria-live="polite">
+            Connect your wallet after completing your details.
+          </div>
+
+        </div>
+
+        <p class="helper">
+          Compatible browser wallets include MetaMask and Coinbase Wallet.
+          WalletConnect support can be added separately. Never share your
+          recovery phrase, private key or wallet password.
+        </p>
+
+      </div>
+
+      <!-- CONSENT -->
+      <div class="form-section">
+
+        <h3>04 — Legal acknowledgements</h3>
+
+        <label class="check-row">
+          <input type="checkbox" id="terms" required>
+          <span>
+            I have read the <a href="legal.html" target="_blank">legal information</a>
+            and understand that this is an expression of interest.
+          </span>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" id="utility" required>
+          <span>
+            I understand that proposed holder rights are limited to
+            utility and ecosystem access, not company ownership,
+            equity or voting rights.
+          </span>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" id="risk" required>
+          <span>
+            I understand that no token appreciation, profits,
+            dividends, buybacks or resale opportunities are guaranteed.
+          </span>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" id="privacy" required>
+          <span>
+            I consent to the processing of my submitted information
+            for registration purposes under the applicable
+            <a href="legal.html" target="_blank">privacy information</a>.
+          </span>
+        </label>
+
+        <label class="check-row">
+          <input type="checkbox" id="marketing">
+          <span>
+            I would also like to receive optional Campus Money
+            announcements and project updates.
+          </span>
+        </label>
+
+      </div>
+
+      <button type="submit" class="submit-button" id="submitButton">
+        SUBMIT REGISTRATION
+      </button>
+
+      <p class="form-note">
+        A connected wallet is required for this registration preview.
+        No payment will be taken.
+      </p>
+
+    </form>
+
+    <!-- CONFIRMATION -->
+    <div class="confirmation" id="confirmation">
+
+      <h3>Registration preview completed</h3>
+
+      <p>
+        Thank you, <strong id="confirmName"></strong>.
+      </p>
+
+      <p>
+        Connected wallet:
+        <strong id="confirmWallet"></strong>
+      </p>
+
+      <p>
+        Your details have been validated in this browser, but have
+        not been transmitted or saved to Campus Money.
+      </p>
+
+      <p>
+        Secure registration will be activated after the backend
+        and participant verification system are configured.
+      </p>
+
+    </div>
+
+    <!-- PAYMENT PREVIEW -->
+    <div class="purchase-preview">
+
+      <h3>05 — Token purchase</h3>
+
+      <p>
+        Once the presale is officially approved and activated,
+        eligible participants will be able to review their final
+        allocation and proceed to the secure payment process.
+      </p>
+
+      <button type="button" disabled>
+        PURCHASE CAMPUS MONEY — COMING SOON
+      </button>
+
+    </div>
+
+  </section>
+
+</div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+
+    <div class="footer-content">
+
+      <a href="index.html" class="logo">
+        <img src="assets/campus-money-logo.png" alt="Campus Money">
+        <div>CAMPUS <span>MONEY</span></div>
+      </a>
+
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="presale.html">Presale</a>
+        <a href="ecosystem.html">Ecosystem</a>
+        <a href="kover.html">KOVÉR</a>
+        <a href="account.html">My Account</a>
+        <a href="legal.html">Legal</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      Campus Money is a digital utility currency project under development.
+      It is not legal tender, a deposit, company shares or an equity interest.
+      No financial returns, token appreciation, liquidity or buybacks are
+      guaranteed. Presale prices, allocations and rewards are proposals
+      subject to final documentation, legal review and applicable law.
+
+      <br><br>
+      © <span id="year"></span> Campus Money. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+<script>
+/* =========================================
+   CAMPUS MONEY CONFIGURATION
+========================================= */
+
+const CONFIG = {
+  REGISTRATION_ENABLED: false,
+  BASE_CHAIN_ID: "0x2105",
+  BASE_CHAIN_NAME: "Base Mainnet",
+  BASE_RPC_URL: "https://mainnet.base.org",
+  BASE_EXPLORER: "https://basescan.org"
+};
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
+
+menuToggle.addEventListener("click", function() {
+  navLinks.classList.toggle("open");
+});
+
+navLinks.querySelectorAll("a").forEach(function(link) {
+  link.addEventListener("click", function() {
+    navLinks.classList.remove("open");
+  });
+});
+
+/* =========================================
+   WALLET CONNECTION
+   Base Mainnet = Chain ID 8453
+========================================= */
+
+let connectedWallet = null;
+let walletProvider = null;
+
+const connectButton = document.getElementById("connectWallet");
+const disconnectButton = document.getElementById("disconnectWallet");
+const walletConnectedBox = document.getElementById("walletConnected");
+const walletAddressDisplay = document.getElementById("walletAddress");
+const walletNetworkDisplay = document.getElementById("walletNetwork");
+const walletMessage = document.getElementById("walletMessage");
+
+function showWalletMessage(message, type = "") {
+  walletMessage.textContent = message;
+  walletMessage.className = "wallet-message " + type;
+}
+
+function shortenAddress(address) {
+  return address.slice(0, 8) + "..." + address.slice(-6);
+}
+
+function showConnectedWallet(address) {
+  connectedWallet = address;
+
+  walletConnectedBox.style.display = "block";
+  walletAddressDisplay.textContent = address;
+  walletNetworkDisplay.textContent = "Connected to Base Mainnet";
+
+  connectButton.textContent = "WALLET CONNECTED";
+  connectButton.disabled = true;
+
+  showWalletMessage(
+    "Your public wallet address is connected. No payment has been made.",
+    "success"
+  );
+}
+
+function clearWallet() {
+  connectedWallet = null;
+  walletProvider = null;
+
+  walletConnectedBox.style.display = "none";
+  walletAddressDisplay.textContent = "";
+  walletNetworkDisplay.textContent = "";
+
+  connectButton.textContent = "CONNECT BASE WALLET";
+  connectButton.disabled = false;
+
+  showWalletMessage("Wallet disconnected.");
+}
+
+async function switchToBase(provider) {
+  let chainId = await provider.request({
+    method: "eth_chainId"
+  });
+
+  if (chainId.toLowerCase() === CONFIG.BASE_CHAIN_ID) {
+    return true;
+  }
+
+  try {
+    await provider.request({
+      method: "wallet_switchEthereumChain",
+      params: [{
+        chainId: CONFIG.BASE_CHAIN_ID
+      }]
+    });
+
+  } catch (error) {
+
+    if (error.code === 4902) {
+
+      await provider.request({
+        method: "wallet_addEthereumChain",
+        params: [{
+          chainId: CONFIG.BASE_CHAIN_ID,
+          chainName: CONFIG.BASE_CHAIN_NAME,
+          nativeCurrency: {
+            name: "Ether",
+            symbol: "ETH",
+            decimals: 18
+          },
+          rpcUrls: [CONFIG.BASE_RPC_URL],
+          blockExplorerUrls: [CONFIG.BASE_EXPLORER]
+        }]
+      });
+
+    } else {
+      throw error;
+    }
+  }
+
+  chainId = await provider.request({
+    method: "eth_chainId"
+  });
+
+  return chainId.toLowerCase() === CONFIG.BASE_CHAIN_ID;
+}
+
+connectButton.addEventListener("click", async function() {
+
+  try {
+
+    if (!window.ethereum) {
+      showWalletMessage(
+        "No compatible browser wallet was detected. Open this page in MetaMask or Coinbase Wallet, or install a compatible wallet.",
+        "error"
+      );
+      return;
+    }
+
+    connectButton.disabled = true;
+    connectButton.textContent = "CONNECTING...";
+
+    walletProvider = window.ethereum;
+
+    const accounts = await walletProvider.request({
+      method: "eth_requestAccounts"
+    });
+
+    if (!accounts || accounts.length === 0) {
+      throw new Error("No wallet account was returned.");
+    }
+
+    const isBase = await switchToBase(walletProvider);
+
+    if (!isBase) {
+      throw new Error("Please switch to Base Mainnet.");
+    }
+
+    showConnectedWallet(accounts[0]);
+
+  } catch (error) {
+
+    connectButton.disabled = false;
+    connectButton.textContent = "CONNECT BASE WALLET";
+
+    if (error.code === 4001) {
+      showWalletMessage("Wallet connection was rejected.", "error");
+    } else {
+      showWalletMessage(
+        error.message || "Unable to connect wallet. Please try again.",
+        "error"
+      );
+    }
+
+  }
+
+});
+
+/* =========================================
+   DISCONNECT WALLET
+========================================= */
+
+disconnectButton.addEventListener("click", function() {
+  clearWallet();
+});
+
+/* =========================================
+   ACCOUNT AND NETWORK CHANGE LISTENERS
+========================================= */
+
+function handleAccountChange(accounts) {
+
+  if (!accounts || accounts.length === 0) {
+    clearWallet();
+    return;
+  }
+
+  if (connectedWallet) {
+    showConnectedWallet(accounts[0]);
+  }
+}
+
+function handleNetworkChange(chainId) {
+
+  if (chainId.toLowerCase() !== CONFIG.BASE_CHAIN_ID) {
+
+    clearWallet();
+
+    showWalletMessage(
+      "Your wallet changed networks. Reconnect and select Base Mainnet.",
+      "error"
+    );
+
+  }
+}
+
+if (window.ethereum && window.ethereum.on) {
+
+  window.ethereum.on("accountsChanged", handleAccountChange);
+
+  window.ethereum.on("chainChanged", handleNetworkChange);
+
+}
+
+/* =========================================
+   REGISTRATION FORM
+========================================= */
+
+const form = document.getElementById("registrationForm");
+const submitButton = document.getElementById("submitButton");
+const confirmation = document.getElementById("confirmation");
+
+form.addEventListener("submit", async function(event) {
+
+  event.preventDefault();
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  if (!connectedWallet) {
+    alert("Please connect your Base wallet before submitting.");
+    document.getElementById("connectWallet").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+    return;
+  }
+
+  if (!walletProvider) {
+    alert("Please reconnect your wallet.");
+    return;
+  }
+
+  // Verify the wallet is still on Base before continuing.
+  try {
+
+    const currentChain = await walletProvider.request({
+      method: "eth_chainId"
+    });
+
+    const currentAccounts = await walletProvider.request({
+      method: "eth_accounts"
+    });
+
+    if (
+      currentChain.toLowerCase() !== CONFIG.BASE_CHAIN_ID ||
+      !currentAccounts ||
+      currentAccounts.length === 0 ||
+      currentAccounts[0].toLowerCase() !== connectedWallet.toLowerCase()
+    ) {
+      clearWallet();
+      alert("Your wallet connection changed. Please reconnect to Base Mainnet.");
+      return;
+    }
+
+  } catch (error) {
+
+    alert("Unable to verify your wallet connection. Please reconnect.");
+    return;
+
+  }
+
+  if (!CONFIG.REGISTRATION_ENABLED) {
+
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+
+    document.getElementById("confirmName").textContent =
+      firstName + " " + lastName;
+
+    document.getElementById("confirmWallet").textContent =
+      connectedWallet;
+
+    confirmation.style.display = "block";
+
+    confirmation.scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+
+    alert(
+      "Preview successful. Your wallet is connected, but your registration details have not been saved or transmitted."
+    );
+
+    return;
+  }
+
+  // SECURE BACKEND INTEGRATION GOES HERE.
+  // Do not enable REGISTRATION_ENABLED until a backend
+  // validates the user, checks wallet ownership through
+  // a signed nonce, records consent and stores the details
+  // securely in Supabase.
+
+});
+
+/* =========================================
+   FOOTER
+========================================= */
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
