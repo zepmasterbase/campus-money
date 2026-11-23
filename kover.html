@@ -1,0 +1,1125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOVÉR | Timeless Heritage</title>
+<meta name="description" content="KOVÉR — Timeless watches inspired by honour, courage, excellence and legacy.">
+
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+
+<style>
+:root{
+  --bg:#080808;
+  --panel:#121212;
+  --gold:#c9a45c;
+  --goldlight:#e8cc8b;
+  --text:#f5f1e8;
+  --muted:#aaa39a;
+  --line:rgba(201,164,92,.25);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  line-height:1.6;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+
+/* HEADER */
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(8,8,8,.96);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid var(--line);
+}
+.nav{
+  max-width:1250px;
+  margin:auto;
+  padding:17px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{
+  color:var(--goldlight);
+  font-family:Georgia,serif;
+  font-size:27px;
+  letter-spacing:7px;
+}
+.navlinks{
+  display:flex;
+  align-items:center;
+  gap:30px;
+  color:var(--muted);
+  font-size:12px;
+  letter-spacing:1px;
+}
+.navlinks a:hover{color:var(--goldlight)}
+.shop-icon{
+  width:43px;
+  height:43px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border:1px solid var(--gold);
+  border-radius:50%;
+  background:transparent;
+  color:var(--goldlight);
+  transition:.25s;
+}
+.shop-icon:hover{
+  background:var(--gold);
+  color:#080808;
+  transform:translateY(-2px);
+}
+.shop-icon svg{width:20px;height:20px}
+
+/* HERO */
+.hero{
+  min-height:590px;
+  padding:90px 7%;
+  display:flex;
+  align-items:center;
+  background:
+  linear-gradient(90deg,rgba(0,0,0,.94),rgba(0,0,0,.42)),
+  url("https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1800&q=85")
+  center/cover;
+}
+.hero-content{max-width:650px}
+.eyebrow{
+  color:var(--goldlight);
+  letter-spacing:5px;
+  text-transform:uppercase;
+  font-size:11px;
+  margin-bottom:20px;
+}
+h1{
+  font-family:Georgia,serif;
+  font-size:clamp(48px,8vw,88px);
+  font-weight:400;
+  line-height:1.05;
+  margin-bottom:22px;
+}
+.hero p{color:#d0cbc2;max-width:510px}
+.gold-button{
+  display:inline-block;
+  background:var(--gold);
+  color:#090909;
+  border:0;
+  padding:14px 25px;
+  font-weight:700;
+  letter-spacing:1px;
+  margin-top:25px;
+  border-radius:2px;
+}
+.gold-button:hover{background:var(--goldlight)}
+
+/* GENERAL SECTIONS */
+section{padding:85px 6%}
+.section-heading{text-align:center;margin-bottom:45px}
+.section-heading h2{
+  font-family:Georgia,serif;
+  font-size:42px;
+  font-weight:400;
+  color:var(--goldlight);
+}
+.section-heading p{color:var(--muted);margin-top:8px}
+
+/* WATCH COLLECTION */
+.products{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+.product{
+  background:var(--panel);
+  border:1px solid var(--line);
+  overflow:hidden;
+}
+.product img{
+  width:100%;
+  height:290px;
+  object-fit:cover;
+  display:block;
+  background:#191919;
+}
+.product-info{padding:25px}
+.product h3{
+  font-family:Georgia,serif;
+  font-size:27px;
+  color:var(--goldlight);
+  font-weight:400;
+}
+.product p{
+  color:var(--muted);
+  font-size:14px;
+  min-height:48px;
+  margin:10px 0;
+}
+.price{font-size:24px;margin:15px 0}
+.product .gold-button{
+  width:100%;
+  text-align:center;
+  margin-top:8px;
+}
+
+/* STORY */
+.story{
+  text-align:center;
+  background:#10100e;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.story p{
+  max-width:720px;
+  margin:18px auto;
+  color:var(--muted);
+}
+.motto{
+  color:var(--goldlight);
+  letter-spacing:3px;
+  font-size:13px;
+  margin-top:25px;
+}
+
+/* BOUTIQUE MODAL */
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.84);
+  backdrop-filter:blur(8px);
+}
+.modal-overlay.open{display:flex}
+.modal{
+  position:relative;
+  width:100%;
+  max-width:470px;
+  padding:42px 30px;
+  text-align:center;
+  background:
+    radial-gradient(ellipse at top,rgba(201,164,92,.12),transparent 60%),
+    #101010;
+  border:1px solid var(--gold);
+  box-shadow:0 20px 80px rgba(0,0,0,.7);
+  animation:modalIn .25s ease;
+}
+@keyframes modalIn{
+  from{opacity:0;transform:translateY(15px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.modal-close{
+  position:absolute;
+  top:13px;
+  right:17px;
+  border:0;
+  background:none;
+  color:var(--goldlight);
+  font-size:27px;
+}
+.modal-brand{
+  font-family:Georgia,serif;
+  color:var(--goldlight);
+  font-size:27px;
+  letter-spacing:7px;
+  margin-bottom:25px;
+}
+.modal h2{
+  font-family:Georgia,serif;
+  font-size:34px;
+  font-weight:400;
+  color:var(--goldlight);
+  margin-bottom:12px;
+}
+.modal p{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:25px;
+}
+.coming-soon{
+  display:inline-block;
+  border:1px solid var(--gold);
+  color:var(--goldlight);
+  letter-spacing:3px;
+  font-size:10px;
+  padding:9px 16px;
+  margin-bottom:24px;
+}
+.modal-links{
+  display:grid;
+  gap:12px;
+}
+.modal-link{
+  padding:13px;
+  border:1px solid var(--line);
+  color:var(--goldlight);
+  letter-spacing:1px;
+  font-size:12px;
+  transition:.2s;
+}
+.modal-link:hover{
+  background:var(--gold);
+  color:#080808;
+}
+.modal-note{
+  font-size:11px!important;
+  margin-top:22px;
+  margin-bottom:0!important;
+}
+
+/* CHECKOUT */
+.checkout{
+  max-width:760px;
+  margin:auto;
+  background:var(--panel);
+  border:1px solid var(--line);
+  padding:32px;
+}
+.checkout h2{
+  font-family:Georgia,serif;
+  color:var(--goldlight);
+  font-weight:400;
+  font-size:34px;
+  margin-bottom:8px;
+}
+.checkout-intro{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:25px;
+}
+.field-label{
+  display:block;
+  font-size:12px;
+  color:var(--goldlight);
+  letter-spacing:1px;
+  margin:18px 0 8px;
+}
+select{
+  width:100%;
+  padding:14px;
+  background:#080808;
+  color:white;
+  border:1px solid var(--line);
+}
+.payment-options{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.payment-option{
+  background:#090909;
+  border:1px solid var(--line);
+  padding:16px;
+  text-align:left;
+  color:white;
+}
+.payment-option.active{
+  border:1px solid var(--goldlight);
+  background:#1a1710;
+}
+.payment-option strong{
+  display:block;
+  color:var(--goldlight);
+  font-size:16px;
+}
+.payment-option span{
+  font-size:12px;
+  color:var(--muted);
+}
+.summary{
+  background:#090909;
+  padding:18px;
+  margin-top:22px;
+  border:1px solid var(--line);
+}
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:7px 0;
+  font-size:14px;
+}
+.summary-row span:last-child{text-align:right}
+.summary-total{
+  border-top:1px solid var(--line);
+  margin-top:8px;
+  padding-top:15px;
+  font-size:18px;
+}
+.wallet-button,.pay-button{
+  width:100%;
+  padding:15px;
+  margin-top:16px;
+  border:1px solid var(--gold);
+  background:transparent;
+  color:var(--goldlight);
+  font-weight:700;
+}
+.pay-button{
+  background:var(--gold);
+  color:#090909;
+}
+.pay-button:disabled{opacity:.45;cursor:not-allowed}
+.status{
+  padding:13px;
+  margin-top:16px;
+  font-size:13px;
+  background:#090909;
+  border:1px solid var(--line);
+  color:var(--muted);
+  overflow-wrap:anywhere;
+}
+.status a{color:var(--goldlight);text-decoration:underline}
+.small-note{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:15px;
+}
+
+/* FOOTER */
+footer{
+  padding:45px 6%;
+  text-align:center;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+}
+footer .logo{margin-bottom:15px}
+footer p{font-size:12px;margin:6px}
+
+@media(max-width:800px){
+  .products{grid-template-columns:1fr;max-width:480px}
+  .product img{height:300px}
+  .hero{min-height:500px}
+}
+@media(max-width:500px){
+  .nav{padding:14px 4%}
+  .logo{font-size:21px;letter-spacing:5px}
+  .navlinks{gap:13px;font-size:10px}
+  .navlinks a{font-size:10px}
+  .shop-icon{width:39px;height:39px}
+  section{padding:65px 5%}
+  .checkout{padding:20px}
+  .payment-options{grid-template-columns:1fr}
+  .section-heading h2{font-size:34px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="kover.html" class="logo">KOVÉR</a>
+
+    <div class="navlinks">
+      <a href="#collection">COLLECTION</a>
+      <a href="#heritage">OUR STORY</a>
+
+      <!-- SHOP ICON -->
+      <button class="shop-icon"
+        aria-label="Open KOVÉR Boutique"
+        title="KOVÉR Boutique"
+        onclick="openBoutique()">
+
+        <svg viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 8h14l1 13H4L5 8Z"/>
+          <path d="M9 9V6a3 3 0 0 1 6 0v3"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- BOUTIQUE COMING SOON MODAL -->
+<div class="modal-overlay" id="boutiqueModal"
+  onclick="closeBoutiqueOutside(event)">
+
+  <div class="modal" role="dialog"
+    aria-modal="true" aria-labelledby="modalTitle">
+
+    <button class="modal-close"
+      aria-label="Close modal"
+      onclick="closeBoutique()">×</button>
+
+    <div class="modal-brand">KOVÉR</div>
+
+    <div class="coming-soon">COMING SOON</div>
+
+    <h2 id="modalTitle">The KOVÉR Boutique</h2>
+
+    <p>
+      A world of timeless craftsmanship, family heritage
+      and exceptional design is taking shape.
+      Discover the story behind the KOVÉR identity.
+    </p>
+
+    <div class="modal-links">
+      <a href="#collection" class="modal-link"
+        onclick="closeBoutique()">EXPLORE THE COLLECTION</a>
+
+      <a href="#heritage" class="modal-link"
+        onclick="closeBoutique()">DISCOVER OUR STORY</a>
+    </div>
+
+    <p class="modal-note">
+      Our boutique experience is coming soon.
+    </p>
+  </div>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">A legacy of distinction</div>
+    <h1>Time is a<br>family legacy.</h1>
+    <p>
+      KOVÉR represents heritage, craftsmanship and the belief
+      that what we build today should be treasured for generations.
+    </p>
+    <a href="#collection" class="gold-button">
+      EXPLORE THE COLLECTION
+    </a>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="section-heading">
+    <div class="eyebrow">The KOVÉR collection</div>
+    <h2>Timeless by design.</h2>
+    <p>Three expressions of distinction. One enduring legacy.</p>
+  </div>
+
+  <div class="products">
+
+    <article class="product">
+      <img
+        src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=900&q=85"
+        alt="KOVÉR Heritage watch inspiration">
+
+      <div class="product-info">
+        <h3>Heritage</h3>
+        <p>A refined introduction to the KOVÉR identity.</p>
+        <div class="price">$299 USD</div>
+        <button class="gold-button"
+          onclick="chooseWatch('heritage')">
+          SELECT HERITAGE
+        </button>
+      </div>
+    </article>
+
+    <article class="product">
+      <img
+        src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=900&q=85"
+        alt="KOVÉR Prestige watch inspiration">
+
+      <div class="product-info">
+        <h3>Prestige</h3>
+        <p>A statement of elegance, ambition and achievement.</p>
+        <div class="price">$599 USD</div>
+        <button class="gold-button"
+          onclick="chooseWatch('prestige')">
+          SELECT PRESTIGE
+        </button>
+      </div>
+    </article>
+
+    <article class="product">
+      <img
+        src="https://images.unsplash.com/photo-1539874754764-5a96559165b0?auto=format&fit=crop&w=900&q=85"
+        alt="KOVÉR Legacy watch inspiration">
+
+      <div class="product-info">
+        <h3>Legacy</h3>
+        <p>Created for those who think beyond their own lifetime.</p>
+        <div class="price">$999 USD</div>
+        <button class="gold-button"
+          onclick="chooseWatch('legacy')">
+          SELECT LEGACY
+        </button>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- OUR STORY -->
+<section class="story" id="heritage">
+  <div class="section-heading">
+    <div class="eyebrow">More than a timepiece</div>
+    <h2>Built to be remembered.</h2>
+  </div>
+
+  <p>
+    KOVÉR is a heritage-inspired watch brand founded on the values
+    of family, identity, discipline and lasting achievement.
+    Each collection represents a different expression of that legacy.
+  </p>
+
+  <div class="motto">
+    HONOUR • COURAGE • EXCELLENCE • LEGACY
+  </div>
+</section>
+
+<!-- CHECKOUT -->
+<section id="checkout">
+  <div class="checkout">
+
+    <div class="eyebrow">Base network wallet checkout</div>
+    <h2>Make it yours.</h2>
+
+    <p class="checkout-intro">
+      Connect your wallet on Base and choose your payment method.
+      Pay with USDC or Campus Money when configured and available.
+    </p>
+
+    <label class="field-label" for="watchSelect">
+      SELECT YOUR WATCH
+    </label>
+
+    <select id="watchSelect" onchange="updateSummary()">
+      <option value="heritage">KOVÉR Heritage — $299</option>
+      <option value="prestige">KOVÉR Prestige — $599</option>
+      <option value="legacy">KOVÉR Legacy — $999</option>
+    </select>
+
+    <label class="field-label">CHOOSE PAYMENT METHOD</label>
+
+    <div class="payment-options">
+
+      <button id="usdcOption"
+        class="payment-option active"
+        onclick="selectPayment('USDC')">
+        <strong>USDC</strong>
+        <span>Pay with USD Coin on Base</span>
+      </button>
+
+      <button id="cmOption"
+        class="payment-option"
+        onclick="selectPayment('CM')">
+        <strong>Campus Money</strong>
+        <span>Pay with CM on Base</span>
+      </button>
+
+    </div>
+
+    <div class="summary">
+      <div class="summary-row">
+        <span>Selected watch</span>
+        <span id="summaryWatch">KOVÉR Heritage</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Watch price</span>
+        <span id="summaryUSD">$299.00 USD</span>
+      </div>
+
+      <div class="summary-row">
+        <span>Payment method</span>
+        <span id="summaryMethod">USDC</span>
+      </div>
+
+      <div class="summary-row summary-total">
+        <strong>Amount payable</strong>
+        <strong id="summaryAmount">299.00 USDC</strong>
+      </div>
+    </div>
+
+    <button class="wallet-button"
+      id="connectButton"
+      onclick="connectWallet()">
+      CONNECT BASE WALLET
+    </button>
+
+    <div id="walletStatus" class="status">
+      Wallet not connected.
+    </div>
+
+    <button class="pay-button"
+      id="payButton"
+      onclick="makePayment()"
+      disabled>
+      CONNECT WALLET TO CONTINUE
+    </button>
+
+    <div id="paymentStatus" class="status" aria-live="polite">
+      Select a watch and connect your wallet to begin.
+    </div>
+
+    <p class="small-note">
+      Blockchain payments may not be reversible. Check the watch,
+      amount and receiving address before approving. A transaction
+      confirmation does not automatically confirm delivery. Orders
+      require merchant verification.
+    </p>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="logo">KOVÉR</div>
+  <p>TIMELESS BY DESIGN. BUILT TO BE REMEMBERED.</p>
+  <p>HONOUR • COURAGE • EXCELLENCE • LEGACY</p>
+  <p>© <span id="year"></span> KOVÉR. All rights reserved.</p>
+  <p>
+    <a href="index.html">Campus Money</a>
+    ·
+    <a href="legal.html">Legal information</a>
+  </p>
+</footer>
+
+<script>
+/* BOUTIQUE MODAL */
+function openBoutique(){
+  document.getElementById("boutiqueModal").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+
+function closeBoutique(){
+  document.getElementById("boutiqueModal").classList.remove("open");
+  document.body.style.overflow="";
+}
+
+function closeBoutiqueOutside(event){
+  if(event.target.id==="boutiqueModal"){
+    closeBoutique();
+  }
+}
+
+document.addEventListener("keydown",function(event){
+  if(event.key==="Escape"){
+    closeBoutique();
+  }
+});
+
+/* PAYMENT CONFIGURATION */
+const CONFIG={
+  BASE_CHAIN_ID:8453,
+
+  // Official USDC contract on Base mainnet.
+  USDC_ADDRESS:"0x833589fCD6eDb6E08f4c7C32d4f71b54bdA02913",
+
+  // Enter the official KOVÉR receiving wallet.
+  KOVER_RECEIVING_WALLET:"",
+
+  // Enter the deployed Campus Money ERC-20 contract.
+  CAMPUS_MONEY_TOKEN:"",
+
+  // Example only. Set your approved checkout rate.
+  // 0.05 means 1 CM = $0.05 for checkout purposes.
+  CM_USD_PRICE:null
+};
+
+const WATCHES={
+  heritage:{name:"KOVÉR Heritage",price:299},
+  prestige:{name:"KOVÉR Prestige",price:599},
+  legacy:{name:"KOVÉR Legacy",price:999}
+};
+
+const ERC20_ABI=[
+  "function balanceOf(address owner) view returns (uint256)",
+  "function decimals() view returns (uint8)",
+  "function symbol() view returns (string)",
+  "function transfer(address to,uint256 amount) returns (bool)"
+];
+
+let provider=null;
+let signer=null;
+let walletAddress=null;
+let selectedPayment="USDC";
+let selectedWatch="heritage";
+let paymentBusy=false;
+
+document.getElementById("year").textContent=new Date().getFullYear();
+
+function validAddress(address){
+  return typeof address==="string" &&
+    /^0x[a-fA-F0-9]{40}$/.test(address);
+}
+
+function configuredReceiver(){
+  return validAddress(CONFIG.KOVER_RECEIVING_WALLET);
+}
+
+function configuredCM(){
+  return validAddress(CONFIG.CAMPUS_MONEY_TOKEN);
+}
+
+function cmRateAvailable(){
+  return typeof CONFIG.CM_USD_PRICE==="number" &&
+    Number.isFinite(CONFIG.CM_USD_PRICE) &&
+    CONFIG.CM_USD_PRICE>0;
+}
+
+function getWatch(){
+  return WATCHES[selectedWatch];
+}
+
+function getAmount(){
+  if(selectedPayment==="USDC"){
+    return getWatch().price.toFixed(2)+" USDC";
+  }
+
+  if(!cmRateAvailable()){
+    return "CM checkout not configured";
+  }
+
+  const amount=getWatch().price/CONFIG.CM_USD_PRICE;
+
+  return amount.toLocaleString("en-US",{
+    maximumFractionDigits:6
+  })+" CM";
+}
+
+function updateSummary(){
+  selectedWatch=document.getElementById("watchSelect").value;
+
+  const watch=getWatch();
+
+  document.getElementById("summaryWatch").textContent=watch.name;
+  document.getElementById("summaryUSD").textContent=
+    "$"+watch.price.toFixed(2)+" USD";
+  document.getElementById("summaryMethod").textContent=selectedPayment;
+  document.getElementById("summaryAmount").textContent=getAmount();
+
+  updatePayButton();
+}
+
+function chooseWatch(id){
+  selectedWatch=id;
+  document.getElementById("watchSelect").value=id;
+  updateSummary();
+
+  document.getElementById("checkout").scrollIntoView({
+    behavior:"smooth"
+  });
+}
+
+function selectPayment(method){
+  selectedPayment=method;
+
+  document.getElementById("usdcOption").classList.toggle(
+    "active",method==="USDC"
+  );
+
+  document.getElementById("cmOption").classList.toggle(
+    "active",method==="CM"
+  );
+
+  updateSummary();
+}
+
+function setPaymentStatus(message){
+  document.getElementById("paymentStatus").textContent=message;
+}
+
+function isBaseNetwork(network){
+  return Number(network.chainId)===CONFIG.BASE_CHAIN_ID;
+}
+
+async function switchToBase(){
+  try{
+    await window.ethereum.request({
+      method:"wallet_switchEthereumChain",
+      params:[{chainId:"0x2105"}]
+    });
+  }catch(error){
+    if(error.code===4902){
+      await window.ethereum.request({
+        method:"wallet_addEthereumChain",
+        params:[{
+          chainId:"0x2105",
+          chainName:"Base",
+          nativeCurrency:{
+            name:"Ether",
+            symbol:"ETH",
+            decimals:18
+          },
+          rpcUrls:["https://mainnet.base.org"],
+          blockExplorerUrls:["https://basescan.org"]
+        }]
+      });
+    }else{
+      throw error;
+    }
+  }
+}
+
+async function connectWallet(){
+  if(!window.ethereum){
+    setPaymentStatus(
+      "No compatible wallet found. Install MetaMask or Coinbase Wallet."
+    );
+    return;
+  }
+
+  try{
+    document.getElementById("connectButton").textContent="CONNECTING...";
+
+    await window.ethereum.request({method:"eth_requestAccounts"});
+
+    provider=new ethers.BrowserProvider(window.ethereum);
+
+    let network=await provider.getNetwork();
+
+    if(!isBaseNetwork(network)){
+      setPaymentStatus("Switching your wallet to Base...");
+      await switchToBase();
+
+      provider=new ethers.BrowserProvider(window.ethereum);
+      network=await provider.getNetwork();
+    }
+
+    if(!isBaseNetwork(network)){
+      throw new Error("Your wallet is not connected to Base.");
+    }
+
+    signer=await provider.getSigner();
+    walletAddress=await signer.getAddress();
+
+    document.getElementById("connectButton").textContent="WALLET CONNECTED";
+    document.getElementById("walletStatus").textContent=
+      "Connected: "+walletAddress;
+
+    setPaymentStatus("Wallet connected to Base. You can continue.");
+
+    updatePayButton();
+
+  }catch(error){
+    setPaymentStatus("Wallet connection failed: "+error.message);
+    document.getElementById("connectButton").textContent="CONNECT BASE WALLET";
+  }
+}
+
+function updatePayButton(){
+  const button=document.getElementById("payButton");
+
+  if(paymentBusy){
+    button.disabled=true;
+    button.textContent="PROCESSING PAYMENT...";
+    return;
+  }
+
+  if(!walletAddress || !signer){
+    button.disabled=true;
+    button.textContent="CONNECT WALLET TO CONTINUE";
+    return;
+  }
+
+  if(!configuredReceiver()){
+    button.disabled=true;
+    button.textContent="PAYMENTS NOT CONFIGURED";
+    return;
+  }
+
+  if(selectedPayment==="CM" &&
+    (!configuredCM() || !cmRateAvailable())){
+    button.disabled=true;
+    button.textContent="CM CHECKOUT NOT CONFIGURED";
+    return;
+  }
+
+  button.disabled=false;
+  button.textContent="PAY WITH "+selectedPayment;
+}
+
+async function makePayment(){
+  if(paymentBusy)return;
+
+  if(!signer || !walletAddress){
+    setPaymentStatus("Please connect your wallet first.");
+    return;
+  }
+
+  if(!configuredReceiver()){
+    setPaymentStatus("KOVÉR receiving wallet is not configured.");
+    return;
+  }
+
+  if(selectedPayment==="CM" &&
+    (!configuredCM() || !cmRateAvailable())){
+    setPaymentStatus(
+      "Campus Money contract or checkout rate is not configured."
+    );
+    return;
+  }
+
+  try{
+    paymentBusy=true;
+    updatePayButton();
+
+    const network=await provider.getNetwork();
+
+    if(!isBaseNetwork(network)){
+      throw new Error("Please connect to Base before paying.");
+    }
+
+    const watch=getWatch();
+
+    const tokenAddress=selectedPayment==="USDC"
+      ? CONFIG.USDC_ADDRESS
+      : CONFIG.CAMPUS_MONEY_TOKEN;
+
+    const token=new ethers.Contract(tokenAddress,ERC20_ABI,signer);
+
+    const decimals=await token.decimals();
+    const symbol=await token.symbol();
+
+    let amount;
+
+    if(selectedPayment==="USDC"){
+      amount=ethers.parseUnits(watch.price.toFixed(2),decimals);
+    }else{
+      const cmAmount=watch.price/CONFIG.CM_USD_PRICE;
+      amount=ethers.parseUnits(cmAmount.toFixed(6),decimals);
+    }
+
+    const formattedAmount=ethers.formatUnits(amount,decimals);
+    const balance=await token.balanceOf(walletAddress);
+
+    if(balance<amount){
+      throw new Error("Insufficient "+symbol+" balance in your wallet.");
+    }
+
+    const confirmed=window.confirm(
+      "KOVÉR PURCHASE\n\n"+
+      "Watch: "+watch.name+"\n"+
+      "Price: $"+watch.price.toFixed(2)+" USD\n"+
+      "Payment: "+formattedAmount+" "+symbol+"\n\n"+
+      "Receiving wallet:\n"+CONFIG.KOVER_RECEIVING_WALLET+
+      "\n\nBlockchain payments may not be reversible. Continue?"
+    );
+
+    if(!confirmed){
+      setPaymentStatus("Payment cancelled.");
+      return;
+    }
+
+    setPaymentStatus("Please approve the transaction in your wallet...");
+
+    const transaction=await token.transfer(
+      CONFIG.KOVER_RECEIVING_WALLET,
+      amount
+    );
+
+    setPaymentStatus("Transaction submitted. Waiting for confirmation...");
+
+    const receipt=await transaction.wait(1);
+
+    if(!receipt || receipt.status!==1){
+      throw new Error("Transaction was not confirmed successfully.");
+    }
+
+    const explorerURL="https://basescan.org/tx/"+transaction.hash;
+
+    const status=document.getElementById("paymentStatus");
+
+    status.replaceChildren();
+
+    const lines=[
+      "Payment transaction confirmed on Base.",
+      "Watch: "+watch.name,
+      "Payment: "+formattedAmount+" "+symbol
+    ];
+
+    lines.forEach(function(line){
+      const div=document.createElement("div");
+      div.textContent=line;
+      status.appendChild(div);
+    });
+
+    const link=document.createElement("a");
+    link.href=explorerURL;
+    link.target="_blank";
+    link.rel="noopener noreferrer";
+    link.textContent="View transaction on BaseScan";
+    status.appendChild(link);
+
+    const note=document.createElement("div");
+    note.textContent=
+      "Please provide your transaction reference and delivery details to KOVÉR. Your order still requires merchant verification.";
+    status.appendChild(note);
+
+  }catch(error){
+    let message=error.reason||error.shortMessage||error.message;
+
+    if(error.code===4001){
+      message="You rejected the wallet transaction.";
+    }
+
+    setPaymentStatus("Payment not completed: "+message);
+
+  }finally{
+    paymentBusy=false;
+    updatePayButton();
+  }
+}
+
+/* Wallet account changes */
+if(window.ethereum){
+  window.ethereum.on("accountsChanged",async(accounts)=>{
+    if(!accounts.length){
+      walletAddress=null;
+      signer=null;
+      provider=null;
+
+      document.getElementById("walletStatus").textContent=
+        "Wallet disconnected.";
+
+      updatePayButton();
+      return;
+    }
+
+    try{
+      provider=new ethers.BrowserProvider(window.ethereum);
+      signer=await provider.getSigner();
+      walletAddress=await signer.getAddress();
+
+      document.getElementById("walletStatus").textContent=
+        "Connected: "+walletAddress;
+
+      updatePayButton();
+
+    }catch(error){
+      walletAddress=null;
+      signer=null;
+      updatePayButton();
+    }
+  });
+
+  window.ethereum.on("chainChanged",()=>{
+    walletAddress=null;
+    signer=null;
+    provider=null;
+
+    document.getElementById("walletStatus").textContent=
+      "Network changed. Please reconnect your wallet.";
+
+    updatePayButton();
+  });
+}
+
+updateSummary();
+</script>
+
+</body>
+</html>
