@@ -1,0 +1,1377 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Campus Money | Your Campus. Your Money. Your Opportunities.</title>
+
+  <meta name="description" content="Campus Money is a digital currency project being developed for the Zep Swipe African student economy. Discover opportunities, connect with businesses and explore the ecosystem.">
+
+  <meta name="theme-color" content="#080b08">
+
+  <meta property="og:title" content="Campus Money | The Student Economy Starts Here">
+  <meta property="og:description" content="Your Campus. Your Money. Your Opportunities.">
+  <meta property="og:image" content="assets/campus-money-banner.png">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #080b08;
+      --surface: #111611;
+      --surface2: #171e16;
+      --lime: #b8ff3b;
+      --white: #ffffff;
+      --muted: #a4ada0;
+      --border: rgba(255,255,255,.09);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .container {
+      width: min(1160px, 90%);
+      margin: auto;
+    }
+
+    .lime {
+      color: var(--lime);
+    }
+
+    .section {
+      padding: 95px 0;
+    }
+
+    .eyebrow {
+      color: var(--lime);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      font-size: clamp(30px, 5vw, 49px);
+      line-height: 1.12;
+      letter-spacing: -1.8px;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      max-width: 650px;
+      font-size: 15px;
+    }
+
+    /* NAVIGATION */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8,11,8,.94);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -.5px;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 600;
+      color: #c4cbc1;
+      transition: .2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--lime);
+    }
+
+    .nav-button {
+      background: var(--lime);
+      color: #080b08 !important;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-weight: 800 !important;
+    }
+
+    .menu-toggle {
+      display: none;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: white;
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 690px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(5,9,5,.97) 0%, rgba(5,9,5,.84) 47%, rgba(5,9,5,.30) 100%),
+        linear-gradient(0deg, #080b08 0%, transparent 45%),
+        url("assets/campus-money-banner.png") center/cover no-repeat;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      padding: 100px 0;
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(184,255,59,.35);
+      background: rgba(184,255,59,.08);
+      color: var(--lime);
+      padding: 9px 14px;
+      border-radius: 50px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-size: clamp(43px, 7.5vw, 82px);
+      line-height: 1.01;
+      letter-spacing: -4px;
+      font-weight: 900;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: var(--lime);
+    }
+
+    .hero-description {
+      color: #c3ccc0;
+      font-size: clamp(14px, 2vw, 17px);
+      max-width: 590px;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 23px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .5px;
+      transition: .25s;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--lime);
+      color: #080b08;
+    }
+
+    .btn-primary:hover {
+      background: #d0ff80;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border-color: rgba(255,255,255,.25);
+      color: white;
+      background: rgba(255,255,255,.04);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--lime);
+      color: var(--lime);
+    }
+
+    .hero-note {
+      color: #9da79a;
+      font-size: 11px;
+      margin-top: 22px;
+    }
+
+    /* INTRO */
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 65px;
+      align-items: center;
+    }
+
+    .intro-visual {
+      min-height: 390px;
+      background:
+        linear-gradient(0deg, rgba(8,11,8,.45), transparent),
+        url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1100&q=85") center/cover;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .visual-caption {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      background: rgba(8,11,8,.88);
+      padding: 16px 19px;
+      border-left: 3px solid var(--lime);
+      border-radius: 4px;
+    }
+
+    .visual-caption strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .visual-caption span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .intro-copy p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 17px;
+    }
+
+    .text-link {
+      display: inline-block;
+      color: var(--lime);
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 10px;
+    }
+
+    /* FOUR PILLARS */
+
+    .pillars {
+      background: #0d120d;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pillar-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 42px;
+    }
+
+    .pillar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 28px 22px;
+      transition: .25s;
+    }
+
+    .pillar-card:hover {
+      border-color: rgba(184,255,59,.6);
+      transform: translateY(-4px);
+    }
+
+    .pillar-number {
+      color: var(--lime);
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 28px;
+    }
+
+    .pillar-card h3 {
+      font-size: 18px;
+      margin-bottom: 9px;
+    }
+
+    .pillar-card p {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* ECOSYSTEM */
+
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 42px;
+    }
+
+    .eco-card {
+      min-height: 245px;
+      padding: 30px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .eco-card::after {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: rgba(184,255,59,.06);
+      right: -50px;
+      bottom: -65px;
+    }
+
+    .eco-card .eco-number {
+      color: var(--lime);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 28px;
+    }
+
+    .eco-card h3 {
+      font-size: 21px;
+      margin-bottom: 10px;
+    }
+
+    .eco-card p {
+      color: var(--muted);
+      font-size: 13px;
+      max-width: 390px;
+    }
+
+    /* PRESALE */
+
+    .presale {
+      background:
+        radial-gradient(circle at 80% 40%, rgba(184,255,59,.09), transparent 36%),
+        #0d120d;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .presale-box {
+      background: linear-gradient(135deg, #151d13, #0c110b);
+      border: 1px solid rgba(184,255,59,.22);
+      border-radius: 14px;
+      padding: 45px;
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .presale-box p {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 15px 0 24px;
+    }
+
+    .price-panel {
+      background: rgba(0,0,0,.3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 27px;
+    }
+
+    .price-panel small {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+    }
+
+    .price {
+      color: var(--lime);
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -2px;
+      margin: 10px 0;
+    }
+
+    .price-panel p {
+      font-size: 11px;
+      margin: 0;
+    }
+
+    .notice {
+      color: #9ba595;
+      font-size: 10px;
+      margin-top: 20px;
+    }
+
+    /* KOVER */
+
+    .kover-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      align-items: center;
+      gap: 55px;
+    }
+
+    .kover-image {
+      min-height: 420px;
+      border-radius: 12px;
+      background:
+        linear-gradient(0deg, rgba(0,0,0,.2), transparent),
+        url("https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=1000&q=85") center/cover;
+      border: 1px solid var(--border);
+    }
+
+    .watch-tiers {
+      display: grid;
+      gap: 12px;
+      margin: 25px 0;
+    }
+
+    .watch-tier {
+      padding: 16px 19px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .watch-tier strong {
+      font-size: 13px;
+    }
+
+    .watch-tier span {
+      font-size: 11px;
+      color: var(--lime);
+      text-align: right;
+    }
+
+    /* FAQ */
+
+    .faq {
+      background: #0d120d;
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin-top: 35px;
+    }
+
+    details {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+    }
+
+    summary {
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    summary::after {
+      content: "+";
+      color: var(--lime);
+      font-size: 20px;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    details p {
+      color: var(--muted);
+      font-size: 13px;
+      padding-top: 13px;
+      max-width: 720px;
+    }
+
+    /* CTA */
+
+    .final-cta {
+      text-align: center;
+      padding: 100px 0;
+      background:
+        radial-gradient(circle at center, rgba(184,255,59,.10), transparent 55%);
+    }
+
+    .final-cta .section-description {
+      margin: 0 auto 28px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #050705;
+      border-top: 1px solid var(--border);
+      padding: 55px 0 25px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+    }
+
+    .footer-about p {
+      color: var(--muted);
+      font-size: 12px;
+      max-width: 350px;
+      margin-top: 15px;
+    }
+
+    .footer-column h4 {
+      font-size: 12px;
+      margin-bottom: 17px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin: 10px 0;
+    }
+
+    .footer-column a:hover {
+      color: var(--lime);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 23px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: #778174;
+      font-size: 10px;
+    }
+
+    .legal-note {
+      color: #798274;
+      font-size: 10px;
+      line-height: 1.7;
+      margin-top: 20px;
+      max-width: 850px;
+    }
+
+    /* MOBILE */
+
+    @media(max-width: 850px) {
+      .nav-links {
+        gap: 14px;
+      }
+
+      .nav-links a {
+        font-size: 10px;
+      }
+
+      .intro-grid,
+      .kover-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .pillar-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .presale-box {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width: 650px) {
+      .navbar {
+        min-height: 68px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: #0b100b;
+        border-bottom: 1px solid var(--border);
+        padding: 20px 5%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-links a {
+        font-size: 13px;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links .nav-button {
+        text-align: center;
+        margin-top: 13px;
+        padding: 14px;
+      }
+
+      .hero {
+        min-height: 650px;
+        background-position: 58% center;
+      }
+
+      .hero h1 {
+        letter-spacing: -2.5px;
+      }
+
+      .hero-content {
+        padding: 80px 0;
+      }
+
+      .section {
+        padding: 70px 0;
+      }
+
+      .pillar-grid,
+      .ecosystem-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pillar-card {
+        padding: 23px;
+      }
+
+      .presale-box {
+        padding: 25px;
+      }
+
+      .intro-visual,
+      .kover-image {
+        min-height: 290px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-about {
+        grid-column: 1 / -1;
+      }
+
+      .watch-tier {
+        align-items: flex-start;
+      }
+
+      .final-cta {
+        padding: 75px 0;
+      }
+    }
+
+    @media(prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      * {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+
+  <header>
+    <div class="container navbar">
+
+      <a href="index.html" class="brand">
+        <img src="assets/campus-money-logo.png" alt="Campus Money logo"
+             onerror="this.style.display='none'">
+        <span>CAMPUS <span class="lime">MONEY</span></span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle"
+              aria-label="Open navigation" aria-expanded="false">
+        ☰
+      </button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#ecosystem">Ecosystem</a>
+        <a href="presale.html">Presale</a>
+        <a href="kover.html">KOVÉR</a>
+        <a href="buy.html" class="nav-button">BUY CAMPUS MONEY</a>
+      </nav>
+
+    </div>
+  </header>
+
+
+  <!-- HERO SECTION -->
+
+  <section class="hero">
+
+    <div class="container">
+      <div class="hero-content">
+
+        <div class="hero-label">
+          <span>●</span> POWERING THE STUDENT ECONOMY
+        </div>
+
+        <h1>
+          YOUR CAMPUS.<br>
+          YOUR MONEY.<br>
+          <span>YOUR OPPORTUNITIES.</span>
+        </h1>
+
+        <p class="hero-description">
+          Campus Money is a digital currency project being developed
+          for the Zep Swipe student economy — connecting students,
+          businesses and opportunities across Africa.
+        </p>
+
+        <div class="hero-actions">
+          <a href="presale.html" class="btn btn-primary">
+            EXPLORE PRESALE →
+          </a>
+
+          <a href="#about" class="btn btn-outline">
+            DISCOVER CAMPUS MONEY
+          </a>
+        </div>
+
+        <p class="hero-note">
+          An Africa-first vision. A connected student economy.
+        </p>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ABOUT CAMPUS MONEY -->
+
+  <section class="section" id="about">
+
+    <div class="container intro-grid">
+
+      <div class="intro-visual">
+        <div class="visual-caption">
+          <strong>The next generation of opportunity.</strong>
+          <span>Built around students. Connected to business.</span>
+        </div>
+      </div>
+
+      <div class="intro-copy">
+
+        <div class="eyebrow">INTRODUCING CAMPUS MONEY</div>
+
+        <h2 class="section-title">
+          More than a digital currency.
+          <span class="lime">A student economy.</span>
+        </h2>
+
+        <p>
+          Across Africa, millions of students have skills, ambition
+          and ideas. Yet many lack access to the opportunities,
+          business networks and economic participation they need
+          before graduation.
+        </p>
+
+        <p>
+          Campus Money is being developed as a utility layer for
+          the Zep Swipe student economy, with the long-term goal
+          of connecting students, businesses, partners and
+          communities through useful digital services.
+        </p>
+
+        <p>
+          Our vision is to make the student economy more connected,
+          accessible and opportunity-driven.
+        </p>
+
+        <a href="ecosystem.html" class="text-link">
+          EXPLORE THE ECOSYSTEM →
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOUR PILLARS -->
+
+  <section class="section pillars">
+
+    <div class="container">
+
+      <div class="eyebrow">OUR VISION</div>
+
+      <h2 class="section-title">
+        Four steps. <span class="lime">One ecosystem.</span>
+      </h2>
+
+      <p class="section-description">
+        We believe students should have access to more than
+        classrooms. They should be able to discover, earn,
+        connect and build.
+      </p>
+
+      <div class="pillar-grid">
+
+        <div class="pillar-card">
+          <div class="pillar-number">01 / DISCOVER</div>
+          <h3>Discover</h3>
+          <p>
+            Find student opportunities, services, deals and
+            new ways to participate in the economy.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-number">02 / EARN</div>
+          <h3>Earn</h3>
+          <p>
+            Connect skills and services with customers,
+            businesses and earning opportunities.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-number">03 / CONNECT</div>
+          <h3>Connect</h3>
+          <p>
+            Build relationships between students,
+            businesses, partners and communities.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-number">04 / BUILD</div>
+          <h3>Build</h3>
+          <p>
+            Develop skills, businesses, networks and
+            stronger economic futures.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- THE ZEP SWIPE ECOSYSTEM -->
+
+  <section class="section" id="ecosystem">
+
+    <div class="container">
+
+      <div class="eyebrow">POWERED BY THE ZEP SWIPE VISION</div>
+
+      <h2 class="section-title">
+        An ecosystem built around <span class="lime">opportunity.</span>
+      </h2>
+
+      <p class="section-description">
+        Campus Money is designed with a wider student economy
+        in mind. Zep Swipe is building connections between
+        students and the organisations and businesses around them.
+      </p>
+
+      <div class="ecosystem-grid">
+
+        <div class="eco-card">
+          <div class="eco-number">01 / STUDENTS</div>
+          <h3>Student Opportunities</h3>
+          <p>
+            Help students discover services, skills-based work,
+            opportunities and ways to earn before graduation.
+          </p>
+        </div>
+
+        <div class="eco-card">
+          <div class="eco-number">02 / BUSINESSES</div>
+          <h3>Business Connections</h3>
+          <p>
+            Connect businesses with student talent,
+            customers and the emerging student economy.
+          </p>
+        </div>
+
+        <div class="eco-card">
+          <div class="eco-number">03 / PARTNERS</div>
+          <h3>Strategic Partnerships</h3>
+          <p>
+            Create opportunities for organisations to
+            participate in a growing student-focused ecosystem.
+          </p>
+        </div>
+
+        <div class="eco-card">
+          <div class="eco-number">04 / COMMUNITIES</div>
+          <h3>Economic Inclusion</h3>
+          <p>
+            Support a more connected environment where
+            students can participate, develop and grow.
+          </p>
+        </div>
+
+      </div>
+
+      <div style="margin-top:35px">
+        <a href="https://www.zepswipe.com"
+           target="_blank" rel="noopener"
+           class="btn btn-outline">
+          VISIT ZEP SWIPE →
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PRESALE SECTION -->
+
+  <section class="section presale" id="presale">
+
+    <div class="container">
+
+      <div class="eyebrow">CAMPUS MONEY PRESALE</div>
+
+      <h2 class="section-title">
+        Be part of the <span class="lime">early journey.</span>
+      </h2>
+
+      <p class="section-description">
+        Explore the proposed Campus Money presale structure,
+        participation requirements and token allocation.
+      </p>
+
+      <div class="presale-box">
+
+        <div>
+
+          <h3 style="font-size:26px;line-height:1.2">
+            Early access to the Campus Money ecosystem.
+          </h3>
+
+          <p>
+            The proposed presale will have different participation
+            rounds, each with its own published price and token
+            allocation. Participants should review all terms,
+            eligibility requirements and risks before deciding
+            whether to participate.
+          </p>
+
+          <a href="presale.html" class="btn btn-primary">
+            VIEW PRESALE DETAILS →
+          </a>
+
+          <div class="notice">
+            Presale participation is subject to legal clearance,
+            final offering documents and applicable eligibility rules.
+          </div>
+
+        </div>
+
+        <div class="price-panel">
+
+          <small>PROPOSED ROUND 1 PRICE</small>
+
+          <div class="price">$0.05</div>
+
+          <p>
+            Per Campus Money token in the proposed first round.
+            Other rounds may have different prices.
+          </p>
+
+          <div style="height:1px;background:var(--border);margin:22px 0"></div>
+
+          <small>PROPOSED TOTAL TOKEN SUPPLY</small>
+
+          <div style="font-size:27px;font-weight:900;margin-top:8px">
+            1 BILLION
+          </div>
+
+          <p>
+            Proposed maximum supply, subject to final token
+            documentation and technical controls.
+          </p>
+
+        </div>
+
+      </div>
+
+      <p class="notice">
+        Displayed figures are proposed project parameters, not
+        a promise of token value, liquidity, returns or future price.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- KOVER WATCH COLLECTION -->
+
+  <section class="section" id="kover">
+
+    <div class="container kover-grid">
+
+      <div class="kover-image"></div>
+
+      <div>
+
+        <div class="eyebrow">THE KOVÉR COLLECTION</div>
+
+        <h2 class="section-title">
+          A symbol of <span class="lime">heritage.</span>
+        </h2>
+
+        <p class="section-description">
+          Introducing KOVÉR — a premium watch collection
+          conceived as part of the Campus Money presale
+          participant rewards programme.
+        </p>
+
+        <p class="section-description" style="margin-top:15px">
+          Qualifying participants may be eligible for a watch
+          according to their verified cumulative contribution
+          and the final published presale rules.
+        </p>
+
+        <div class="watch-tiers">
+
+          <div class="watch-tier">
+            <strong>KOVÉR Heritage</strong>
+            <span>Proposed $1,000 tier</span>
+          </div>
+
+          <div class="watch-tier">
+            <strong>KOVÉR Prestige</strong>
+            <span>Proposed $2,500 tier</span>
+          </div>
+
+          <div class="watch-tier">
+            <strong>KOVÉR Legacy</strong>
+            <span>Proposed $5,000 tier</span>
+          </div>
+
+        </div>
+
+        <a href="kover.html" class="btn btn-primary">
+          DISCOVER KOVÉR →
+        </a>
+
+        <p class="notice">
+          Proposed qualification thresholds only. Final watch
+          specifications, availability, fulfilment conditions
+          and eligibility will be published before the presale.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FAQ -->
+
+  <section class="section faq">
+
+    <div class="container">
+
+      <div class="eyebrow">FREQUENTLY ASKED QUESTIONS</div>
+
+      <h2 class="section-title">
+        Get to know <span class="lime">Campus Money.</span>
+      </h2>
+
+      <div class="faq-list">
+
+        <details>
+          <summary>What is Campus Money?</summary>
+          <p>
+            Campus Money is a digital currency project being
+            developed for the Zep Swipe African student economy.
+            Its intended role is utility and ecosystem access,
+            subject to the final product design and applicable law.
+          </p>
+        </details>
+
+        <details>
+          <summary>How is Campus Money connected to Zep Swipe?</summary>
+          <p>
+            Zep Swipe is building a platform that connects students,
+            businesses, partners and opportunities. Campus Money
+            is being developed as a digital utility component
+            within that broader vision.
+          </p>
+        </details>
+
+        <details>
+          <summary>How many Campus Money tokens are proposed?</summary>
+          <p>
+            The proposed maximum supply is one billion tokens.
+            Refer to the token documentation for the allocation,
+            controls and any final changes.
+          </p>
+        </details>
+
+        <details>
+          <summary>Can I connect my wallet?</summary>
+          <p>
+            Wallet connection and purchasing will be made
+            available only through the supported purchase process
+            once the offering, technical infrastructure and
+            applicable legal requirements are ready.
+          </p>
+        </details>
+
+        <details>
+          <summary>How do I qualify for a KOVÉR watch?</summary>
+          <p>
+            The proposed programme uses cumulative qualifying
+            contributions to determine eligibility. Verified
+            participants will be able to complete a watch claim
+            form once the final programme rules are published.
+          </p>
+        </details>
+
+        <details>
+          <summary>Does Campus Money represent ownership in Zep Swipe?</summary>
+          <p>
+            No. The intended holder rights are utility and
+            ecosystem access only. Campus Money does not represent
+            equity or ownership in Zep Swipe or another company.
+          </p>
+        </details>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- FINAL CALL TO ACTION -->
+
+  <section class="final-cta">
+
+    <div class="container">
+
+      <div class="eyebrow">THE FUTURE OF THE STUDENT ECONOMY</div>
+
+      <h2 class="section-title">
+        Your campus.<br>
+        <span class="lime">Your opportunities.</span>
+      </h2>
+
+      <p class="section-description">
+        Explore the vision behind Campus Money and the
+        growing Zep Swipe student economy.
+      </p>
+
+      <a href="presale.html" class="btn btn-primary">
+        EXPLORE CAMPUS MONEY →
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-about">
+
+          <a href="index.html" class="brand">
+            <img src="assets/campus-money-logo.png"
+                 alt="Campus Money logo"
+                 onerror="this.style.display='none'">
+            <span>CAMPUS <span class="lime">MONEY</span></span>
+          </a>
+
+          <p>
+            Your Campus. Your Money. Your Opportunities.
+            Building a digital utility project for a more
+            connected African student economy.
+          </p>
+
+        </div>
+
+        <div class="footer-column">
+          <h4>EXPLORE</h4>
+          <a href="index.html">Home</a>
+          <a href="ecosystem.html">Ecosystem</a>
+          <a href="presale.html">Presale</a>
+          <a href="kover.html">KOVÉR Collection</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>PARTICIPATE</h4>
+          <a href="buy.html">Buy Campus Money</a>
+          <a href="account.html">My Account</a>
+          <a href="claim.html">Watch Claim</a>
+          <a href="legal.html">Legal & FAQ</a>
+          <a href="https://www.zepswipe.com"
+             target="_blank" rel="noopener">Zep Swipe</a>
+        </div>
+
+      </div>
+
+      <div class="legal-note">
+        IMPORTANT NOTICE: Campus Money is a digital currency
+        project under development. It is not legal tender,
+        a bank deposit, equity, or a guaranteed investment.
+        No promise is made regarding token price appreciation,
+        resale, liquidity or financial returns. Token functionality,
+        holder rights, presale participation and rewards are
+        subject to final documentation, eligibility requirements,
+        technical readiness and applicable laws and regulations.
+        Do not send funds to unofficial wallet addresses.
+      </div>
+
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Campus Money. All rights reserved.</span>
+        <span>Powered by the Zep Swipe ecosystem.</span>
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", function () {
+      const isOpen = navLinks.classList.toggle("active");
+
+      menuToggle.setAttribute("aria-expanded", isOpen);
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation" : "Open navigation"
+      );
+
+      menuToggle.textContent = isOpen ? "✕" : "☰";
+    });
+
+    // Close mobile menu after selecting a link
+    document.querySelectorAll("#navLinks a").forEach(function(link) {
+      link.addEventListener("click", function() {
+        navLinks.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    // Automatic copyright year
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>
