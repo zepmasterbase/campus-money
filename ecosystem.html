@@ -1,0 +1,1052 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+
+<title>Campus Money | The Student Economy Ecosystem</title>
+<meta name="description" content="Discover the Campus Money ecosystem connecting students, businesses, opportunities, mobility, housing, entrepreneurship and economic participation across Africa.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#080808;
+  --panel:#111;
+  --panel2:#171717;
+  --lime:#b8ff3b;
+  --white:#f5f5f5;
+  --muted:#999;
+  --border:#292929;
+  --gold:#d8b56d;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html {scroll-behavior:smooth}
+
+body {
+  background:var(--bg);
+  color:var(--white);
+  font-family:Inter,Arial,sans-serif;
+  overflow-x:hidden;
+}
+
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+button {font:inherit;cursor:pointer}
+
+header {
+  height:76px;
+  padding:0 6%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  background:rgba(8,8,8,.96);
+  position:sticky;
+  top:0;
+  z-index:100;
+  backdrop-filter:blur(15px);
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.brand img {
+  width:42px;
+  height:42px;
+  object-fit:contain;
+}
+
+.brand span {color:var(--lime)}
+
+nav {
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+
+nav a {
+  font-size:11px;
+  color:#aaa;
+  transition:.2s;
+}
+
+nav a:hover {color:var(--lime)}
+
+.menu {
+  display:none;
+  color:white;
+  background:none;
+  border:0;
+  font-size:26px;
+}
+
+.container {
+  max-width:1180px;
+  margin:auto;
+  padding:0 24px;
+}
+
+.eyebrow {
+  color:var(--lime);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:10px;
+  font-weight:800;
+  margin-bottom:15px;
+}
+
+h1 {
+  font-size:clamp(40px,7vw,78px);
+  line-height:1.02;
+  letter-spacing:-3px;
+  font-weight:900;
+}
+
+h2 {
+  font-size:clamp(27px,4vw,43px);
+  letter-spacing:-1.5px;
+  line-height:1.1;
+}
+
+h3 {font-size:17px}
+
+p {
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.9;
+}
+
+.lime {color:var(--lime)}
+
+.btn {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  padding:15px 21px;
+  border-radius:9px;
+  background:var(--lime);
+  color:#080808;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.5px;
+  border:1px solid var(--lime);
+  transition:.2s;
+}
+
+.btn:hover {
+  transform:translateY(-2px);
+  filter:brightness(1.08);
+}
+
+.btn.secondary {
+  background:transparent;
+  color:white;
+  border-color:#444;
+}
+
+.btn.secondary:hover {
+  border-color:var(--lime);
+  color:var(--lime);
+}
+
+.hero {
+  min-height:690px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+
+.hero:before {
+  content:"";
+  position:absolute;
+  width:700px;
+  height:700px;
+  right:-250px;
+  top:0;
+  background:radial-gradient(circle,rgba(184,255,59,.12),transparent 65%);
+  pointer-events:none;
+}
+
+.hero-content {
+  position:relative;
+  z-index:2;
+  max-width:790px;
+  padding:95px 0;
+}
+
+.hero h1 span {
+  color:var(--lime);
+}
+
+.hero-text {
+  max-width:620px;
+  margin-top:25px;
+  font-size:15px;
+}
+
+.hero-buttons {
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:32px;
+}
+
+.hero-caption {
+  margin-top:45px;
+  font-size:10px;
+  letter-spacing:2px;
+  color:#777;
+  text-transform:uppercase;
+}
+
+.hero-art {
+  position:absolute;
+  right:2%;
+  bottom:7%;
+  width:360px;
+  max-width:40%;
+  opacity:.92;
+  filter:drop-shadow(0 0 35px rgba(184,255,59,.12));
+}
+
+section {padding:100px 0}
+
+.section-heading {
+  max-width:700px;
+  margin-bottom:45px;
+}
+
+.section-heading p {margin-top:17px}
+
+.intro-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:65px;
+  align-items:center;
+}
+
+.intro-visual {
+  min-height:360px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:
+    radial-gradient(circle at 50% 45%,rgba(184,255,59,.12),transparent 55%),
+    #101010;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:35px;
+}
+
+.intro-visual img {
+  width:100%;
+  max-width:250px;
+  object-fit:contain;
+  filter:drop-shadow(0 0 25px rgba(184,255,59,.12));
+}
+
+.intro-copy h2 {margin-bottom:20px}
+
+.intro-copy p {margin-bottom:16px}
+
+.pillars {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:13px;
+  margin-top:40px;
+}
+
+.pillar {
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:25px 20px;
+  border-radius:14px;
+}
+
+.pillar-number {
+  color:var(--lime);
+  font-size:11px;
+  font-weight:900;
+  margin-bottom:27px;
+}
+
+.pillar h3 {margin-bottom:10px}
+
+.pillar p {font-size:11px}
+
+.dark-section {
+  background:#0d0d0d;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.cards {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.card {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:27px;
+  min-height:240px;
+  transition:.25s;
+}
+
+.card:hover {
+  border-color:#638a29;
+  transform:translateY(-4px);
+}
+
+.card-icon {
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  background:#1d2812;
+  color:var(--lime);
+  border-radius:12px;
+  font-size:21px;
+  margin-bottom:25px;
+}
+
+.card h3 {margin-bottom:12px}
+
+.card p {font-size:12px}
+
+.card a {
+  display:inline-block;
+  margin-top:20px;
+  font-size:10px;
+  font-weight:800;
+  color:var(--lime);
+  letter-spacing:.6px;
+}
+
+.feature {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.feature-list {
+  display:grid;
+  gap:15px;
+  margin-top:25px;
+}
+
+.feature-item {
+  display:flex;
+  gap:14px;
+  padding:16px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+
+.feature-item .check {
+  color:var(--lime);
+  font-weight:900;
+  font-size:18px;
+}
+
+.feature-item h3 {font-size:13px;margin-bottom:5px}
+
+.feature-item p {font-size:11px}
+
+.feature-visual {
+  min-height:430px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:30px;
+  background:
+    radial-gradient(circle at 50% 45%,rgba(184,255,59,.1),transparent 55%),
+    #111;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.feature-visual img {
+  width:100%;
+  max-width:240px;
+  object-fit:contain;
+  margin-bottom:20px;
+}
+
+.feature-visual h3 {
+  font-size:21px;
+  margin-bottom:10px;
+}
+
+.feature-visual p {max-width:280px}
+
+.model-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.model {
+  padding:25px;
+  background:#101010;
+  border:1px solid var(--border);
+  border-radius:14px;
+}
+
+.model small {
+  color:var(--lime);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-weight:800;
+}
+
+.model h3 {margin:15px 0 10px}
+
+.model p {font-size:11px}
+
+.roadmap {
+  max-width:850px;
+  margin:45px auto 0;
+}
+
+.roadmap-item {
+  display:grid;
+  grid-template-columns:100px 1fr;
+  gap:25px;
+  padding:24px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.roadmap-number {
+  color:var(--lime);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.roadmap-item h3 {margin-bottom:8px}
+
+.roadmap-item p {font-size:12px}
+
+.final-cta {
+  text-align:center;
+  padding:100px 20px;
+  border:1px solid #354a20;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(184,255,59,.11),transparent 60%),
+    #101010;
+}
+
+.final-cta h2 {
+  max-width:700px;
+  margin:auto;
+}
+
+.final-cta p {
+  max-width:570px;
+  margin:20px auto 28px;
+}
+
+footer {
+  margin-top:100px;
+  padding:35px 6%;
+  border-top:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+  color:#777;
+  font-size:10px;
+}
+
+.footer-links {
+  display:flex;
+  flex-wrap:wrap;
+  gap:19px;
+}
+
+.footer-links a:hover {color:var(--lime)}
+
+@media(max-width:900px) {
+  .hero-art {opacity:.2;right:-5%}
+  .pillars {grid-template-columns:repeat(2,1fr)}
+  .cards {grid-template-columns:repeat(2,1fr)}
+  .intro-grid,.feature {grid-template-columns:1fr;gap:35px}
+}
+
+@media(max-width:650px) {
+  header {height:70px}
+  nav {
+    display:none;
+    position:absolute;
+    top:69px;
+    left:0;
+    right:0;
+    padding:25px;
+    background:#101010;
+    flex-direction:column;
+    align-items:flex-start;
+    border-bottom:1px solid var(--border);
+  }
+  nav.open {display:flex}
+  .menu {display:block}
+  .container {padding:0 18px}
+  .hero {min-height:620px}
+  .hero-content {padding:80px 0}
+  .hero-art {width:270px;max-width:65%;bottom:3%;right:-10%;opacity:.15}
+  section {padding:75px 0}
+  .pillars,.cards,.model-grid {grid-template-columns:1fr}
+  .intro-visual,.feature-visual {min-height:300px}
+  .roadmap-item {grid-template-columns:65px 1fr;gap:15px}
+  .final-cta {padding:65px 20px}
+  footer {margin-top:70px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="brand" href="index.html">
+    <img src="assets/campus-money-logo.png" alt="Campus Money logo">
+    <div>CAMPUS <span>MONEY</span></div>
+  </a>
+
+  <nav id="nav">
+    <a href="index.html">Home</a>
+    <a href="presale.html">Presale</a>
+    <a href="ecosystem.html" style="color:var(--lime)">Ecosystem</a>
+    <a href="kover.html">KOVÉR</a>
+    <a href="account.html">My Account</a>
+  </nav>
+
+  <button class="menu"
+    onclick="document.getElementById('nav').classList.toggle('open')"
+    aria-label="Open menu">☰</button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="eyebrow">The Campus Money ecosystem</div>
+
+      <h1>
+        The student<br>
+        economy is<br>
+        <span>just getting started.</span>
+      </h1>
+
+      <p class="hero-text">
+        A connected ecosystem designed to help students discover
+        opportunities, access services, participate in the digital
+        economy and build beyond graduation.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="buy.html" class="btn">EXPLORE PARTICIPATION</a>
+        <a href="#ecosystem" class="btn secondary">DISCOVER THE ECOSYSTEM</a>
+      </div>
+
+      <div class="hero-caption">
+        Your Campus. Your Money. Your Opportunities.
+      </div>
+    </div>
+  </div>
+
+  <img
+    class="hero-art"
+    src="assets/campus-money-logo.png"
+    alt="Campus Money">
+</section>
+
+<!-- INTRODUCTION -->
+<section>
+  <div class="container">
+    <div class="intro-grid">
+
+      <div class="intro-visual">
+        <img src="assets/campus-money-logo.png" alt="Campus Money">
+      </div>
+
+      <div class="intro-copy">
+        <div class="eyebrow">Beyond a digital currency</div>
+
+        <h2>Building an economy around student opportunity.</h2>
+
+        <p>
+          Campus Money is the proposed digital utility currency
+          at the centre of a broader student economy ecosystem.
+        </p>
+
+        <p>
+          The vision is to connect students with businesses,
+          services, mobility solutions, accommodation, skills,
+          entrepreneurship and partnerships.
+        </p>
+
+        <p>
+          Rather than treating student life as a temporary stage,
+          we see universities and colleges as powerful starting
+          points for economic participation and long-term opportunity.
+        </p>
+
+        <a href="presale.html" class="btn" style="margin-top:15px">
+          DISCOVER CAMPUS MONEY
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOUR PILLARS -->
+<section class="dark-section">
+  <div class="container">
+
+    <div class="section-heading">
+      <div class="eyebrow">Our ecosystem philosophy</div>
+      <h2>Four movements.<br><span class="lime">One connected economy.</span></h2>
+      <p>
+        The Campus Money vision is built around four simple
+        movements that can connect student activity with opportunity.
+      </p>
+    </div>
+
+    <div class="pillars">
+
+      <div class="pillar">
+        <div class="pillar-number">01 / DISCOVER</div>
+        <h3>Find opportunities.</h3>
+        <p>
+          Discover student services, business offers, funding
+          opportunities, accommodation and useful resources.
+        </p>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-number">02 / EARN</div>
+        <h3>Unlock earning potential.</h3>
+        <p>
+          Connect student skills, services and entrepreneurship
+          with customers and businesses.
+        </p>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-number">03 / CONNECT</div>
+        <h3>Build useful connections.</h3>
+        <p>
+          Bring students, businesses, institutions and partners
+          closer through relevant opportunities.
+        </p>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-number">04 / BUILD</div>
+        <h3>Create what comes next.</h3>
+        <p>
+          Support skills, business development and a stronger
+          foundation for life beyond graduation.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM COMPONENTS -->
+<section id="ecosystem">
+  <div class="container">
+
+    <div class="section-heading">
+      <div class="eyebrow">Inside the ecosystem</div>
+      <h2>One student economy.<br><span class="lime">Many opportunities.</span></h2>
+      <p>
+        Campus Money is designed to connect several areas of
+        student life and economic participation.
+      </p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-icon">◈</div>
+        <h3>Student marketplace</h3>
+        <p>
+          A space for students to offer services, showcase skills
+          and connect with customers looking for trusted student talent.
+        </p>
+        <a href="https://www.zepswipe.com" target="_blank" rel="noopener noreferrer">
+          EXPLORE ZEP SWIPE ↗
+        </a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">↗</div>
+        <h3>Student opportunities</h3>
+        <p>
+          Discover pathways to skills development, business
+          opportunities, partnerships and resources for students.
+        </p>
+        <a href="https://www.zepswipe.com/opportunity.html" target="_blank" rel="noopener noreferrer">
+          DISCOVER OPPORTUNITIES ↗
+        </a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">⌂</div>
+        <h3>Student housing</h3>
+        <p>
+          A future-facing opportunity area focused on helping
+          students discover accommodation and housing connections.
+        </p>
+        <a href="https://www.zepswipe.com/opportunity.html" target="_blank" rel="noopener noreferrer">
+          EXPLORE THE OPPORTUNITY ↗
+        </a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">⚙</div>
+        <h3>Mobility solutions</h3>
+        <p>
+          Connect vehicle owners and students with relevant
+          mobility information and specialist solutions.
+        </p>
+        <a href="https://www.zepswipe.com/mobility.html" target="_blank" rel="noopener noreferrer">
+          EXPLORE MOBILITY ↗
+        </a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">◇</div>
+        <h3>Business partnerships</h3>
+        <p>
+          Create opportunities for businesses to reach student
+          communities through relevant services and collaborations.
+        </p>
+        <a href="https://www.zepswipe.com" target="_blank" rel="noopener noreferrer">
+          VISIT ZEP SWIPE ↗
+        </a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">✦</div>
+        <h3>Entrepreneurship</h3>
+        <p>
+          Encourage students to develop ideas, test business
+          concepts, build skills and pursue independent ventures.
+        </p>
+        <a href="https://studentstartupstudio.com" target="_blank" rel="noopener noreferrer">
+          STUDENT STARTUP STUDIO ↗
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS MONEY UTILITY -->
+<section class="dark-section">
+  <div class="container">
+
+    <div class="feature">
+
+      <div>
+        <div class="eyebrow">The digital utility layer</div>
+        <h2>Campus Money connects the ecosystem.</h2>
+
+        <p style="margin-top:20px">
+          Campus Money is being developed as a digital utility
+          currency for participation within the broader student
+          economy. Its intended role is to support eligible
+          ecosystem access and utility as compatible services
+          become available.
+        </p>
+
+        <div class="feature-list">
+
+          <div class="feature-item">
+            <div class="check">✓</div>
+            <div>
+              <h3>Digital participation</h3>
+              <p>
+                A wallet-based approach to accessing supported
+                Campus Money services.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="check">✓</div>
+            <div>
+              <h3>Ecosystem utility</h3>
+              <p>
+                Designed to support eligible services and
+                participation as integrations are introduced.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="check">✓</div>
+            <div>
+              <h3>Base blockchain</h3>
+              <p>
+                Planned deployment on Base, subject to the
+                project's technical and compliance requirements.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <a href="presale.html" class="btn" style="margin-top:25px">
+          VIEW CAMPUS MONEY
+        </a>
+      </div>
+
+      <div class="feature-visual">
+        <img src="assets/campus-money-logo.png" alt="Campus Money coin">
+        <h3>Your campus. Your money.</h3>
+        <p>
+          A digital utility layer for a connected student economy.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PARTICIPANTS -->
+<section>
+  <div class="container">
+
+    <div class="section-heading">
+      <div class="eyebrow">Who the ecosystem serves</div>
+      <h2>Built around the people<br>who move the economy.</h2>
+      <p>
+        A connected student economy requires more than students
+        alone. It needs businesses, institutions and partners
+        working together.
+      </p>
+    </div>
+
+    <div class="model-grid">
+
+      <div class="model">
+        <small>01 / Students</small>
+        <h3>Discover. Earn. Build.</h3>
+        <p>
+          Access opportunities, offer services, develop skills
+          and participate in the wider student economy.
+        </p>
+      </div>
+
+      <div class="model">
+        <small>02 / Businesses</small>
+        <h3>Reach the student market.</h3>
+        <p>
+          Connect with student customers, student talent and
+          relevant campus-focused opportunities.
+        </p>
+      </div>
+
+      <div class="model">
+        <small>03 / Partners</small>
+        <h3>Help unlock opportunity.</h3>
+        <p>
+          Collaborate on initiatives that improve student access
+          to useful services, resources and economic participation.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="dark-section">
+  <div class="container">
+
+    <div class="section-heading" style="text-align:center;margin-left:auto;margin-right:auto">
+      <div class="eyebrow">The development journey</div>
+      <h2>Building the ecosystem<br><span class="lime">step by step.</span></h2>
+      <p>
+        The ecosystem is being developed progressively.
+        The following areas represent its intended direction,
+        not a promise that every feature is already live.
+      </p>
+    </div>
+
+    <div class="roadmap">
+
+      <div class="roadmap-item">
+        <div class="roadmap-number">PHASE 01</div>
+        <div>
+          <h3>Foundation</h3>
+          <p>
+            Establish the Campus Money identity, wallet-first
+            account experience, ecosystem information and
+            core technical infrastructure.
+          </p>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-number">PHASE 02</div>
+        <div>
+          <h3>Student economy connections</h3>
+          <p>
+            Develop connections to student services, businesses,
+            opportunities and relevant partner initiatives.
+          </p>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-number">PHASE 03</div>
+        <div>
+          <h3>Digital utility integration</h3>
+          <p>
+            Introduce compatible Campus Money utility experiences
+            after technical, security and regulatory readiness.
+          </p>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-number">PHASE 04</div>
+        <div>
+          <h3>Expansion</h3>
+          <p>
+            Explore wider university, college, business and
+            institutional collaborations across African markets.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- KOVER -->
+<section>
+  <div class="container">
+
+    <div class="feature">
+
+      <div class="feature-visual">
+        <div class="eyebrow">A legacy beyond campus</div>
+        <img
+          src="assets/kover-heritage.png"
+          alt="KOVÉR Heritage watch"
+          onerror="this.style.display='none'">
+        <h3>KOVÉR</h3>
+        <p>Honour. Courage. Excellence. Legacy.</p>
+      </div>
+
+      <div>
+        <div class="eyebrow">The KOVÉR collection</div>
+        <h2>Where opportunity meets legacy.</h2>
+
+        <p style="margin-top:20px">
+          KOVÉR is a premium watch brand being developed
+          alongside the Campus Money ecosystem.
+        </p>
+
+        <p style="margin-top:14px">
+          The collection is designed around heritage,
+          craftsmanship and the idea of building something
+          that can be passed on.
+        </p>
+
+        <p style="margin-top:14px">
+          Qualifying Campus Money participants may be eligible
+          for a complimentary KOVÉR reward under the final
+          published reward terms. Watches will also have a
+          separate retail offering.
+        </p>
+
+        <a href="kover.html" class="btn" style="margin-top:25px">
+          DISCOVER KOVÉR
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="dark-section">
+  <div class="container">
+
+    <div class="final-cta">
+      <div class="eyebrow">Be part of the student economy</div>
+
+      <h2>
+        Your campus is more than a place to study.
+        <span class="lime">It's a place to build.</span>
+      </h2>
+
+      <p>
+        Explore the Campus Money ecosystem and discover
+        how students, businesses and partners can participate
+        in a connected economy.
+      </p>
+
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="buy.html" class="btn">EXPLORE PARTICIPATION</a>
+        <a href="account.html" class="btn secondary">MY ACCOUNT</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Campus Money. All rights reserved.</span>
+
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="presale.html">Presale</a>
+    <a href="buy.html">Participate</a>
+    <a href="account.html">My Account</a>
+    <a href="kover.html">KOVÉR</a>
+    <a href="legal.html">Legal</a>
+  </div>
+</footer>
+
+</body>
+</html>
