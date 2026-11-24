@@ -1,0 +1,943 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>My Account | Campus Money</title>
+<meta name="description" content="Manage your Campus Money account, wallet, purchases and KOVÉR rewards.">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --bg:#080808;
+  --panel:#111;
+  --panel2:#171717;
+  --lime:#b8ff3b;
+  --white:#f6f6f6;
+  --muted:#999;
+  --border:#292929;
+  --gold:#d8b56d;
+  --red:#ff7777;
+}
+* {box-sizing:border-box;margin:0;padding:0}
+body {
+  background:var(--bg);
+  color:var(--white);
+  font-family:Inter,Arial,sans-serif;
+  min-height:100vh;
+}
+a {color:inherit;text-decoration:none}
+button,input,select {font:inherit}
+button {cursor:pointer}
+header {
+  height:75px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 6%;
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  background:rgba(8,8,8,.96);
+  z-index:10;
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+.brand img {width:40px;height:40px;object-fit:contain}
+.brand span {color:var(--lime)}
+nav {display:flex;gap:23px;align-items:center}
+nav a {font-size:12px;color:#bbb}
+nav a:hover {color:var(--lime)}
+.menu {display:none;background:none;color:white;border:0;font-size:25px}
+.container {max-width:1120px;margin:auto;padding:38px 22px 80px}
+.eyebrow {
+  color:var(--lime);
+  text-transform:uppercase;
+  font-size:10px;
+  letter-spacing:2px;
+  font-weight:800;
+  margin-bottom:12px;
+}
+h1 {font-size:clamp(30px,5vw,48px);letter-spacing:-1.5px}
+h2 {font-size:21px;margin-bottom:8px}
+h3 {font-size:15px}
+.sub {color:var(--muted);font-size:13px;line-height:1.7}
+.panel {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:24px;
+}
+.auth-wrap {max-width:480px;margin:45px auto}
+.auth-tabs {display:flex;gap:8px;margin:23px 0}
+.tab {
+  flex:1;padding:12px;border:1px solid var(--border);
+  background:#151515;color:#aaa;border-radius:9px;
+}
+.tab.active {background:var(--lime);color:#080808;border-color:var(--lime);font-weight:800}
+.field {margin:15px 0}
+label {display:block;font-size:11px;color:#bbb;margin-bottom:8px}
+input,select {
+  width:100%;padding:14px 13px;background:#090909;
+  border:1px solid #333;border-radius:9px;color:white;outline:none;
+}
+input:focus,select:focus {border-color:var(--lime)}
+.btn {
+  padding:14px 18px;border:0;border-radius:9px;
+  background:var(--lime);color:#080808;font-weight:900;
+  font-size:12px;letter-spacing:.4px;
+}
+.btn:hover {filter:brightness(1.08)}
+.btn:disabled {opacity:.45;cursor:not-allowed}
+.btn.full {width:100%}
+.btn.secondary {background:#202020;color:white;border:1px solid #383838}
+.btn.small {padding:10px 13px}
+.link-btn {background:none;border:0;color:var(--lime);font-size:12px}
+.auth-note {margin-top:17px;color:var(--muted);font-size:11px;line-height:1.7}
+.message {
+  display:none;padding:12px 14px;border-radius:9px;
+  margin:14px 0;font-size:12px;line-height:1.6;
+}
+.message.error {display:block;background:#301919;color:#ffb1b1}
+.message.success {display:block;background:#172416;color:#c9ff9a}
+.dashboard {display:none}
+.topline {
+  display:flex;justify-content:space-between;align-items:center;
+  gap:15px;flex-wrap:wrap;margin-bottom:25px;
+}
+.status {
+  display:inline-flex;align-items:center;gap:7px;
+  color:var(--lime);font-size:10px;text-transform:uppercase;
+  letter-spacing:1px;font-weight:800;
+}
+.status:before {
+  content:"";width:7px;height:7px;background:var(--lime);border-radius:50%;
+}
+.grid {
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:13px;margin:23px 0;
+}
+.stat {background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px}
+.stat small {display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+.stat strong {font-size:24px;display:block;overflow-wrap:anywhere}
+.stat span {font-size:10px;color:#888;display:block;margin-top:7px}
+.content-grid {
+  display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin-top:16px;
+}
+.section-head {display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:20px}
+.wallet-address {font-size:12px;color:var(--lime);overflow-wrap:anywhere;margin:14px 0}
+.tier-card {
+  border:1px solid #5a4a2d;
+  background:linear-gradient(135deg,#17140e,#111);
+  border-radius:14px;padding:22px;margin-top:15px;
+}
+.tier-name {font-size:24px;color:var(--gold);font-weight:900;margin:9px 0}
+.tier-card p {color:#aaa;font-size:12px;line-height:1.7}
+.reward-image {width:100%;max-height:150px;object-fit:contain;margin:10px auto}
+.progress {height:6px;background:#333;border-radius:20px;margin:16px 0;overflow:hidden}
+.progress span {display:block;height:100%;width:0;background:var(--lime)}
+.table-wrap {overflow-x:auto}
+table {width:100%;border-collapse:collapse;min-width:530px}
+th,td {text-align:left;padding:14px 10px;border-bottom:1px solid var(--border);font-size:11px}
+th {color:#888;font-weight:600}
+td {color:#ddd}
+.empty {color:#888;font-size:12px;line-height:1.7;padding:18px 0}
+.pill {font-size:9px;padding:5px 8px;border-radius:20px;background:#252525;color:#ccc}
+.pill.good {background:#1b2b13;color:var(--lime)}
+.account-details {display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.detail {padding:13px 0;border-bottom:1px solid var(--border)}
+.detail small {display:block;color:#888;font-size:10px;margin-bottom:7px}
+.detail strong {font-size:12px;overflow-wrap:anywhere}
+.notice {
+  border:1px solid #343434;background:#101010;border-radius:12px;
+  padding:16px;color:#aaa;font-size:11px;line-height:1.7;margin-top:16px;
+}
+footer {
+  border-top:1px solid var(--border);padding:25px 6%;
+  display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;
+  color:#777;font-size:10px;
+}
+footer a:hover {color:var(--lime)}
+.hidden {display:none!important}
+@media(max-width:800px) {
+  nav {display:none;position:absolute;top:74px;left:0;right:0;
+    background:#101010;padding:22px;flex-direction:column;align-items:flex-start}
+  nav.open {display:flex}
+  .menu {display:block}
+  .grid {grid-template-columns:repeat(2,1fr)}
+  .content-grid {grid-template-columns:1fr}
+}
+@media(max-width:420px) {
+  .container {padding:27px 15px 60px}
+  .panel {padding:18px}
+  .stat {padding:15px}
+  .stat strong {font-size:20px}
+  .account-details {grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <a class="brand" href="index.html">
+    <!-- Replace the logo image path here if your asset has a different name -->
+    <img src="assets/campus-money-logo.png" alt="Campus Money">
+    <div>CAMPUS <span>MONEY</span></div>
+  </a>
+
+  <nav id="nav">
+    <a href="index.html">Home</a>
+    <a href="presale.html">Presale</a>
+    <a href="ecosystem.html">Ecosystem</a>
+    <a href="kover.html">KOVÉR</a>
+    <a href="legal.html">Legal</a>
+  </nav>
+  <button class="menu" onclick="document.getElementById('nav').classList.toggle('open')" aria-label="Open menu">☰</button>
+</header>
+
+<main class="container">
+
+  <!-- LOGIN / REGISTRATION -->
+  <section id="authSection" class="auth-wrap">
+    <div class="panel">
+      <div class="eyebrow">Campus Money member access</div>
+      <h1>Welcome back.</h1>
+      <p class="sub" style="margin-top:9px">Access your account, wallet and verified rewards in one place.</p>
+
+      <div class="auth-tabs">
+        <button class="tab active" id="loginTab" onclick="showAuth('login')">Log in</button>
+        <button class="tab" id="signupTab" onclick="showAuth('signup')">Create account</button>
+      </div>
+
+      <div id="signupNameField" class="field hidden">
+        <label>FULL NAME</label>
+        <input id="fullName" type="text" autocomplete="name" placeholder="Your full name">
+      </div>
+
+      <div class="field">
+        <label>EMAIL ADDRESS</label>
+        <input id="email" type="email" autocomplete="email" placeholder="you@example.com">
+      </div>
+
+      <div class="field">
+        <label>PASSWORD</label>
+        <input id="password" type="password" autocomplete="current-password" placeholder="Enter your password">
+      </div>
+
+      <div id="authMessage" class="message"></div>
+
+      <button class="btn full" id="authButton" onclick="submitAuth()">LOG IN</button>
+
+      <div style="text-align:center;margin-top:17px">
+        <button class="link-btn" onclick="resetPassword()">Forgot your password?</button>
+      </div>
+
+      <p class="auth-note">
+        By continuing, you agree to the Campus Money terms and privacy policy.
+        <a href="legal.html" style="color:var(--lime)">View legal information</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section id="dashboard" class="dashboard">
+
+    <div class="topline">
+      <div>
+        <div class="eyebrow">Your personal dashboard</div>
+        <h1>My account.</h1>
+        <p class="sub" id="welcomeText" style="margin-top:8px">Welcome to Campus Money.</p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <span class="status">Account active</span>
+        <button class="btn secondary small" onclick="logout()">LOG OUT</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="stat">
+        <small>Verified contribution</small>
+        <strong id="totalContribution">$0.00</strong>
+        <span>Confirmed purchases only</span>
+      </div>
+      <div class="stat">
+        <small>Campus Money tokens</small>
+        <strong id="totalTokens">0</strong>
+        <span>Verified token total</span>
+      </div>
+      <div class="stat">
+        <small>Purchases</small>
+        <strong id="purchaseCount">0</strong>
+        <span>Verified transactions</span>
+      </div>
+      <div class="stat">
+        <small>KOVÉR status</small>
+        <strong id="tierShort">—</strong>
+        <span id="tierSub">Reward qualification</span>
+      </div>
+    </div>
+
+    <div class="content-grid">
+
+      <div class="panel">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Wallet connection</div>
+            <h2>Your wallet</h2>
+          </div>
+          <span class="pill" id="walletStatus">Not connected</span>
+        </div>
+
+        <p class="sub">Connect your wallet to display your public Base network address.</p>
+        <div class="wallet-address" id="walletAddress">No wallet connected</div>
+
+        <button class="btn" id="walletButton" onclick="connectWallet()">CONNECT WALLET</button>
+        <button class="btn secondary small hidden" id="disconnectWallet" onclick="disconnectWallet()">DISCONNECT</button>
+
+        <div class="notice">
+          Connecting a wallet displays its public address. It does not by itself verify wallet ownership or prove a purchase. Secure verification is required before purchases can count toward rewards.
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Your reward</div>
+            <h2>KOVÉR collection</h2>
+          </div>
+          <span class="pill" id="rewardStatus">Not verified</span>
+        </div>
+
+        <div class="tier-card">
+          <div class="eyebrow">Current qualifying tier</div>
+          <div class="tier-name" id="tierName">Not yet qualified</div>
+          <p id="tierDescription">Your KOVÉR reward status will appear here after your qualifying contribution has been verified.</p>
+          <img id="tierImage" class="reward-image hidden" src="" alt="KOVÉR reward watch">
+          <div class="progress"><span id="tierProgress"></span></div>
+          <p id="tierProgressText">Verified contribution: $0.00</p>
+        </div>
+
+        <div style="margin-top:17px">
+          <div class="detail">
+            <small>CLAIM STATUS</small>
+            <strong id="claimStatus">Not available</strong>
+          </div>
+          <div class="detail">
+            <small>CLAIM REFERENCE</small>
+            <strong id="claimReference">—</strong>
+          </div>
+          <a href="claim.html" class="btn secondary full" style="display:block;text-align:center;margin-top:17px">VIEW CLAIM PAGE</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Account information</div>
+          <h2>Personal details</h2>
+        </div>
+      </div>
+      <div class="account-details">
+        <div class="detail">
+          <small>FULL NAME</small>
+          <strong id="accountName">—</strong>
+        </div>
+        <div class="detail">
+          <small>EMAIL ADDRESS</small>
+          <strong id="accountEmail">—</strong>
+        </div>
+        <div class="detail">
+          <small>CONNECTED WALLET</small>
+          <strong id="accountWallet">Not connected</strong>
+        </div>
+        <div class="detail">
+          <small>NETWORK</small>
+          <strong>Base</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:16px">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Transaction records</div>
+          <h2>Purchase history</h2>
+        </div>
+        <span class="pill" id="historyCount">0 records</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>DATE</th>
+              <th>CONTRIBUTION</th>
+              <th>TOKENS</th>
+              <th>NETWORK</th>
+              <th>STATUS</th>
+              <th>TRANSACTION</th>
+            </tr>
+          </thead>
+          <tbody id="purchaseRows">
+            <tr><td colspan="6" class="empty">Your verified purchase records will appear here.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="notice">
+      Campus Money is designed for utility and ecosystem access. It does not represent company ownership, equity, voting rights, guaranteed returns or guaranteed liquidity. KOVÉR rewards are subject to the final published eligibility and fulfilment terms.
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
+      <a href="presale.html" class="btn">VIEW PRESALE</a>
+      <a href="kover.html" class="btn secondary">EXPLORE KOVÉR</a>
+      <a href="ecosystem.html" class="btn secondary">EXPLORE ECOSYSTEM</a>
+    </div>
+
+  </section>
+</main>
+
+<footer>
+  <span>© 2026 Campus Money. All rights reserved.</span>
+  <div style="display:flex;gap:17px;flex-wrap:wrap">
+    <a href="index.html">Home</a>
+    <a href="legal.html">Legal</a>
+    <a href="presale.html">Presale</a>
+    <a href="kover.html">KOVÉR</a>
+  </div>
+</footer>
+
+<script>
+/* =====================================================
+   CAMPUS MONEY ACCOUNT CONFIGURATION
+
+   Add your actual Campus Money Supabase project details.
+   Do not use the Zep Swipe Supabase project credentials.
+===================================================== */
+
+const CONFIG = {
+  SUPABASE_URL: "YOUR_CAMPUS_MONEY_SUPABASE_URL",
+  SUPABASE_ANON_KEY: "YOUR_CAMPUS_MONEY_ANON_KEY",
+
+  // Secure backend endpoint that returns this user's
+  // verified purchases, contribution and reward details.
+  ACCOUNT_SUMMARY_ENDPOINT: "YOUR_ACCOUNT_SUMMARY_ENDPOINT",
+
+  BASE_CHAIN_ID: "0x2105",
+
+  // Replace these paths if your watch images use different names.
+  WATCH_IMAGES: {
+    Heritage: "assets/kover-heritage.png",
+    Prestige: "assets/kover-prestige.png",
+    Legacy: "assets/kover-legacy.png"
+  }
+};
+
+let supabaseClient = null;
+let currentUser = null;
+let connectedWallet = null;
+let authMode = "login";
+
+const $ = id => document.getElementById(id);
+
+function isConfigured(value) {
+  return value && !value.startsWith("YOUR_") && value.trim() !== "";
+}
+
+function showMessage(text, type = "error") {
+  const el = $("authMessage");
+  el.textContent = text;
+  el.className = "message " + type;
+}
+
+function clearMessage() {
+  $("authMessage").className = "message";
+  $("authMessage").textContent = "";
+}
+
+function showAuth(mode) {
+  authMode = mode;
+  clearMessage();
+
+  $("loginTab").classList.toggle("active", mode === "login");
+  $("signupTab").classList.toggle("active", mode === "signup");
+  $("signupNameField").classList.toggle("hidden", mode !== "signup");
+
+  $("authButton").textContent =
+    mode === "login" ? "LOG IN" : "CREATE ACCOUNT";
+
+  $("password").autocomplete =
+    mode === "login" ? "current-password" : "new-password";
+}
+
+function initialiseSupabase() {
+  if (
+    !window.supabase ||
+    !isConfigured(CONFIG.SUPABASE_URL) ||
+    !isConfigured(CONFIG.SUPABASE_ANON_KEY)
+  ) {
+    $("authButton").disabled = true;
+    showMessage(
+      "Account access is being prepared. Please try again later.",
+      "error"
+    );
+    return false;
+  }
+
+  supabaseClient = window.supabase.createClient(
+    CONFIG.SUPABASE_URL,
+    CONFIG.SUPABASE_ANON_KEY
+  );
+
+  return true;
+}
+
+async function submitAuth() {
+  clearMessage();
+
+  if (!supabaseClient) {
+    showMessage("Account access is temporarily unavailable.");
+    return;
+  }
+
+  const email = $("email").value.trim();
+  const password = $("password").value;
+  const fullName = $("fullName").value.trim();
+
+  if (!email || !password) {
+    showMessage("Please enter your email address and password.");
+    return;
+  }
+
+  if (authMode === "signup" && !fullName) {
+    showMessage("Please enter your full name.");
+    return;
+  }
+
+  if (password.length < 6) {
+    showMessage("Your password must contain at least 6 characters.");
+    return;
+  }
+
+  const button = $("authButton");
+  button.disabled = true;
+  button.textContent = "PLEASE WAIT...";
+
+  try {
+    if (authMode === "signup") {
+      const { data, error } = await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { full_name: fullName },
+          emailRedirectTo: window.location.origin + "/account.html"
+        }
+      });
+
+      if (error) throw error;
+
+      if (data.session) {
+        await loadDashboard(data.user);
+      } else {
+        showMessage(
+          "Your account has been created. Please check your email to confirm your address before logging in.",
+          "success"
+        );
+        showAuth("login");
+      }
+    } else {
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
+
+      if (error) throw error;
+      await loadDashboard(data.user);
+    }
+  } catch (error) {
+    showMessage(
+      error.message || "We could not complete your request. Please try again."
+    );
+  } finally {
+    button.disabled = false;
+    button.textContent =
+      authMode === "login" ? "LOG IN" : "CREATE ACCOUNT";
+  }
+}
+
+async function resetPassword() {
+  clearMessage();
+
+  if (!supabaseClient) {
+    showMessage("Password recovery is temporarily unavailable.");
+    return;
+  }
+
+  const email = $("email").value.trim();
+
+  if (!email) {
+    showMessage("Enter your email address first.");
+    return;
+  }
+
+  try {
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(
+      email,
+      { redirectTo: window.location.origin + "/account.html" }
+    );
+
+    if (error) throw error;
+
+    showMessage(
+      "If an account exists for that email, a password reset link will be sent.",
+      "success"
+    );
+  } catch (error) {
+    showMessage("We could not send the reset email. Please try again.");
+  }
+}
+
+async function logout() {
+  if (!supabaseClient) return;
+
+  await supabaseClient.auth.signOut();
+  currentUser = null;
+  $("dashboard").style.display = "none";
+  $("authSection").style.display = "block";
+  clearMessage();
+}
+
+async function loadDashboard(user) {
+  currentUser = user;
+
+  $("authSection").style.display = "none";
+  $("dashboard").style.display = "block";
+
+  const metadata = user.user_metadata || {};
+  const name = metadata.full_name || metadata.name || "Campus Money member";
+
+  $("welcomeText").textContent = "Welcome, " + name + ".";
+  $("accountName").textContent = name;
+  $("accountEmail").textContent = user.email || "—";
+
+  await loadAccountSummary();
+}
+
+async function loadAccountSummary() {
+  if (!currentUser || !supabaseClient) return;
+
+  if (!isConfigured(CONFIG.ACCOUNT_SUMMARY_ENDPOINT)) {
+    showEmptyAccountData();
+    return;
+  }
+
+  try {
+    const { data: sessionData } =
+      await supabaseClient.auth.getSession();
+
+    const token = sessionData.session?.access_token;
+
+    if (!token) return;
+
+    const response = await fetch(CONFIG.ACCOUNT_SUMMARY_ENDPOINT, {
+      method: "GET",
+      headers: {
+        "Authorization": "Bearer " + token,
+        "Content-Type": "application/json"
+      },
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error("Account information unavailable");
+    }
+
+    const data = await response.json();
+    renderAccountSummary(data);
+
+  } catch (error) {
+    showEmptyAccountData();
+  }
+}
+
+function showEmptyAccountData() {
+  $("totalContribution").textContent = "$0.00";
+  $("totalTokens").textContent = "0";
+  $("purchaseCount").textContent = "0";
+  $("tierShort").textContent = "—";
+  $("tierName").textContent = "Not yet qualified";
+  $("tierDescription").textContent =
+    "Your reward status will appear here once your qualifying contribution has been verified.";
+  $("tierProgressText").textContent =
+    "Verified contribution: $0.00";
+  $("claimStatus").textContent = "Not available";
+  $("claimReference").textContent = "—";
+  $("purchaseRows").innerHTML =
+    '<tr><td colspan="6" class="empty">Your verified purchase history will appear here once available.</td></tr>';
+  $("historyCount").textContent = "0 records";
+}
+
+function money(value) {
+  const amount = Number(value || 0);
+  return "$" + amount.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+function numberFormat(value) {
+  return Number(value || 0).toLocaleString("en-US", {
+    maximumFractionDigits: 4
+  });
+}
+
+function safeText(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  }[char]));
+}
+
+function renderAccountSummary(data) {
+  const profile = data.profile || {};
+  const reward = data.reward || {};
+  const claim = data.claim || {};
+  const purchases = Array.isArray(data.purchases) ? data.purchases : [];
+
+  const total = Number(data.qualified_contribution || 0);
+  const tokens = Number(data.total_tokens || 0);
+  const count = Number(data.purchase_count || purchases.length);
+
+  $("totalContribution").textContent = money(total);
+  $("totalTokens").textContent = numberFormat(tokens);
+  $("purchaseCount").textContent = count.toLocaleString();
+
+  if (profile.full_name) {
+    $("accountName").textContent = profile.full_name;
+    $("welcomeText").textContent =
+      "Welcome, " + profile.full_name + ".";
+  }
+
+  if (data.wallet) {
+    $("accountWallet").textContent = data.wallet;
+  }
+
+  const tier = reward.verified ? reward.tier : null;
+
+  $("tierShort").textContent = tier || "—";
+  $("tierName").textContent = tier
+    ? "KOVÉR " + tier
+    : "Not yet qualified";
+
+  $("rewardStatus").textContent = reward.verified
+    ? "Verified"
+    : "Not verified";
+
+  $("tierDescription").textContent =
+    reward.description ||
+    "Your reward status will appear here after your qualifying contribution has been verified.";
+
+  const tierImage = $("tierImage");
+  const imagePath = tier ? CONFIG.WATCH_IMAGES[tier] : null;
+
+  if (imagePath && reward.verified) {
+    tierImage.src = imagePath;
+    tierImage.classList.remove("hidden");
+    tierImage.onerror = () => tierImage.classList.add("hidden");
+  } else {
+    tierImage.classList.add("hidden");
+  }
+
+  let nextTarget = 1000;
+
+  if (total >= 1000 && total < 2500) nextTarget = 2500;
+  else if (total >= 2500 && total < 5000) nextTarget = 5000;
+  else if (total >= 5000) nextTarget = 5000;
+
+  const progress = Math.min((total / nextTarget) * 100, 100);
+
+  $("tierProgress").style.width = progress + "%";
+  $("tierProgressText").textContent =
+    "Verified contribution: " + money(total);
+
+  $("claimStatus").textContent =
+    claim.status || reward.claim_status || "Not available";
+
+  $("claimReference").textContent =
+    claim.reference || reward.claim_reference || "—";
+
+  $("purchaseRows").innerHTML = "";
+
+  if (purchases.length === 0) {
+    $("purchaseRows").innerHTML =
+      '<tr><td colspan="6" class="empty">No verified purchases are currently recorded.</td></tr>';
+  } else {
+    purchases.forEach(item => {
+      const row = document.createElement("tr");
+      const date = item.date
+        ? new Date(item.date).toLocaleDateString()
+        : "—";
+
+      const hash = item.transaction_hash || "";
+
+      row.innerHTML = `
+        <td>${safeText(date)}</td>
+        <td>${safeText(money(item.amount))}</td>
+        <td>${safeText(numberFormat(item.tokens))}</td>
+        <td>${safeText(item.network || "Base")}</td>
+        <td><span class="pill good">${safeText(item.status || "Verified")}</span></td>
+        <td>${
+          hash
+            ? `<a href="https://basescan.org/tx/${encodeURIComponent(hash)}" target="_blank" rel="noopener noreferrer" style="color:var(--lime)">View transaction ↗</a>`
+            : "—"
+        }</td>
+      `;
+
+      $("purchaseRows").appendChild(row);
+    });
+  }
+
+  $("historyCount").textContent =
+    purchases.length + (purchases.length === 1 ? " record" : " records");
+}
+
+/* =====================================================
+   BASE WALLET CONNECTION
+   This displays the wallet address only.
+   It does not verify wallet ownership.
+===================================================== */
+
+async function connectWallet() {
+  if (!window.ethereum) {
+    alert("Please open this page in a wallet-enabled browser or install a compatible wallet.");
+    return;
+  }
+
+  try {
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts"
+    });
+
+    if (!accounts || !accounts.length) return;
+
+    const chainId = await window.ethereum.request({
+      method: "eth_chainId"
+    });
+
+    if (chainId !== CONFIG.BASE_CHAIN_ID) {
+      try {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: CONFIG.BASE_CHAIN_ID }]
+        });
+      } catch (switchError) {
+        if (switchError.code === 4902) {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+              chainId: CONFIG.BASE_CHAIN_ID,
+              chainName: "Base Mainnet",
+              nativeCurrency: {
+                name: "Ether",
+                symbol: "ETH",
+                decimals: 18
+              },
+              rpcUrls: ["https://mainnet.base.org"],
+              blockExplorerUrls: ["https://basescan.org"]
+            }]
+          });
+        } else {
+          throw switchError;
+        }
+      }
+    }
+
+    connectedWallet = accounts[0];
+    updateWalletDisplay();
+
+  } catch (error) {
+    alert("Wallet connection was not completed. Please try again.");
+  }
+}
+
+function updateWalletDisplay() {
+  if (!connectedWallet) return;
+
+  const short =
+    connectedWallet.slice(0, 8) + "..." +
+    connectedWallet.slice(-6);
+
+  $("walletAddress").textContent = connectedWallet;
+  $("accountWallet").textContent = short;
+  $("walletStatus").textContent = "Connected";
+  $("walletButton").classList.add("hidden");
+  $("disconnectWallet").classList.remove("hidden");
+}
+
+function disconnectWallet() {
+  connectedWallet = null;
+  $("walletAddress").textContent = "No wallet connected";
+  $("accountWallet").textContent = "Not connected";
+  $("walletStatus").textContent = "Not connected";
+  $("walletButton").classList.remove("hidden");
+  $("disconnectWallet").classList.add("hidden");
+}
+
+if (window.ethereum) {
+  window.ethereum.on("accountsChanged", accounts => {
+    connectedWallet = accounts && accounts.length ? accounts[0] : null;
+
+    if (connectedWallet) {
+      updateWalletDisplay();
+    } else {
+      disconnectWallet();
+    }
+  });
+}
+
+/* =====================================================
+   STARTUP AND SESSION RESTORATION
+===================================================== */
+
+async function startAccount() {
+  if (!initialiseSupabase()) return;
+
+  const { data } = await supabaseClient.auth.getSession();
+
+  if (data.session?.user) {
+    await loadDashboard(data.session.user);
+  }
+
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_IN" && session?.user) {
+      loadDashboard(session.user);
+    }
+
+    if (event === "SIGNED_OUT") {
+      $("dashboard").style.display = "none";
+      $("authSection").style.display = "block";
+    }
+  });
+}
+
+startAccount();
+</script>
+
+</body>
+</html>
