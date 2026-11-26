@@ -1,0 +1,1376 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070707">
+
+<title>Buy CM | Campus Money</title>
+<meta name="description" content="Explore the planned Campus Money CM token and its developing digital economy ecosystem.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #070707;
+    --surface: #111111;
+    --surface2: #171717;
+    --lime: #b8ff3b;
+    --white: #ffffff;
+    --muted: #999999;
+    --border: rgba(255,255,255,.09);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: Inter, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+}
+
+.container {
+    width: min(1120px, 91%);
+    margin: auto;
+}
+
+/* HEADER */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(7,7,7,.94);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border);
+}
+
+.nav {
+    height: 76px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.brand img {
+    width: 43px;
+    height: 43px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.brand span {
+    color: var(--lime);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #cccccc;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--lime);
+}
+
+.nav-button {
+    background: var(--lime);
+    color: #070707;
+    padding: 11px 16px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.menu-button {
+    display: none;
+    background: #171717;
+    border: 1px solid var(--border);
+    color: white;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* HERO */
+
+.hero {
+    padding: 45px 0 60px;
+}
+
+.hero-banner {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(184,255,59,.2);
+    background: #111;
+}
+
+.hero-banner img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    max-height: 440px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.hero-content {
+    max-width: 760px;
+    padding: 35px 0 0;
+}
+
+.eyebrow {
+    color: var(--lime);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 6vw, 66px);
+    font-weight: 900;
+    line-height: 1.04;
+    letter-spacing: -3px;
+    margin-bottom: 18px;
+}
+
+.hero h1 span {
+    color: var(--lime);
+}
+
+.hero p {
+    max-width: 650px;
+    color: #aaaaaa;
+    font-size: 14px;
+}
+
+/* STATUS */
+
+.status-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    background: #111;
+    color: #cccccc;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #e0b84d;
+}
+
+/* MAIN PURCHASE AREA */
+
+.purchase-section {
+    padding: 55px 0 85px;
+}
+
+.purchase-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.panel {
+    background: linear-gradient(145deg, #151515, #0e0e0e);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 27px;
+}
+
+.panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.panel-heading h2 {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.prelaunch {
+    color: #f2c96b;
+    background: rgba(242,201,107,.1);
+    border: 1px solid rgba(242,201,107,.2);
+    padding: 6px 10px;
+    border-radius: 30px;
+    font-size: 9px;
+    font-weight: 900;
+}
+
+/* TOKEN CARD */
+
+.token-card {
+    text-align: center;
+    padding: 28px 15px;
+    border: 1px solid rgba(184,255,59,.17);
+    border-radius: 12px;
+    background:
+        radial-gradient(circle at 50% 35%, rgba(184,255,59,.11), transparent 48%),
+        #090909;
+}
+
+.token-card img {
+    width: 145px;
+    height: 145px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 20px rgba(184,255,59,.2));
+}
+
+.token-card h2 {
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-top: 10px;
+}
+
+.token-card h2 span {
+    color: var(--lime);
+}
+
+.token-card p {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.token-description {
+    color: #aaaaaa;
+    font-size: 12px;
+    margin-top: 22px;
+}
+
+/* TOKEN DETAILS */
+
+.details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.detail {
+    background: #171717;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.detail span {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+
+.detail strong {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* PURCHASE FORM */
+
+.field-label {
+    display: block;
+    color: #bbbbbb;
+    font-size: 11px;
+    font-weight: 700;
+    margin: 19px 0 8px;
+}
+
+.fake-input {
+    width: 100%;
+    background: #080808;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #ffffff;
+    padding: 16px;
+    font-size: 15px;
+    outline: none;
+}
+
+.fake-input:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #080808;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 14px;
+    color: #bbbbbb;
+    font-size: 12px;
+}
+
+.payment-option strong {
+    color: white;
+}
+
+.purchase-summary {
+    background: #080808;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 17px;
+    margin-top: 22px;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 9px 0;
+    font-size: 11px;
+    color: #aaaaaa;
+}
+
+.summary-line strong {
+    color: #ffffff;
+}
+
+.connect-button {
+    width: 100%;
+    border: 0;
+    background: #343a2c;
+    color: #aebc99;
+    padding: 17px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: not-allowed;
+}
+
+.connect-button:disabled {
+    opacity: 1;
+}
+
+.small-note {
+    color: #777777;
+    font-size: 10px;
+    text-align: center;
+    margin-top: 13px;
+}
+
+/* NETWORK */
+
+.network {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #101010;
+    border: 1px solid var(--border);
+    padding: 15px;
+    border-radius: 9px;
+    margin-top: 17px;
+}
+
+.network-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.base-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #2252e7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.network-text strong {
+    display: block;
+    font-size: 11px;
+}
+
+.network-text span {
+    display: block;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.network-tag {
+    color: var(--lime);
+    font-size: 9px;
+    font-weight: 900;
+}
+
+/* SECTION */
+
+.section {
+    padding: 75px 0;
+    border-top: 1px solid var(--border);
+}
+
+.section-label {
+    color: var(--lime);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.section-title {
+    font-size: clamp(28px, 4vw, 42px);
+    line-height: 1.15;
+    font-weight: 900;
+    letter-spacing: -1.7px;
+    margin-bottom: 15px;
+}
+
+.section-description {
+    color: var(--muted);
+    font-size: 13px;
+    max-width: 690px;
+}
+
+/* UTILITY CARDS */
+
+.utility-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 32px;
+}
+
+.utility-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 23px;
+}
+
+.utility-icon {
+    font-size: 25px;
+}
+
+.utility-card h3 {
+    font-size: 15px;
+    margin: 13px 0 7px;
+}
+
+.utility-card p {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* HOW TO BUY */
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 32px;
+}
+
+.step {
+    padding: 22px;
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.step-number {
+    color: var(--lime);
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.step h3 {
+    font-size: 15px;
+    margin: 10px 0 7px;
+}
+
+.step p {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* DOCUMENTS */
+
+.documents {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 13px;
+    margin-top: 30px;
+}
+
+.document-link {
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 18px;
+    transition: .2s;
+}
+
+.document-link:hover {
+    border-color: var(--lime);
+}
+
+.document-link strong {
+    display: block;
+    font-size: 12px;
+}
+
+.document-link span {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+/* SAFETY */
+
+.notice {
+    margin-top: 30px;
+    padding: 25px;
+    background: #101010;
+    border: 1px solid rgba(184,255,59,.15);
+    border-radius: 10px;
+}
+
+.notice h3 {
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.notice p {
+    color: #999999;
+    font-size: 11px;
+    margin: 10px 0;
+}
+
+/* CTA */
+
+.cta {
+    padding: 75px 0;
+    text-align: center;
+    background:
+        linear-gradient(rgba(0,0,0,.87), rgba(0,0,0,.96)),
+        url('campus-money-banner.jpeg') center/cover no-repeat;
+}
+
+.cta h2 {
+    font-size: clamp(30px, 5vw, 48px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.15;
+    margin-bottom: 15px;
+}
+
+.cta h2 span {
+    color: var(--lime);
+}
+
+.cta p {
+    color: var(--muted);
+    font-size: 12px;
+    max-width: 570px;
+    margin: 0 auto 23px;
+}
+
+.cta a {
+    display: inline-block;
+    background: var(--lime);
+    color: #070707;
+    padding: 14px 23px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+/* FOOTER */
+
+footer {
+    background: #050505;
+    padding: 35px 0 20px;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding-bottom: 25px;
+}
+
+.footer-brand {
+    max-width: 340px;
+}
+
+.footer-brand p {
+    color: #888;
+    font-size: 10px;
+    margin-top: 10px;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 17px;
+    font-size: 10px;
+    color: #aaa;
+}
+
+.footer-links a:hover {
+    color: var(--lime);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--border);
+    padding-top: 17px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: #666;
+    font-size: 9px;
+}
+
+/* MOBILE */
+
+@media(max-width: 850px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        right: 0;
+        background: #080808;
+        padding: 22px 5%;
+        flex-direction: column;
+        align-items: flex-start;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-button {
+        display: none;
+    }
+
+    .menu-button {
+        display: block;
+    }
+
+    .purchase-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .utility-grid,
+    .documents {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .steps {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media(max-width: 540px) {
+    .hero {
+        padding-top: 25px;
+    }
+
+    .hero-banner,
+    .hero-banner img {
+        min-height: 160px;
+    }
+
+    .hero-banner img {
+        object-position: center;
+    }
+
+    .hero h1 {
+        letter-spacing: -2px;
+    }
+
+    .purchase-section {
+        padding-top: 30px;
+    }
+
+    .panel {
+        padding: 19px;
+    }
+
+    .utility-grid,
+    .documents,
+    .steps {
+        grid-template-columns: 1fr;
+    }
+
+    .section {
+        padding: 60px 0;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 11px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+    <div class="container nav">
+
+        <a href="index.html" class="brand">
+            <img src="campus-money-logo.jpeg" alt="Campus Money CM logo">
+            <span>CAMPUS MONEY</span>
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="ecosystem.html">Ecosystem</a>
+            <a href="roadmap.html">Roadmap</a>
+            <a href="whitepaper.html">Whitepaper</a>
+            <a href="community.html">Community</a>
+            <a href="buy.html" class="active">CM Token</a>
+        </nav>
+
+        <a href="#purchase" class="nav-button">Explore CM</a>
+
+        <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false">
+            ☰
+        </button>
+
+    </div>
+</header>
+
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero">
+    <div class="container">
+
+        <div class="hero-banner">
+            <img
+                src="campus-money-banner.jpeg"
+                alt="Campus Money official student economy banner">
+        </div>
+
+        <div class="hero-content">
+
+            <div class="eyebrow">THE CAMPUS MONEY DIGITAL ECONOMY</div>
+
+            <h1>
+                The next chapter<br>
+                starts with <span>CM.</span>
+            </h1>
+
+            <p>
+                Explore Campus Money, a developing digital economy
+                initiative built around students, opportunities,
+                community and innovation.
+            </p>
+
+            <div class="status-row">
+                <div class="status">
+                    <span class="status-dot"></span>
+                    Pre-launch
+                </div>
+
+                <div class="status">
+                    Base Network Planned
+                </div>
+
+                <div class="status">
+                    CM Token
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- PURCHASE AREA -->
+
+<section class="purchase-section" id="purchase">
+    <div class="container">
+
+        <div class="purchase-grid">
+
+            <!-- TOKEN INFORMATION -->
+
+            <div class="panel">
+
+                <div class="panel-heading">
+                    <h2>CM Token</h2>
+                    <span class="prelaunch">PRE-LAUNCH</span>
+                </div>
+
+                <div class="token-card">
+
+                    <img
+                        src="campus-money-logo.jpeg"
+                        alt="Official Campus Money CM coin">
+
+                    <h2>CAMPUS <span>MONEY</span></h2>
+
+                    <p>CM — Campus Money Token</p>
+
+                    <div class="token-description">
+                        A planned digital token within the developing
+                        Campus Money ecosystem. Its final utility,
+                        rights and technical specifications will be
+                        published in the official documentation.
+                    </div>
+
+                </div>
+
+                <div class="details">
+
+                    <div class="detail">
+                        <span>Token ticker</span>
+                        <strong>CM</strong>
+                    </div>
+
+                    <div class="detail">
+                        <span>Planned network</span>
+                        <strong>Base</strong>
+                    </div>
+
+                    <div class="detail">
+                        <span>Token standard</span>
+                        <strong>ERC-20 planned</strong>
+                    </div>
+
+                    <div class="detail">
+                        <span>Token supply</span>
+                        <strong>To be announced</strong>
+                    </div>
+
+                    <div class="detail">
+                        <span>Token price</span>
+                        <strong>To be announced</strong>
+                    </div>
+
+                    <div class="detail">
+                        <span>Sale status</span>
+                        <strong style="color:#f2c96b;">Not open</strong>
+                    </div>
+
+                </div>
+
+                <div class="network">
+
+                    <div class="network-left">
+                        <div class="base-mark">B</div>
+
+                        <div class="network-text">
+                            <strong>Base Network</strong>
+                            <span>Ethereum Layer 2 ecosystem</span>
+                        </div>
+                    </div>
+
+                    <div class="network-tag">PLANNED</div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PURCHASE PANEL -->
+
+            <div class="panel">
+
+                <div class="panel-heading">
+                    <h2>Purchase CM</h2>
+                    <span class="prelaunch">COMING SOON</span>
+                </div>
+
+                <p style="font-size:12px;color:#999;margin-bottom:20px;">
+                    The purchase interface is being prepared.
+                    Wallet connection and transactions will become
+                    available only after the official token offering
+                    is approved and launched.
+                </p>
+
+                <label class="field-label" for="purchaseAmount">
+                    Purchase amount
+                </label>
+
+                <input
+                    class="fake-input"
+                    id="purchaseAmount"
+                    type="text"
+                    value="Not available yet"
+                    disabled>
+
+                <label class="field-label">
+                    Payment currency
+                </label>
+
+                <div class="payment-option">
+                    <span>Payment asset</span>
+                    <strong>To be announced</strong>
+                </div>
+
+                <label class="field-label">
+                    Network
+                </label>
+
+                <div class="payment-option">
+                    <span>Blockchain</span>
+                    <strong>Base (planned)</strong>
+                </div>
+
+                <div class="purchase-summary">
+
+                    <div class="summary-line">
+                        <span>Token price</span>
+                        <strong>To be announced</strong>
+                    </div>
+
+                    <div class="summary-line">
+                        <span>Estimated CM received</span>
+                        <strong>Not available</strong>
+                    </div>
+
+                    <div class="summary-line">
+                        <span>Network fees</span>
+                        <strong>Not available</strong>
+                    </div>
+
+                    <div class="summary-line">
+                        <span>Purchase availability</span>
+                        <strong style="color:#f2c96b;">Not open</strong>
+                    </div>
+
+                </div>
+
+                <button class="connect-button" type="button" disabled>
+                    WALLET CONNECT COMING SOON
+                </button>
+
+                <p class="small-note">
+                    No wallet connection or payment is currently
+                    being requested by this page.
+                </p>
+
+                <div class="notice" style="margin-top:25px;">
+                    <h3>Before you participate</h3>
+
+                    <p>
+                        Read the official project documentation
+                        and understand the token's final terms,
+                        risks and eligibility requirements.
+                    </p>
+
+                    <p>
+                        Never share your wallet recovery phrase,
+                        private key or password with anyone.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- TOKEN PURPOSE -->
+
+<section class="section">
+    <div class="container">
+
+        <div class="section-label">The bigger picture</div>
+
+        <h2 class="section-title">
+            More than a token.
+        </h2>
+
+        <p class="section-description">
+            Campus Money is being developed around a wider student
+            economy vision. The CM token is a planned component
+            of that ecosystem, not the entire project.
+        </p>
+
+        <div class="utility-grid">
+
+            <div class="utility-card">
+                <div class="utility-icon">🎓</div>
+                <h3>Student Economy</h3>
+                <p>
+                    Explore opportunities that connect students
+                    with services, businesses and communities.
+                </p>
+            </div>
+
+            <div class="utility-card">
+                <div class="utility-icon">🌍</div>
+                <h3>Community</h3>
+                <p>
+                    Build a connected community around the future
+                    of student participation and innovation.
+                </p>
+            </div>
+
+            <div class="utility-card">
+                <div class="utility-icon">⚡</div>
+                <h3>Digital Innovation</h3>
+                <p>
+                    Explore digital technology and potential
+                    token-related ecosystem features as they develop.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- HOW PURCHASE WILL WORK -->
+
+<section class="section">
+    <div class="container">
+
+        <div class="section-label">Planned purchase experience</div>
+
+        <h2 class="section-title">
+            A simple and transparent process.
+        </h2>
+
+        <p class="section-description">
+            Once the offering is approved and launched,
+            the intended purchase journey will be communicated
+            through official project documentation.
+        </p>
+
+        <div class="steps">
+
+            <div class="step">
+                <div class="step-number">STEP 01</div>
+                <h3>Connect Wallet</h3>
+                <p>
+                    Connect a supported wallet compatible
+                    with the Base network.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">STEP 02</div>
+                <h3>Review Your Purchase</h3>
+                <p>
+                    Review the approved price, payment asset,
+                    token quantity, fees and offering terms.
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-number">STEP 03</div>
+                <h3>Confirm Transaction</h3>
+                <p>
+                    If eligible, review and authorise the
+                    transaction through your own wallet.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- DOCUMENTATION -->
+
+<section class="section">
+    <div class="container">
+
+        <div class="section-label">Do your research</div>
+
+        <h2 class="section-title">
+            Understand the project.
+        </h2>
+
+        <p class="section-description">
+            Explore Campus Money's project information and
+            development direction before considering any
+            future participation.
+        </p>
+
+        <div class="documents">
+
+            <a href="whitepaper.html" class="document-link">
+                <strong>Project Whitepaper ↗</strong>
+                <span>Project vision and documentation</span>
+            </a>
+
+            <a href="roadmap.html" class="document-link">
+                <strong>Development Roadmap ↗</strong>
+                <span>Planned development direction</span>
+            </a>
+
+            <a href="ecosystem.html" class="document-link">
+                <strong>Explore Ecosystem ↗</strong>
+                <span>Campus Money and Zep Swipe</span>
+            </a>
+
+            <a href="about.html" class="document-link">
+                <strong>About Campus Money ↗</strong>
+                <span>Our mission and vision</span>
+            </a>
+
+            <a href="community.html" class="document-link">
+                <strong>Join Community ↗</strong>
+                <span>Connect with the community</span>
+            </a>
+
+            <a href="investor-relations.html" class="document-link">
+                <strong>Investor Relations ↗</strong>
+                <span>Investor and partnership enquiries</span>
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- SAFETY AND LEGAL -->
+
+<section class="section">
+    <div class="container">
+
+        <div class="section-label">Important information</div>
+
+        <h2 class="section-title">
+            Transparency comes first.
+        </h2>
+
+        <div class="notice">
+
+            <h3>Pre-launch notice</h3>
+
+            <p>
+                Campus Money and the CM token are in development.
+                The token's final supply, allocation, price,
+                utility, payment asset, contract address and
+                offering terms have not been finalised on this page.
+            </p>
+
+            <p>
+                The reference to Base and ERC-20 describes
+                the planned technical direction. It does not
+                confirm that a token contract has been deployed.
+            </p>
+
+            <p>
+                This website does not currently offer or sell
+                CM tokens. The wallet connection and purchase
+                functions are not active.
+            </p>
+
+            <p>
+                Nothing on this page constitutes an offer,
+                invitation or solicitation to acquire a financial
+                product or investment. Any future offering will
+                require separate documentation and appropriate
+                legal and regulatory review.
+            </p>
+
+            <p>
+                No profit, return, token value, liquidity,
+                exchange listing or financial outcome is
+                promised or guaranteed.
+            </p>
+
+            <p>
+                Digital assets involve risks, including the
+                possibility of losing some or all of the amount
+                committed. Obtain independent professional
+                advice before making financial decisions.
+            </p>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- FINAL CTA -->
+
+<section class="cta">
+    <div class="container">
+
+        <h2>
+            Your Campus.<br>
+            Your Money.<br>
+            <span>Your Opportunities.</span>
+        </h2>
+
+        <p>
+            Follow the development of Campus Money
+            and stay connected with the community.
+        </p>
+
+        <a href="community.html">
+            JOIN THE COMMUNITY
+        </a>
+
+    </div>
+</section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+    <div class="container">
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="brand">
+                    <img src="campus-money-logo.jpeg" alt="Campus Money logo">
+                    <span>CAMPUS MONEY</span>
+                </a>
+
+                <p>
+                    Your Campus. Your Money. Your Opportunities.
+                    Building a connected student economy through
+                    opportunity, technology and innovation.
+                </p>
+
+            </div>
+
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="ecosystem.html">Ecosystem</a>
+                <a href="roadmap.html">Roadmap</a>
+                <a href="whitepaper.html">Whitepaper</a>
+                <a href="community.html">Community</a>
+                <a href="investor-relations.html">Investors</a>
+                <a href="https://www.zepswipe.com/" target="_blank" rel="noopener">Zep Swipe</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <span>© <span id="year"></span> Campus Money. All rights reserved.</span>
+            <span>Powered by the Zep Swipe ecosystem.</span>
+        </div>
+
+    </div>
+</footer>
+
+
+<script>
+const menuButton = document.getElementById("menuButton");
+const navLinks = document.getElementById("navLinks");
+
+menuButton.addEventListener("click", function() {
+
+    const isOpen = navLinks.classList.toggle("open");
+
+    menuButton.setAttribute(
+        "aria-expanded",
+        isOpen ? "true" : "false"
+    );
+
+    menuButton.textContent = isOpen ? "✕" : "☰";
+
+});
+
+document.querySelectorAll("#navLinks a").forEach(function(link) {
+
+    link.addEventListener("click", function() {
+
+        navLinks.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+        menuButton.textContent = "☰";
+
+    });
+
+});
+
+document.getElementById("year").textContent =
+    new Date().getFullYear();
+</script>
+
+</body>
+</html>
