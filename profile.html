@@ -1,0 +1,603 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1455D9">
+<title>My Profile | Campus Money</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --blue:#1455D9;
+  --navy:#17243B;
+  --lime:#B8FF3B;
+  --bg:#F4F7FC;
+  --white:#FFFFFF;
+  --muted:#77849A;
+  --border:#E7ECF4;
+  --green:#168B54;
+  --shadow:0 12px 35px rgba(23,36,59,.06);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--navy);font-family:Inter,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{
+  width:250px;background:var(--navy);color:white;padding:26px 18px;
+  position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;z-index:10
+}
+.brand{display:flex;align-items:center;gap:11px;padding:0 10px 30px}
+.brand-mark{
+  width:43px;height:43px;border-radius:14px;background:var(--lime);
+  display:grid;place-items:center;color:var(--navy);font-weight:900
+}
+.brand-name{font-size:15px;font-weight:900}
+.brand-sub{font-size:9px;color:#AAB7CD;letter-spacing:1.5px;margin-top:4px}
+.nav-label{font-size:10px;font-weight:800;letter-spacing:1.5px;color:#8190A9;padding:12px}
+.nav{display:grid;gap:6px}
+.nav a{
+  color:#C5CEE0;text-decoration:none;padding:12px;border-radius:10px;
+  display:flex;align-items:center;gap:12px;font-size:12px;font-weight:600
+}
+.nav a:hover,.nav a.active{background:rgba(255,255,255,.1);color:white}
+.nav a.active{border-left:3px solid var(--lime);padding-left:9px}
+.nav i{width:17px;height:17px}
+.sidebar-bottom{margin-top:auto}
+.member-mini{padding:14px 12px;border:1px solid #ffffff20;border-radius:12px;margin-bottom:13px}
+.member-mini strong{display:block;font-size:12px}
+.member-mini span{display:block;color:#AAB7CD;font-size:10px;margin-top:5px}
+.logout{
+  width:100%;padding:12px;border-radius:10px;border:1px solid #ffffff25;
+  background:transparent;color:white;display:flex;align-items:center;gap:10px;
+  font-size:12px;font-weight:700
+}
+.logout:hover{background:#ffffff10}
+.main{width:calc(100% - 250px);margin-left:250px;padding:32px 38px 50px;max-width:1500px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px}
+.eyebrow{font-size:10px;font-weight:900;letter-spacing:1.7px;color:var(--blue);margin-bottom:8px}
+h1{font-size:28px;letter-spacing:-1px;margin:0;font-weight:900}
+.subtitle{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.6}
+.back-btn{
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--blue);
+  background:white;border:1px solid var(--border);padding:11px 14px;border-radius:10px;
+  font-size:11px;font-weight:800
+}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:20px;align-items:start}
+.card{background:white;border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px}
+.card-head{padding:20px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.card-head h2{font-size:14px;margin:0;font-weight:900}
+.card-head p{font-size:10px;color:var(--muted);margin:5px 0 0;line-height:1.5}
+.card-body{padding:22px}
+.avatar-row{display:flex;align-items:center;gap:14px;padding:19px 22px;background:#F2F6FF;border-bottom:1px solid var(--border)}
+.avatar{
+  width:58px;height:58px;flex:0 0 58px;border-radius:18px;background:var(--blue);
+  color:white;display:grid;place-items:center;font-size:20px;font-weight:900;
+  border:3px solid white
+}
+.avatar-info strong{font-size:13px;display:block}
+.avatar-info span{font-size:10px;color:var(--muted);display:block;margin-top:5px}
+.active-tag{margin-left:auto;background:#EAF8F0;color:var(--green);padding:7px 10px;border-radius:30px;font-size:9px;font-weight:800;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.field{min-width:0}
+.field.full{grid-column:1/-1}
+label{display:block;font-size:10px;font-weight:800;margin-bottom:8px;color:#34425B}
+input,select,textarea{
+  width:100%;padding:12px;border:1px solid #DDE4EF;border-radius:9px;
+  background:#FBFCFE;color:var(--navy);outline:none;font-size:11px
+}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px #1455D912;background:white}
+input[readonly]{background:#F0F3F8;color:#77839A}
+input:disabled,select:disabled{opacity:.55;cursor:not-allowed}
+textarea{min-height:90px;resize:vertical;line-height:1.6}
+.hint{font-size:9px;color:#8994A7;margin-top:6px;line-height:1.5}
+.section-note{font-size:10px;color:var(--muted);line-height:1.7;margin:0 0 18px}
+.security{background:#F1F7FF;border:1px solid #DDEAFF;padding:14px;border-radius:11px;margin-top:16px}
+.security strong{display:block;font-size:10px;margin-bottom:6px}
+.security span{display:block;font-size:9px;color:#64738B;line-height:1.6}
+.save-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:20px}
+.save-note{font-size:9px;color:var(--muted)}
+.save-btn{
+  border:0;background:var(--blue);color:white;padding:13px 19px;border-radius:10px;
+  font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:8px
+}
+.save-btn:hover{background:#1044B0}
+.save-btn:disabled{opacity:.6;cursor:not-allowed}
+.side-card{padding:20px}
+.side-card h3{font-size:13px;margin:0 0 8px;font-weight:900}
+.side-card p{font-size:10px;color:var(--muted);line-height:1.7;margin:0}
+.progress{height:7px;background:#E9EEF6;border-radius:20px;overflow:hidden;margin:16px 0 9px}
+.progress-fill{height:100%;width:0;background:var(--blue);transition:.3s}
+.progress-label{display:flex;justify-content:space-between;font-size:9px;font-weight:800}
+.tips{display:grid;gap:13px;margin-top:17px}
+.tip{display:flex;gap:9px;font-size:10px;color:#506078;line-height:1.5}
+.tip i{width:16px;height:16px;color:var(--blue);flex:0 0 16px}
+.message{display:none;padding:12px 14px;border-radius:9px;font-size:10px;font-weight:700;margin-bottom:15px;line-height:1.5}
+.message.success{display:block;background:#EAF8F0;color:#137447}
+.message.error{display:block;background:#FFF0F0;color:#B83232}
+.mobile-menu{display:none;background:white;border:1px solid var(--border);border-radius:9px;padding:9px}
+.mobile-nav{display:none;background:var(--navy);padding:10px;border-radius:12px;margin-bottom:18px}
+.mobile-nav.open{display:grid;gap:4px}
+.mobile-nav a{color:white;text-decoration:none;padding:11px;font-size:11px;border-radius:8px}
+.mobile-nav a.active{color:var(--lime);background:#ffffff15}
+footer{text-align:center;color:#929DB0;font-size:9px;padding-top:18px}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.side-column{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+@media(max-width:760px){
+  .sidebar{display:none}.main{width:100%;margin:0;padding:22px 15px 35px}
+  .mobile-menu{display:grid;place-items:center}.topbar{align-items:flex-start}
+  h1{font-size:23px}.back-btn{display:none}.grid{grid-template-columns:1fr}
+  .field.full{grid-column:auto}.side-column{grid-template-columns:1fr}
+  .card-body,.card-head{padding:17px}.avatar-row{padding:16px}
+  .save-row{flex-direction:column;align-items:stretch}.save-btn{width:100%}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-mark">CM</div>
+    <div>
+      <div class="brand-name">CAMPUS MONEY</div>
+      <div class="brand-sub">GUILD MEMBER HUB</div>
+    </div>
+  </div>
+
+  <div class="nav-label">MEMBER WORKSPACE</div>
+  <nav class="nav">
+    <a href="account.html"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+    <a href="missions.html"><i data-lucide="target"></i>Missions</a>
+    <a href="referrals.html"><i data-lucide="users"></i>Referrals</a>
+    <a href="rewards.html"><i data-lucide="wallet"></i>Rewards & Payouts</a>
+    <a href="profile.html" class="active"><i data-lucide="user-round"></i>My Profile</a>
+    <a href="leaderboard.html"><i data-lucide="trophy"></i>Leaderboard</a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="member-mini">
+      <strong id="sidebarName">Guild Member</strong>
+      <span id="sidebarEmail">Member account</span>
+    </div>
+    <button class="logout" id="logoutBtn"><i data-lucide="log-out"></i>Sign out</button>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div style="display:flex;gap:12px;align-items:flex-start">
+      <button class="mobile-menu" id="mobileMenuBtn" aria-label="Open menu"><i data-lucide="menu"></i></button>
+      <div>
+        <div class="eyebrow">MEMBER SETTINGS</div>
+        <h1>My Profile</h1>
+        <div class="subtitle">Manage your Guild identity, campus information and payout preferences.</div>
+      </div>
+    </div>
+    <a href="account.html" class="back-btn"><i data-lucide="arrow-left"></i>Dashboard</a>
+  </div>
+
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="account.html">Dashboard</a>
+    <a href="missions.html">Missions</a>
+    <a href="referrals.html">Referrals</a>
+    <a href="rewards.html">Rewards & Payouts</a>
+    <a href="profile.html" class="active">My Profile</a>
+    <a href="leaderboard.html">Leaderboard</a>
+  </nav>
+
+  <div class="layout">
+    <div>
+      <div id="message" class="message"></div>
+
+      <form id="profileForm">
+        <section class="card">
+          <div class="avatar-row">
+            <div class="avatar" id="avatar">CM</div>
+            <div class="avatar-info">
+              <strong id="displayName">Guild Member</strong>
+              <span id="displayEmail">Member account</span>
+            </div>
+            <div class="active-tag">● ACTIVE MEMBER</div>
+          </div>
+
+          <div class="card-head">
+            <div><h2>Personal Information</h2><p>Your Campus Money Guild member details.</p></div>
+            <i data-lucide="user-round" style="color:#1455D9"></i>
+          </div>
+          <div class="card-body">
+            <div class="grid">
+              <div class="field">
+                <label for="fullName">FULL NAME *</label>
+                <input id="fullName" required maxlength="100" placeholder="Your full name">
+              </div>
+              <div class="field">
+                <label for="email">EMAIL ADDRESS</label>
+                <input id="email" type="email" readonly>
+              </div>
+              <div class="field">
+                <label for="country">COUNTRY *</label>
+                <select id="country" required>
+                  <option value="">Select country</option>
+                  <option>South Africa</option><option>Ghana</option>
+                  <option>Nigeria</option><option>Kenya</option>
+                  <option>Uganda</option><option>Tanzania</option>
+                  <option>Rwanda</option><option>United States</option>
+                  <option>United Kingdom</option><option>Canada</option>
+                  <option>Australia</option><option>Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="campus">UNIVERSITY / CAMPUS</label>
+                <input id="campus" maxlength="150" placeholder="Your university or campus">
+              </div>
+              <div class="field">
+                <label for="guildRole">GUILD ROLE</label>
+                <select id="guildRole">
+                  <option value="">Select role</option>
+                  <option value="KOVÉR Sales Ambassador">KOVÉR Sales Ambassador</option>
+                  <option value="Creator Guild">Creator Guild</option>
+                  <option value="Campus Representative">Campus Representative</option>
+                  <option value="Design & Innovation Guild">Design & Innovation Guild</option>
+                  <option value="Community Builder">Community Builder</option>
+                  <option value="General Member">General Member</option>
+                </select>
+                <div class="hint">Some Guild roles require separate approval.</div>
+              </div>
+              <div class="field">
+                <label for="phone">PHONE / WHATSAPP</label>
+                <input id="phone" type="tel" maxlength="30" placeholder="+27...">
+              </div>
+              <div class="field full">
+                <label for="bio">ABOUT ME</label>
+                <textarea id="bio" maxlength="500" placeholder="Tell the Guild about yourself, your interests and skills."></textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <div><h2>Social & Creator Links</h2><p>Showcase your work and creative platforms.</p></div>
+            <i data-lucide="share-2" style="color:#1455D9"></i>
+          </div>
+          <div class="card-body">
+            <div class="grid">
+              <div class="field">
+                <label for="instagram">INSTAGRAM URL</label>
+                <input id="instagram" type="url" placeholder="https://instagram.com/username">
+              </div>
+              <div class="field">
+                <label for="tiktok">TIKTOK URL</label>
+                <input id="tiktok" type="url" placeholder="https://tiktok.com/@username">
+              </div>
+              <div class="field">
+                <label for="website">WEBSITE / PORTFOLIO</label>
+                <input id="website" type="url" placeholder="https://yourwebsite.com">
+              </div>
+              <div class="field">
+                <label for="linkedin">LINKEDIN URL</label>
+                <input id="linkedin" type="url" placeholder="https://linkedin.com/in/username">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <div><h2>Payout Preferences</h2><p>Manage where eligible Guild rewards should be sent.</p></div>
+            <i data-lucide="wallet" style="color:#1455D9"></i>
+          </div>
+          <div class="card-body">
+            <p class="section-note">A wallet is not required to join the Guild. Add payout details when you are ready to receive eligible payments. These details are private.</p>
+            <div class="grid">
+              <div class="field">
+                <label for="payoutMethod">PREFERRED PAYOUT METHOD</label>
+                <select id="payoutMethod">
+                  <option value="">Choose method</option>
+                  <option value="USDC">USDC</option>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Other">Other / To be confirmed</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="payoutNetwork">USDC NETWORK</label>
+                <select id="payoutNetwork">
+                  <option value="">Select network</option>
+                  <option value="Base">Base</option>
+                  <option value="Ethereum">Ethereum</option>
+                  <option value="Polygon">Polygon</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="walletAddress">USDC WALLET ADDRESS</label>
+                <input id="walletAddress" type="text" placeholder="0x...">
+                <div class="hint">Never share your wallet seed phrase or private keys.</div>
+              </div>
+            </div>
+            <div class="security">
+              <strong><i data-lucide="shield-check" style="width:14px;height:14px;vertical-align:middle"></i> Secure payout information</strong>
+              <span>Your wallet address is used as a payout preference. Saving it does not initiate a transfer or approve a withdrawal.</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="save-row">
+          <div class="save-note">Your profile details are private to your member account.</div>
+          <button class="save-btn" id="saveBtn" type="submit"><i data-lucide="save"></i>Save My Profile</button>
+        </div>
+      </form>
+    </div>
+
+    <aside class="side-column">
+      <section class="card side-card">
+        <h3>Profile Completion</h3>
+        <p>A complete profile helps the Guild connect you with relevant opportunities.</p>
+        <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-label"><span>Profile strength</span><span id="progressText">0%</span></div>
+      </section>
+
+      <section class="card side-card">
+        <h3>Build Your Guild Presence</h3>
+        <p>Make the most of your Campus Money membership.</p>
+        <div class="tips">
+          <div class="tip"><i data-lucide="user-check"></i><span>Use your real name for accurate work attribution.</span></div>
+          <div class="tip"><i data-lucide="graduation-cap"></i><span>Add your campus if you are a student representative.</span></div>
+          <div class="tip"><i data-lucide="camera"></i><span>Showcase your social platforms for creator opportunities.</span></div>
+          <div class="tip"><i data-lucide="wallet"></i><span>Double-check your payout details before requesting a withdrawal.</span></div>
+        </div>
+      </section>
+
+      <section class="card side-card">
+        <h3>Guild Member Support</h3>
+        <p>Visit the official Campus Money community for updates and member support.</p>
+        <a href="https://t.me/" target="_blank" rel="noopener noreferrer" class="back-btn" style="width:100%;justify-content:center;margin-top:14px">
+          <i data-lucide="send"></i>Open Telegram
+        </a>
+      </section>
+    </aside>
+  </div>
+
+  <footer>© <span id="year"></span> Campus Money. Your Campus. Your Money. Your Opportunities.</footer>
+</main>
+</div>
+
+<!-- Load your existing shared Supabase configuration before this script.
+     It must initialise window.supabaseClient using your live project. -->
+<script src="supabase-config.js"></script>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  let db = null;
+  let member = null;
+
+  const fields = [
+    "fullName","country","campus","guildRole","phone","bio",
+    "instagram","tiktok","website","linkedin",
+    "payoutMethod","payoutNetwork","walletAddress"
+  ];
+
+  const showMessage = (type, text) => {
+    const box = $("message");
+    box.className = "message " + type;
+    box.textContent = text;
+    box.scrollIntoView({behavior:"smooth",block:"nearest"});
+  };
+
+  const getValue = id => $(id).value.trim();
+
+  function setIdentity() {
+    const name = getValue("fullName") || "Guild Member";
+    const initials = name.split(/\s+/).filter(Boolean).slice(0,2)
+      .map(word => word.charAt(0).toUpperCase()).join("") || "CM";
+
+    $("displayName").textContent = name;
+    $("avatar").textContent = initials;
+    $("sidebarName").textContent = name;
+    $("sidebarEmail").textContent = member?.email || "";
+    $("displayEmail").textContent = member?.email || "";
+  }
+
+  function updateProgress() {
+    const checks = [
+      getValue("fullName"),
+      getValue("country"),
+      getValue("campus"),
+      getValue("guildRole"),
+      getValue("phone"),
+      getValue("bio"),
+      getValue("instagram") || getValue("tiktok") ||
+        getValue("website") || getValue("linkedin")
+    ];
+    const percent = Math.round(checks.filter(Boolean).length / checks.length * 100);
+    $("progressFill").style.width = percent + "%";
+    $("progressText").textContent = percent + "%";
+  }
+
+  function updatePayoutFields() {
+    const isUSDC = $("payoutMethod").value === "USDC";
+    $("payoutNetwork").disabled = !isUSDC;
+    $("walletAddress").disabled = !isUSDC;
+    if (!isUSDC) {
+      $("payoutNetwork").value = "";
+      $("walletAddress").value = "";
+    }
+  }
+
+  async function loadProfile() {
+    const metadata = member.user_metadata || {};
+    $("email").value = member.email || "";
+    $("fullName").value = metadata.full_name || metadata.name || "";
+    $("country").value = metadata.country || "";
+    $("guildRole").value = metadata.guild_role || metadata.role || "";
+
+    const {data, error} = await db.from("guild_profiles")
+      .select("*")
+      .eq("user_id", member.id)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (data) {
+      $("fullName").value = data.full_name || $("fullName").value;
+      $("country").value = data.country || $("country").value;
+      $("campus").value = data.campus || "";
+      $("guildRole").value = data.guild_role || $("guildRole").value;
+      $("phone").value = data.phone || "";
+      $("bio").value = data.bio || "";
+      $("instagram").value = data.instagram_url || "";
+      $("tiktok").value = data.tiktok_url || "";
+      $("website").value = data.website_url || "";
+      $("linkedin").value = data.linkedin_url || "";
+      $("payoutMethod").value = data.payout_method || "";
+      $("payoutNetwork").value = data.payout_network || "";
+      $("walletAddress").value = data.wallet_address || "";
+    }
+
+    setIdentity();
+    updateProgress();
+    updatePayoutFields();
+  }
+
+  async function saveProfile(event) {
+    event.preventDefault();
+
+    const fullName = getValue("fullName");
+    const country = $("country").value;
+    const method = $("payoutMethod").value;
+    const network = $("payoutNetwork").value;
+    const wallet = getValue("walletAddress");
+
+    if (!fullName || !country) {
+      showMessage("error","Please enter your full name and select your country.");
+      return;
+    }
+
+    if (wallet && !/^0x[a-fA-F0-9]{40}$/.test(wallet)) {
+      showMessage("error","Please check your wallet address.");
+      return;
+    }
+
+    if (method === "USDC" && wallet && !network) {
+      showMessage("error","Please select your USDC network.");
+      return;
+    }
+
+    const btn = $("saveBtn");
+    btn.disabled = true;
+    btn.textContent = "Saving...";
+
+    const profile = {
+      user_id: member.id,
+      full_name: fullName,
+      country,
+      campus: getValue("campus"),
+      guild_role: $("guildRole").value,
+      phone: getValue("phone"),
+      bio: getValue("bio"),
+      instagram_url: getValue("instagram"),
+      tiktok_url: getValue("tiktok"),
+      website_url: getValue("website"),
+      linkedin_url: getValue("linkedin"),
+      payout_method: method || null,
+      payout_network: network || null,
+      wallet_address: wallet || null,
+      updated_at: new Date().toISOString()
+    };
+
+    try {
+      const {error} = await db.from("guild_profiles")
+        .upsert(profile,{onConflict:"user_id"});
+
+      if (error) throw error;
+
+      const {error: metadataError} = await db.auth.updateUser({
+        data:{
+          full_name:fullName,
+          country,
+          guild_role:$("guildRole").value
+        }
+      });
+
+      if (metadataError) console.warn("Auth metadata update:",metadataError);
+
+      setIdentity();
+      updateProgress();
+      showMessage("success","Your profile has been saved successfully.");
+
+    } catch (error) {
+      console.error(error);
+      showMessage("error","We could not save your profile. Please try again.");
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<i data-lucide="save"></i>Save My Profile';
+      if (window.lucide) lucide.createIcons();
+    }
+  }
+
+  async function init() {
+    $("year").textContent = new Date().getFullYear();
+
+    if (window.lucide) lucide.createIcons();
+
+    $("mobileMenuBtn").addEventListener("click",() => {
+      $("mobileNav").classList.toggle("open");
+    });
+
+    $("profileForm").addEventListener("input",() => {
+      setIdentity();
+      updateProgress();
+    });
+    $("profileForm").addEventListener("change",updateProgress);
+    $("profileForm").addEventListener("submit",saveProfile);
+    $("payoutMethod").addEventListener("change",updatePayoutFields);
+
+    // The shared config must initialise this client before this script runs.
+    db = window.supabaseClient;
+
+    if (!db) {
+      showMessage("error","Account service is temporarily unavailable. Please try again later.");
+      $("saveBtn").disabled = true;
+      return;
+    }
+
+    try {
+      const {data,error} = await db.auth.getSession();
+      if (error) throw error;
+
+      if (!data.session) {
+        window.location.replace("auth.html");
+        return;
+      }
+
+      member = data.session.user;
+      await loadProfile();
+
+    } catch (error) {
+      console.error("Profile error:",error);
+      showMessage("error","We could not load your profile. Please sign in again.");
+    }
+  }
+
+  $("logoutBtn").addEventListener("click",async () => {
+    $("logoutBtn").disabled = true;
+    try {
+      if (db) await db.auth.signOut();
+    } finally {
+      window.location.replace("auth.html");
+    }
+  });
+
+  init();
+})();
+</script>
+</body>
+</html>
