@@ -1,0 +1,1370 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080807">
+
+<title>Track Your Order | KOVÉR</title>
+<meta name="description" content="Track your KOVÉR timepiece order and delivery progress.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black:#080807;
+  --dark:#11110f;
+  --panel:#151512;
+  --gold:#c6a36b;
+  --gold-light:#e4c99b;
+  --white:#f4f0e8;
+  --muted:#aaa49a;
+  --line:rgba(255,255,255,.12);
+  --green:#8bbf92;
+  --red:#d88b82;
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  background:var(--black);
+  color:var(--white);
+  font-family:Inter,sans-serif;
+  min-height:100vh;
+}
+
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+button,input {
+  font:inherit;
+}
+
+.container {
+  width:min(1050px,90%);
+  margin:auto;
+}
+
+.serif {
+  font-family:"Cormorant Garamond",Georgia,serif;
+}
+
+.eyebrow {
+  color:var(--gold);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+/* HEADER */
+
+header {
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(8,8,7,.97);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(15px);
+}
+
+.nav {
+  height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.logo {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.logo-name {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:30px;
+  letter-spacing:8px;
+  color:var(--gold-light);
+}
+
+.logo-sub {
+  color:#a99a80;
+  font-size:7px;
+  letter-spacing:3px;
+}
+
+.nav-links {
+  display:flex;
+  gap:27px;
+}
+
+.nav-links a {
+  color:#d3ccc1;
+  font-size:9px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+}
+
+.nav-links a:hover {
+  color:var(--gold);
+}
+
+/* HERO */
+
+.hero {
+  text-align:center;
+  padding:80px 0 55px;
+}
+
+.hero h1 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(48px,7vw,76px);
+  font-weight:400;
+  margin:15px 0;
+}
+
+.hero p {
+  color:var(--muted);
+  font-size:11px;
+  line-height:2;
+  max-width:490px;
+  margin:auto;
+}
+
+.gold-line {
+  width:48px;
+  height:1px;
+  background:var(--gold);
+  margin:22px auto;
+}
+
+/* TRACKING SEARCH */
+
+.search-card {
+  width:min(610px,100%);
+  margin:0 auto 65px;
+  padding:32px;
+  background:var(--dark);
+  border:1px solid var(--line);
+}
+
+.search-card h2 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:30px;
+  font-weight:400;
+  margin-bottom:9px;
+}
+
+.search-card > p {
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.9;
+  margin-bottom:23px;
+}
+
+.field {
+  margin-bottom:17px;
+}
+
+.field label {
+  display:block;
+  color:#bdb5aa;
+  font-size:9px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  margin-bottom:9px;
+}
+
+.field input {
+  width:100%;
+  min-height:49px;
+  background:#080807;
+  border:1px solid var(--line);
+  color:var(--white);
+  padding:13px 14px;
+  outline:none;
+  border-radius:0;
+  font-size:11px;
+}
+
+.field input:focus {
+  border-color:var(--gold);
+}
+
+.field input::placeholder {
+  color:#68645e;
+}
+
+.track-button {
+  width:100%;
+  min-height:50px;
+  background:var(--gold);
+  border:1px solid var(--gold);
+  color:#080807;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.track-button:hover:not(:disabled) {
+  background:var(--gold-light);
+}
+
+.track-button:disabled {
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.helper {
+  color:#77736b;
+  font-size:9px;
+  line-height:1.8;
+  margin-top:15px;
+}
+
+.message {
+  display:none;
+  padding:14px;
+  margin-top:17px;
+  font-size:10px;
+  line-height:1.8;
+  overflow-wrap:anywhere;
+}
+
+.message.error {
+  display:block;
+  color:var(--red);
+  border:1px solid rgba(216,139,130,.35);
+}
+
+.message.success {
+  display:block;
+  color:var(--green);
+  border:1px solid rgba(139,191,146,.35);
+}
+
+/* RESULTS */
+
+.results {
+  display:none;
+  margin:0 auto 75px;
+}
+
+.results.show {
+  display:block;
+}
+
+.results-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:20px;
+  margin-bottom:22px;
+}
+
+.results-heading h2 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:38px;
+  font-weight:400;
+  margin-top:7px;
+}
+
+.status-badge {
+  display:inline-block;
+  border:1px solid rgba(198,163,107,.4);
+  padding:8px 12px;
+  color:var(--gold-light);
+  font-size:8px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.panel {
+  background:var(--dark);
+  border:1px solid var(--line);
+  padding:27px;
+  margin-bottom:20px;
+}
+
+.panel-title {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:28px;
+  font-weight:400;
+  margin-bottom:20px;
+}
+
+.order-summary {
+  display:grid;
+  grid-template-columns:130px 1fr;
+  gap:22px;
+  align-items:center;
+}
+
+.product-image {
+  width:130px;
+  height:145px;
+  object-fit:contain;
+  background:#191916;
+  padding:10px;
+}
+
+.product-name {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:30px;
+  font-weight:400;
+  margin:8px 0;
+}
+
+.product-meta {
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.9;
+}
+
+.summary-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:24px;
+}
+
+.summary-item {
+  padding:15px;
+  background:#0a0a08;
+  border:1px solid rgba(255,255,255,.07);
+  min-width:0;
+}
+
+.summary-item label {
+  display:block;
+  color:var(--gold);
+  font-size:8px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  margin-bottom:9px;
+}
+
+.summary-item p {
+  color:var(--white);
+  font-size:10px;
+  line-height:1.8;
+  overflow-wrap:anywhere;
+}
+
+/* TIMELINE */
+
+.timeline {
+  position:relative;
+  padding-left:32px;
+}
+
+.timeline:before {
+  content:"";
+  position:absolute;
+  left:8px;
+  top:10px;
+  bottom:12px;
+  width:1px;
+  background:rgba(255,255,255,.13);
+}
+
+.timeline-item {
+  position:relative;
+  padding-bottom:29px;
+}
+
+.timeline-item:last-child {
+  padding-bottom:0;
+}
+
+.timeline-dot {
+  position:absolute;
+  left:-30px;
+  top:3px;
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  border:1px solid #6d675d;
+  background:var(--dark);
+  z-index:1;
+}
+
+.timeline-item.completed .timeline-dot {
+  background:var(--gold);
+  border-color:var(--gold);
+  box-shadow:0 0 12px rgba(198,163,107,.3);
+}
+
+.timeline-item.current .timeline-dot {
+  border:3px solid var(--gold);
+  background:var(--dark);
+}
+
+.timeline-item h3 {
+  font-size:11px;
+  font-weight:500;
+  margin-bottom:6px;
+}
+
+.timeline-item p {
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.8;
+}
+
+.timeline-date {
+  color:var(--gold);
+  font-size:8px;
+  letter-spacing:1px;
+  margin-top:5px;
+}
+
+/* TRACKING INFORMATION */
+
+.tracking-info {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.tracking-box {
+  padding:18px;
+  border:1px solid var(--line);
+  background:#0b0b09;
+  min-width:0;
+}
+
+.tracking-box label {
+  display:block;
+  color:var(--gold);
+  font-size:8px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  margin-bottom:9px;
+}
+
+.tracking-box p {
+  font-size:10px;
+  line-height:1.8;
+  overflow-wrap:anywhere;
+}
+
+.tracking-box a {
+  color:var(--gold-light);
+  text-decoration:underline;
+}
+
+.delivery-note {
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.9;
+}
+
+/* SUPPORT */
+
+.support {
+  text-align:center;
+  padding:45px 20px;
+  border-top:1px solid var(--line);
+}
+
+.support h2 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:37px;
+  font-weight:400;
+  margin:10px 0;
+}
+
+.support p {
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.9;
+}
+
+.support a {
+  display:inline-block;
+  margin-top:19px;
+  color:var(--gold-light);
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  border-bottom:1px solid var(--gold);
+  padding-bottom:7px;
+}
+
+/* FOOTER */
+
+footer {
+  background:#050504;
+  border-top:1px solid rgba(198,163,107,.2);
+  padding:30px 0;
+}
+
+.footer-inner {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+
+.footer-inner p {
+  color:#77736b;
+  font-size:9px;
+  line-height:1.8;
+}
+
+.footer-inner a {
+  color:var(--gold-light);
+  font-size:9px;
+}
+
+/* MOBILE */
+
+@media(max-width:650px) {
+
+  .nav {
+    height:70px;
+  }
+
+  .logo-name {
+    font-size:25px;
+  }
+
+  .nav-links {
+    gap:12px;
+  }
+
+  .nav-links a {
+    font-size:8px;
+  }
+
+  .hero {
+    padding:60px 0 40px;
+  }
+
+  .search-card {
+    padding:22px;
+    margin-bottom:45px;
+  }
+
+  .panel {
+    padding:19px;
+  }
+
+  .results-heading {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .order-summary {
+    grid-template-columns:90px 1fr;
+    gap:14px;
+  }
+
+  .product-image {
+    width:90px;
+    height:110px;
+  }
+
+  .product-name {
+    font-size:24px;
+  }
+
+  .summary-grid {
+    grid-template-columns:1fr 1fr;
+  }
+
+  .tracking-info {
+    grid-template-columns:1fr;
+  }
+
+  .footer-inner {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}
+
+@media(max-width:390px) {
+  .nav-links {
+    gap:8px;
+  }
+
+  .nav-links a {
+    font-size:7px;
+  }
+
+  .summary-grid {
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+
+    <a href="index.html" class="logo">
+      <span class="logo-name">KOVÉR</span>
+      <span class="logo-sub">TIME · PRESENCE · LEGACY</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="collection.html">Collection</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+
+  <section class="hero container">
+
+    <div class="eyebrow">The KOVÉR customer experience</div>
+
+    <h1>Follow your timepiece.</h1>
+
+    <div class="gold-line"></div>
+
+    <p>
+      Every KOVÉR order deserves a considered experience.
+      Enter your order reference and email address to follow
+      your timepiece from confirmation to delivery.
+    </p>
+
+  </section>
+
+  <!-- TRACKING FORM -->
+
+  <section class="container">
+
+    <div class="search-card">
+
+      <div class="eyebrow">Order tracking</div>
+
+      <h2>Where is your order?</h2>
+
+      <p>
+        Enter the order number provided in your confirmation
+        and the email address used at checkout.
+      </p>
+
+      <form id="trackingForm">
+
+        <div class="field">
+          <label for="orderNumber">Order number</label>
+          <input
+            id="orderNumber"
+            type="text"
+            required
+            placeholder="Example: KVR-00001"
+            autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="email">Email address</label>
+          <input
+            id="email"
+            type="email"
+            required
+            placeholder="The email used at checkout"
+            autocomplete="email">
+        </div>
+
+        <button class="track-button" type="submit" id="trackButton">
+          Track my order
+        </button>
+
+      </form>
+
+      <div id="formMessage" class="message" role="status"></div>
+
+      <p class="helper">
+        For privacy, your order information is only available
+        when the order number and matching email address are supplied.
+      </p>
+
+    </div>
+
+  </section>
+
+  <!-- ORDER RESULTS -->
+
+  <section class="container results" id="results">
+
+    <div class="results-heading">
+
+      <div>
+        <div class="eyebrow">Your KOVÉR order</div>
+        <h2 id="resultOrderNumber">Order details</h2>
+      </div>
+
+      <span class="status-badge" id="resultStatus">Status</span>
+
+    </div>
+
+    <!-- PRODUCT SUMMARY -->
+
+    <div class="panel">
+
+      <h3 class="panel-title">Your timepiece</h3>
+
+      <div class="order-summary">
+
+        <img
+          src="kover-heritage.jpg"
+          alt="KOVÉR timepiece"
+          class="product-image"
+          id="productImage">
+
+        <div>
+          <div class="eyebrow" id="productCollection">KOVÉR COLLECTION</div>
+          <h3 class="product-name" id="productName">Your timepiece</h3>
+          <p class="product-meta">
+            Reference: <span id="productReference">—</span><br>
+            Quantity: <span id="productQuantity">—</span>
+          </p>
+        </div>
+
+      </div>
+
+      <div class="summary-grid">
+
+        <div class="summary-item">
+          <label>Order date</label>
+          <p id="orderDate">—</p>
+        </div>
+
+        <div class="summary-item">
+          <label>Payment status</label>
+          <p id="paymentStatus">—</p>
+        </div>
+
+        <div class="summary-item">
+          <label>Order total</label>
+          <p id="orderAmount">—</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ORDER TIMELINE -->
+
+    <div class="panel">
+
+      <h3 class="panel-title">Order progress</h3>
+
+      <div class="timeline" id="timeline">
+
+        <div class="timeline-item" data-step="payment">
+          <span class="timeline-dot"></span>
+          <h3>Payment confirmation</h3>
+          <p>Your payment is being checked.</p>
+        </div>
+
+        <div class="timeline-item" data-step="processing">
+          <span class="timeline-dot"></span>
+          <h3>Order processing</h3>
+          <p>Your order is being prepared.</p>
+        </div>
+
+        <div class="timeline-item" data-step="dispatched">
+          <span class="timeline-dot"></span>
+          <h3>Dispatched</h3>
+          <p>Your timepiece has left the fulfilment point.</p>
+        </div>
+
+        <div class="timeline-item" data-step="transit">
+          <span class="timeline-dot"></span>
+          <h3>In transit</h3>
+          <p>Your delivery is on its way.</p>
+        </div>
+
+        <div class="timeline-item" data-step="delivered">
+          <span class="timeline-dot"></span>
+          <h3>Delivered</h3>
+          <p>Your KOVÉR timepiece has arrived.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- DELIVERY DETAILS -->
+
+    <div class="panel">
+
+      <h3 class="panel-title">Delivery information</h3>
+
+      <div class="tracking-info">
+
+        <div class="tracking-box">
+          <label>Courier</label>
+          <p id="courierName">To be confirmed</p>
+        </div>
+
+        <div class="tracking-box">
+          <label>Tracking number</label>
+          <p id="trackingNumber">To be confirmed</p>
+        </div>
+
+        <div class="tracking-box">
+          <label>Estimated delivery</label>
+          <p id="estimatedDelivery">To be confirmed</p>
+        </div>
+
+        <div class="tracking-box">
+          <label>Delivery destination</label>
+          <p id="deliveryAddress">To be confirmed</p>
+        </div>
+
+      </div>
+
+      <div style="height:20px"></div>
+
+      <p class="delivery-note" id="deliveryNote">
+        Delivery updates will appear here when they are provided by KOVÉR.
+      </p>
+
+    </div>
+
+    <div style="text-align:center;margin-bottom:55px">
+      <button class="track-button" id="newSearchButton" type="button" style="max-width:260px">
+        Track another order
+      </button>
+    </div>
+
+  </section>
+
+  <!-- SUPPORT -->
+
+  <section class="support container">
+
+    <div class="eyebrow">KOVÉR customer care</div>
+
+    <h2>We're here to help.</h2>
+
+    <p>
+      Have a question about your timepiece, payment or delivery?
+      Our customer care team is ready to assist.
+    </p>
+
+    <a href="contact.html">Contact KOVÉR</a>
+
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+
+    <p>
+      © <span id="year"></span> KOVÉR. All rights reserved.<br>
+      Time · Presence · Legacy.
+    </p>
+
+    <a href="https://campusmoney.xyz">A Campus Money brand</a>
+
+  </div>
+</footer>
+
+<script>
+
+/*
+===========================================================
+KOVÉR CUSTOMER ORDER TRACKING
+===========================================================
+
+BACKEND ENDPOINT REQUIRED:
+
+GET /api/orders/track?orderNumber=KVR-00001&email=customer@email.com
+
+Expected successful response:
+
+{
+  "order": {
+    "order_number": "KVR-00001",
+    "customer_name": "Customer",
+    "email": "customer@email.com",
+
+    "product_name": "Heritage 01",
+    "product_reference": "KVR-H01",
+    "product_id": "heritage-01",
+    "collection": "Heritage",
+    "quantity": 1,
+
+    "amount_usdc": "599.00",
+    "payment_status": "verified",
+    "order_status": "processing",
+
+    "created_at": "2026-11-26T10:00:00Z",
+    "payment_verified_at": "2026-11-26T10:05:00Z",
+    "processing_at": "2026-11-26T12:00:00Z",
+    "dispatched_at": null,
+    "in_transit_at": null,
+    "delivered_at": null,
+
+    "courier": "",
+    "tracking_number": "",
+    "tracking_url": "",
+    "estimated_delivery": "",
+
+    "country": "South Africa",
+    "address": "Street address",
+    "city": "Johannesburg",
+    "province": "Gauteng",
+    "postal_code": "0000",
+
+    "customer_note": ""
+  }
+}
+
+SECURITY:
+
+- Server must match order number and customer email.
+- Return only that customer's order information.
+- Use parameterized database queries.
+- Add request rate limiting.
+- Do not expose internal admin notes or supplier costs.
+- Do not reveal whether an order number exists for a different email.
+- Never allow a customer to update order status.
+- Do not return payment or wallet secrets.
+- Use HTTPS.
+===========================================================
+*/
+
+const API = {
+  track: "/api/orders/track"
+};
+
+const $ = id => document.getElementById(id);
+
+$("year").textContent = new Date().getFullYear();
+
+const productImages = {
+  "heritage-01": "kover-heritage.jpg",
+  "prestige-01": "kover-prestige.jpg",
+  "legacy-01": "kover-legacy.jpg"
+};
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  })[char]);
+}
+
+function showMessage(text, type = "error") {
+  const message = $("formMessage");
+  message.textContent = text;
+  message.className = "message " + type;
+}
+
+function clearMessage() {
+  $("formMessage").textContent = "";
+  $("formMessage").className = "message";
+}
+
+function formatDate(value) {
+  if (!value) return "Not yet updated";
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) return "Not yet updated";
+
+  return date.toLocaleDateString(undefined, {
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+  });
+}
+
+function formatMoney(value) {
+  if (value === null || value === undefined || value === "") {
+    return "To be confirmed";
+  }
+
+  return Number(value).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }) + " USDC";
+}
+
+function displayStatus(value) {
+
+  const statuses = {
+    payment_pending: "Payment pending",
+    pending: "Pending",
+    verified: "Verified",
+    paid: "Paid",
+    processing: "Processing",
+    dispatched: "Dispatched",
+    in_transit: "In transit",
+    delivered: "Delivered",
+    cancelled: "Cancelled",
+    refunded: "Refunded",
+    failed: "Failed"
+  };
+
+  return statuses[value] || value || "Awaiting update";
+}
+
+/* TRACK ORDER */
+
+$("trackingForm").addEventListener("submit", async event => {
+
+  event.preventDefault();
+
+  clearMessage();
+
+  const orderNumber = $("orderNumber").value.trim();
+  const email = $("email").value.trim();
+
+  if (!orderNumber || !email) {
+    showMessage("Please enter your order number and email address.");
+    return;
+  }
+
+  const button = $("trackButton");
+
+  button.disabled = true;
+  button.textContent = "Finding your order...";
+
+  $("results").classList.remove("show");
+
+  try {
+
+    const url = new URL(API.track, window.location.origin);
+
+    url.searchParams.set("orderNumber", orderNumber);
+    url.searchParams.set("email", email);
+
+    const response = await fetch(url.toString(), {
+      method: "GET",
+      credentials: "same-origin",
+      headers: {
+        "Accept": "application/json"
+      }
+    });
+
+    if (response.status === 404) {
+      throw new Error(
+        "We could not find an order matching those details. Please check your order number and email address."
+      );
+    }
+
+    if (response.status === 429) {
+      throw new Error(
+        "Too many tracking attempts. Please wait before trying again."
+      );
+    }
+
+    if (!response.ok) {
+      throw new Error(
+        "Order tracking is temporarily unavailable. Please contact KOVÉR customer care."
+      );
+    }
+
+    const result = await response.json();
+
+    if (!result.order) {
+      throw new Error("No order information was returned.");
+    }
+
+    renderOrder(result.order);
+
+    $("results").classList.add("show");
+
+    showMessage("Your order information has been found.", "success");
+
+    $("results").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  } catch (error) {
+
+    showMessage(error.message || "Unable to retrieve your order.");
+
+  } finally {
+
+    button.disabled = false;
+    button.textContent = "Track my order";
+
+  }
+
+});
+
+/* RENDER ORDER */
+
+function renderOrder(order) {
+
+  const status = String(order.order_status || "").toLowerCase();
+
+  const steps = [
+    {
+      id: "payment",
+      title: "Payment confirmation",
+      date: order.payment_verified_at,
+      description: "Your USDC payment has been verified."
+    },
+    {
+      id: "processing",
+      title: "Order processing",
+      date: order.processing_at,
+      description: "Your timepiece is being prepared for fulfilment."
+    },
+    {
+      id: "dispatched",
+      title: "Dispatched",
+      date: order.dispatched_at,
+      description: "Your timepiece has been dispatched."
+    },
+    {
+      id: "transit",
+      title: "In transit",
+      date: order.in_transit_at,
+      description: "Your delivery is on its way."
+    },
+    {
+      id: "delivered",
+      title: "Delivered",
+      date: order.delivered_at,
+      description: "Your timepiece has been delivered."
+    }
+  ];
+
+  let currentIndex = -1;
+
+  if (order.payment_status === "verified" || order.payment_status === "paid") {
+    currentIndex = 0;
+  }
+
+  const statusSteps = {
+    paid: 0,
+    processing: 1,
+    dispatched: 2,
+    in_transit: 3,
+    delivered: 4
+  };
+
+  if (status in statusSteps) {
+    currentIndex = statusSteps[status];
+  }
+
+  if (status === "payment_pending") {
+    currentIndex = -1;
+  }
+
+  $("resultOrderNumber").textContent =
+    order.order_number || "Your order";
+
+  $("resultStatus").textContent =
+    displayStatus(order.order_status);
+
+  $("productName").textContent =
+    order.product_name || "KOVÉR Timepiece";
+
+  $("productCollection").textContent =
+    order.collection || "KOVÉR COLLECTION";
+
+  $("productReference").textContent =
+    order.product_reference || "To be confirmed";
+
+  $("productQuantity").textContent =
+    order.quantity ?? "—";
+
+  $("productImage").src =
+    productImages[order.product_id] || "kover-heritage.jpg";
+
+  $("orderDate").textContent =
+    formatDate(order.created_at);
+
+  $("paymentStatus").textContent =
+    displayStatus(order.payment_status);
+
+  $("orderAmount").textContent =
+    formatMoney(order.amount_usdc);
+
+  $("courierName").textContent =
+    order.courier || "To be confirmed";
+
+  $("trackingNumber").textContent =
+    order.tracking_number || "Not yet available";
+
+  $("estimatedDelivery").textContent =
+    formatDate(order.estimated_delivery);
+
+  $("deliveryAddress").textContent = [
+    order.address,
+    order.city,
+    order.province,
+    order.postal_code,
+    order.country
+  ].filter(Boolean).join(", ") || "To be confirmed";
+
+  const trackingNumberElement = $("trackingNumber");
+
+  if (order.tracking_number && order.tracking_url) {
+
+    try {
+
+      const trackingUrl = new URL(order.tracking_url);
+
+      if (trackingUrl.protocol === "https:") {
+
+        trackingNumberElement.innerHTML = `
+          <a href="${escapeHTML(trackingUrl.href)}"
+             target="_blank"
+             rel="noopener noreferrer">
+            ${escapeHTML(order.tracking_number)} · Track with courier
+          </a>
+        `;
+
+      }
+
+    } catch {}
+
+  }
+
+  $("deliveryNote").textContent =
+    order.customer_note ||
+    "We will update your tracking information as your order progresses.";
+
+  renderTimeline(steps, currentIndex, order);
+
+}
+
+/* TIMELINE */
+
+function renderTimeline(steps, currentIndex, order) {
+
+  const timeline = $("timeline");
+
+  const status = String(order.order_status || "").toLowerCase();
+
+  if (status === "cancelled" || status === "refunded") {
+
+    timeline.innerHTML = `
+
+      <div class="timeline-item completed">
+        <span class="timeline-dot"></span>
+        <h3>Order ${escapeHTML(displayStatus(status))}</h3>
+        <p>Please contact KOVÉR customer care if you need assistance.</p>
+      </div>
+
+    `;
+
+    return;
+  }
+
+  timeline.innerHTML = steps.map((step, index) => {
+
+    let className = "";
+
+    if (index < currentIndex) {
+      className = "completed";
+    } else if (index === currentIndex) {
+      className = "current";
+    }
+
+    let description = step.description;
+
+    if (index > currentIndex) {
+      description = "This stage has not been completed yet.";
+    }
+
+    if (index === currentIndex && currentIndex === -1) {
+      description = "Your payment has not yet been confirmed.";
+    }
+
+    if (index === currentIndex && !step.date) {
+      description = "This stage is currently in progress.";
+    }
+
+    return `
+
+      <div class="timeline-item ${className}">
+        <span class="timeline-dot"></span>
+
+        <h3>${escapeHTML(step.title)}</h3>
+
+        <p>${escapeHTML(description)}</p>
+
+        ${
+          step.date && index <= currentIndex
+            ? `<div class="timeline-date">${formatDate(step.date)}</div>`
+            : ""
+        }
+
+      </div>
+
+    `;
+
+  }).join("");
+
+}
+
+/* NEW SEARCH */
+
+$("newSearchButton").addEventListener("click", () => {
+
+  $("results").classList.remove("show");
+
+  $("trackingForm").reset();
+
+  clearMessage();
+
+  $("orderNumber").focus();
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+});
+
+/*
+  OPTIONAL ORDER LINK
+
+  You can link customers directly to this page:
+
+  tracking.html?order=KVR-00001
+
+  For privacy, this only fills the order number.
+  The customer must still enter the matching email address.
+*/
+
+const urlParams = new URLSearchParams(window.location.search);
+
+if (urlParams.get("order")) {
+  $("orderNumber").value = urlParams.get("order");
+}
+
+</script>
+
+</body>
+</html>
