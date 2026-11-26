@@ -1,0 +1,959 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>Guild Access | Campus Money</title>
+<meta name="description" content="Join the Campus Money Guild. Create your account, access opportunities and participate in the KOVÉR community.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --bg: #080808;
+  --card: #111111;
+  --card2: #171717;
+  --lime: #b8ff3b;
+  --white: #ffffff;
+  --muted: #888888;
+  --border: rgba(255,255,255,.09);
+  --danger: #ff6666;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}
+
+button, input {
+  font: inherit;
+}
+
+a {
+  color: var(--lime);
+  text-decoration: none;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* LEFT BRAND PANEL */
+
+.brand-panel {
+  padding: 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(184,255,59,.12), transparent 40%),
+    linear-gradient(145deg,#111 0%,#080808 75%);
+  border-right: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.logo-symbol {
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--lime);
+  color: var(--lime);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 20px;
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.logo-text span {
+  color: var(--lime);
+}
+
+.brand-content {
+  max-width: 510px;
+}
+
+.eyebrow {
+  color: var(--lime);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.brand-content h1 {
+  font-size: clamp(42px,5vw,72px);
+  line-height: 1.04;
+  letter-spacing: -4px;
+  font-weight: 900;
+  margin-bottom: 25px;
+}
+
+.brand-content h1 span {
+  color: var(--lime);
+}
+
+.brand-content p {
+  color: #a0a0a0;
+  line-height: 1.8;
+  font-size: 15px;
+  max-width: 420px;
+}
+
+.features {
+  display: grid;
+  gap: 18px;
+  margin-top: 42px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #ddd;
+  font-size: 13px;
+}
+
+.feature-icon {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(184,255,59,.3);
+  color: var(--lime);
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+
+.brand-footer {
+  color: #666;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+/* AUTH PANEL */
+
+.auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+}
+
+.auth-box {
+  width: 100%;
+  max-width: 430px;
+}
+
+.mobile-logo {
+  display: none;
+}
+
+.auth-heading {
+  margin-bottom: 30px;
+}
+
+.auth-heading .eyebrow {
+  margin-bottom: 13px;
+}
+
+.auth-heading h2 {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin-bottom: 10px;
+}
+
+.auth-heading p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+/* TABS */
+
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #151515;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 5px;
+  margin-bottom: 26px;
+}
+
+.tab {
+  border: 0;
+  background: transparent;
+  color: #888;
+  padding: 13px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  transition: .2s;
+}
+
+.tab.active {
+  background: var(--lime);
+  color: #080808;
+}
+
+.form {
+  display: none;
+}
+
+.form.active {
+  display: block;
+}
+
+.field {
+  margin-bottom: 18px;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ddd;
+  margin-bottom: 9px;
+}
+
+.field input {
+  width: 100%;
+  height: 52px;
+  background: #141414;
+  color: white;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 0 15px;
+  outline: none;
+  transition: .2s;
+}
+
+.field input:focus {
+  border-color: var(--lime);
+  box-shadow: 0 0 0 3px rgba(184,255,59,.08);
+}
+
+.field input::placeholder {
+  color: #555;
+}
+
+.password-wrap {
+  position: relative;
+}
+
+.password-wrap input {
+  padding-right: 65px;
+}
+
+.show-password {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: 0;
+  color: var(--lime);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0 23px;
+  font-size: 11px;
+  color: #888;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox input {
+  accent-color: var(--lime);
+}
+
+.primary-btn {
+  width: 100%;
+  height: 54px;
+  background: var(--lime);
+  color: #080808;
+  border: 0;
+  border-radius: 9px;
+  font-weight: 900;
+  font-size: 13px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.primary-btn:hover {
+  background: #d0ff78;
+  transform: translateY(-1px);
+}
+
+.primary-btn:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.terms {
+  color: #666;
+  font-size: 10px;
+  line-height: 1.7;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.status {
+  display: none;
+  padding: 13px 15px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.status.show {
+  display: block;
+}
+
+.status.error {
+  background: rgba(255,80,80,.1);
+  border: 1px solid rgba(255,80,80,.25);
+  color: #ff8585;
+}
+
+.status.success {
+  background: rgba(184,255,59,.08);
+  border: 1px solid rgba(184,255,59,.25);
+  color: var(--lime);
+}
+
+.bottom-note {
+  text-align: center;
+  color: #666;
+  font-size: 11px;
+  margin-top: 30px;
+}
+
+@media(max-width:850px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-panel {
+    display: none;
+  }
+
+  .auth-panel {
+    padding: 30px 22px;
+    align-items: flex-start;
+  }
+
+  .auth-box {
+    max-width: 480px;
+    margin: 0 auto;
+    padding-top: 22px;
+  }
+
+  .mobile-logo {
+    display: flex;
+    margin-bottom: 55px;
+  }
+
+  .auth-heading h2 {
+    font-size: 29px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <!-- BRAND PANEL -->
+
+  <section class="brand-panel">
+
+    <div class="logo">
+      <div class="logo-symbol">CM</div>
+      <div class="logo-text">CAMPUS <span>MONEY</span></div>
+    </div>
+
+    <div class="brand-content">
+
+      <div class="eyebrow">The Campus Money Guild</div>
+
+      <h1>
+        Your skills.<br>
+        Your network.<br>
+        <span>Your opportunities.</span>
+      </h1>
+
+      <p>
+        Become part of a growing community of creators,
+        ambassadors, innovators and community builders.
+        Contribute to real opportunities through Campus Money
+        and KOVÉR.
+      </p>
+
+      <div class="features">
+
+        <div class="feature">
+          <div class="feature-icon">↗</div>
+          Earn through verified opportunities
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">✦</div>
+          Build your reputation and Guild profile
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">◈</div>
+          Participate in the KOVÉR global brand network
+        </div>
+
+      </div>
+    </div>
+
+    <div class="brand-footer">
+      YOUR CAMPUS. YOUR MONEY. YOUR OPPORTUNITIES.
+    </div>
+
+  </section>
+
+  <!-- AUTH PANEL -->
+
+  <main class="auth-panel">
+
+    <div class="auth-box">
+
+      <div class="mobile-logo logo">
+        <div class="logo-symbol">CM</div>
+        <div class="logo-text">CAMPUS <span>MONEY</span></div>
+      </div>
+
+      <div class="auth-heading">
+        <div class="eyebrow">Guild Member Access</div>
+        <h2 id="heading">Create your account.</h2>
+        <p id="subheading">
+          Join the Guild and start exploring opportunities.
+        </p>
+      </div>
+
+      <div id="status" class="status"></div>
+
+      <div class="tabs">
+        <button class="tab active" id="registerTab" type="button"
+          onclick="switchTab('register')">
+          Create account
+        </button>
+
+        <button class="tab" id="loginTab" type="button"
+          onclick="switchTab('login')">
+          Login
+        </button>
+      </div>
+
+      <!-- REGISTRATION FORM -->
+
+      <form id="registerForm" class="form active">
+
+        <div class="field">
+          <label for="fullName">FULL NAME</label>
+          <input
+            id="fullName"
+            type="text"
+            placeholder="Enter your full name"
+            autocomplete="name"
+            maxlength="100"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="registerEmail">EMAIL ADDRESS</label>
+          <input
+            id="registerEmail"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="country">COUNTRY</label>
+          <input
+            id="country"
+            type="text"
+            placeholder="e.g. South Africa"
+            autocomplete="country-name"
+            maxlength="80"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="registerPassword">PASSWORD</label>
+          <div class="password-wrap">
+            <input
+              id="registerPassword"
+              type="password"
+              placeholder="Minimum 8 characters"
+              autocomplete="new-password"
+              minlength="8"
+              required>
+            <button type="button" class="show-password"
+              onclick="togglePassword('registerPassword',this)">
+              SHOW
+            </button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="confirmPassword">CONFIRM PASSWORD</label>
+          <div class="password-wrap">
+            <input
+              id="confirmPassword"
+              type="password"
+              placeholder="Confirm your password"
+              autocomplete="new-password"
+              minlength="8"
+              required>
+            <button type="button" class="show-password"
+              onclick="togglePassword('confirmPassword',this)">
+              SHOW
+            </button>
+          </div>
+        </div>
+
+        <div class="form-options">
+          <label class="checkbox">
+            <input type="checkbox" id="acceptTerms" required>
+            I agree to the Guild terms
+          </label>
+        </div>
+
+        <button class="primary-btn" id="registerBtn" type="submit">
+          CREATE MY ACCOUNT →
+        </button>
+
+        <p class="terms">
+          By creating an account, you agree to the Campus Money
+          Guild Terms and Privacy Policy. Membership does not
+          guarantee paid work or earnings.
+        </p>
+
+      </form>
+
+      <!-- LOGIN FORM -->
+
+      <form id="loginForm" class="form">
+
+        <div class="field">
+          <label for="loginEmail">EMAIL ADDRESS</label>
+          <input
+            id="loginEmail"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="loginPassword">PASSWORD</label>
+          <div class="password-wrap">
+            <input
+              id="loginPassword"
+              type="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required>
+            <button type="button" class="show-password"
+              onclick="togglePassword('loginPassword',this)">
+              SHOW
+            </button>
+          </div>
+        </div>
+
+        <div class="form-options">
+          <label class="checkbox">
+            <input type="checkbox" id="rememberMe" checked>
+            Remember me
+          </label>
+
+          <a href="#" onclick="forgotPassword(event)">
+            Forgot password?
+          </a>
+        </div>
+
+        <button class="primary-btn" id="loginBtn" type="submit">
+          LOGIN TO MY ACCOUNT →
+        </button>
+
+        <p class="terms">
+          Your account and personal information are protected
+          by our authentication system.
+        </p>
+
+      </form>
+
+      <div class="bottom-note">
+        CAMPUS MONEY × KOVÉR<br><br>
+        Engineered for opportunity. Built for legacy.
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+<script>
+/* ==========================================
+   SUPABASE CONFIGURATION
+   Replace with your actual project details.
+========================================== */
+
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+let supabaseClient = null;
+
+if (
+  SUPABASE_URL !== "YOUR_SUPABASE_URL" &&
+  SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY"
+) {
+  const { createClient } = window.supabase;
+
+  supabaseClient = createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
+    {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true
+      }
+    }
+  );
+}
+
+/* ==========================================
+   PAGE ELEMENTS
+========================================== */
+
+const statusBox = document.getElementById("status");
+const registerForm = document.getElementById("registerForm");
+const loginForm = document.getElementById("loginForm");
+
+function showStatus(message, type) {
+  statusBox.textContent = message;
+  statusBox.className = "status show " + type;
+}
+
+function clearStatus() {
+  statusBox.textContent = "";
+  statusBox.className = "status";
+}
+
+function setLoading(button, loading, originalText) {
+  button.disabled = loading;
+  button.textContent = loading ? "PLEASE WAIT..." : originalText;
+}
+
+function switchTab(tab) {
+  clearStatus();
+
+  const isRegister = tab === "register";
+
+  registerForm.classList.toggle("active", isRegister);
+  loginForm.classList.toggle("active", !isRegister);
+
+  document.getElementById("registerTab")
+    .classList.toggle("active", isRegister);
+
+  document.getElementById("loginTab")
+    .classList.toggle("active", !isRegister);
+
+  document.getElementById("heading").textContent =
+    isRegister ? "Create your account." : "Welcome back.";
+
+  document.getElementById("subheading").textContent =
+    isRegister
+      ? "Join the Guild and start exploring opportunities."
+      : "Login to access your Guild dashboard.";
+}
+
+function togglePassword(id, button) {
+  const input = document.getElementById(id);
+
+  input.type = input.type === "password" ? "text" : "password";
+  button.textContent = input.type === "password" ? "SHOW" : "HIDE";
+}
+
+/* ==========================================
+   SUPABASE CONFIG CHECK
+========================================== */
+
+function checkSupabase() {
+  if (!supabaseClient) {
+    showStatus(
+      "Authentication is not configured yet. Please add your Supabase URL and anon key in this file.",
+      "error"
+    );
+    return false;
+  }
+
+  return true;
+}
+
+/* ==========================================
+   CHECK EXISTING LOGIN SESSION
+========================================== */
+
+async function checkExistingSession() {
+  if (!supabaseClient) return;
+
+  try {
+    const { data, error } =
+      await supabaseClient.auth.getSession();
+
+    if (error) throw error;
+
+    if (data.session) {
+      window.location.replace("account.html");
+    }
+
+  } catch (error) {
+    console.error("Session check:", error.message);
+  }
+}
+
+/* ==========================================
+   REGISTRATION
+========================================== */
+
+registerForm.addEventListener("submit", async function(event) {
+  event.preventDefault();
+  clearStatus();
+
+  if (!checkSupabase()) return;
+
+  const fullName =
+    document.getElementById("fullName").value.trim();
+
+  const email =
+    document.getElementById("registerEmail").value.trim();
+
+  const country =
+    document.getElementById("country").value.trim();
+
+  const password =
+    document.getElementById("registerPassword").value;
+
+  const confirmPassword =
+    document.getElementById("confirmPassword").value;
+
+  const accepted =
+    document.getElementById("acceptTerms").checked;
+
+  const button = document.getElementById("registerBtn");
+
+  if (password.length < 8) {
+    showStatus("Your password must contain at least 8 characters.", "error");
+    return;
+  }
+
+  if (password !== confirmPassword) {
+    showStatus("Your passwords do not match.", "error");
+    return;
+  }
+
+  if (!accepted) {
+    showStatus("Please accept the Guild terms to continue.", "error");
+    return;
+  }
+
+  setLoading(button, true, "CREATE MY ACCOUNT →");
+
+  try {
+    const { data, error } =
+      await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo:
+            window.location.origin + "/account.html",
+
+          data: {
+            full_name: fullName,
+            country: country
+          }
+        }
+      });
+
+    if (error) throw error;
+
+    if (data.session) {
+      showStatus(
+        "Your account has been created successfully. Redirecting to your dashboard...",
+        "success"
+      );
+
+      setTimeout(() => {
+        window.location.replace("account.html");
+      }, 1200);
+
+    } else {
+      showStatus(
+        "Registration received! Please check your email and confirm your address. After verification, log in to access your dashboard.",
+        "success"
+      );
+
+      registerForm.reset();
+      switchTab("login");
+    }
+
+  } catch (error) {
+    showStatus(error.message || "Registration failed. Please try again.", "error");
+  } finally {
+    setLoading(button, false, "CREATE MY ACCOUNT →");
+  }
+});
+
+/* ==========================================
+   LOGIN
+========================================== */
+
+loginForm.addEventListener("submit", async function(event) {
+  event.preventDefault();
+  clearStatus();
+
+  if (!checkSupabase()) return;
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  const password =
+    document.getElementById("loginPassword").value;
+
+  const button = document.getElementById("loginBtn");
+
+  setLoading(button, true, "LOGIN TO MY ACCOUNT →");
+
+  try {
+    const { data, error } =
+      await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    if (error) throw error;
+
+    if (data.session) {
+      showStatus(
+        "Login successful. Welcome to your Guild dashboard!",
+        "success"
+      );
+
+      setTimeout(() => {
+        window.location.replace("account.html");
+      }, 800);
+    }
+
+  } catch (error) {
+    showStatus(
+      error.message || "Unable to log in. Check your details.",
+      "error"
+    );
+  } finally {
+    setLoading(button, false, "LOGIN TO MY ACCOUNT →");
+  }
+});
+
+/* ==========================================
+   FORGOT PASSWORD
+========================================== */
+
+async function forgotPassword(event) {
+  event.preventDefault();
+  clearStatus();
+
+  if (!checkSupabase()) return;
+
+  const email =
+    document.getElementById("loginEmail").value.trim();
+
+  if (!email) {
+    showStatus(
+      "Enter your email address first, then select Forgot password.",
+      "error"
+    );
+    return;
+  }
+
+  try {
+    const { error } =
+      await supabaseClient.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + "/reset-password.html"
+      });
+
+    if (error) throw error;
+
+    showStatus(
+      "If an account exists for this email, a password reset link will be sent. Please check your inbox.",
+      "success"
+    );
+
+  } catch (error) {
+    showStatus(
+      error.message || "Unable to request a password reset.",
+      "error"
+    );
+  }
+}
+
+/* ==========================================
+   START
+========================================== */
+
+checkExistingSession();
+</script>
+
+</body>
+</html>
