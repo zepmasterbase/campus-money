@@ -1,0 +1,1815 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1455D9">
+
+<title>Referral Centre | Campus Money Guild</title>
+<meta name="description" content="Manage your Campus Money Guild referral links, track KOVÉR sales and monitor commissions.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
+<style>
+:root {
+  --blue:#1455D9;
+  --blue-dark:#103E9C;
+  --lime:#B8FF3B;
+  --navy:#17243B;
+  --bg:#F3F6FC;
+  --white:#FFFFFF;
+  --text:#17243B;
+  --muted:#718096;
+  --border:#E5EAF2;
+  --green:#21864D;
+  --orange:#A36B00;
+  --red:#D94B4B;
+  --shadow:0 8px 30px rgba(25,55,100,.05);
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body {
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+}
+
+button,input,select {
+  font:inherit;
+}
+
+button,a {
+  cursor:pointer;
+}
+
+a {
+  text-decoration:none;
+  color:inherit;
+}
+
+.app {
+  display:grid;
+  grid-template-columns:250px minmax(0,1fr);
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  background:white;
+  border-right:1px solid var(--border);
+  padding:27px 18px;
+  display:flex;
+  flex-direction:column;
+  position:sticky;
+  top:0;
+  height:100vh;
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:0 10px 30px;
+}
+
+.brand-icon {
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:var(--blue);
+  color:var(--lime);
+  display:grid;
+  place-items:center;
+  font-weight:900;
+}
+
+.brand-name {
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+
+.brand-name span {
+  color:var(--blue);
+}
+
+.nav-label {
+  color:#9AA6B7;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:1.5px;
+  padding:15px 12px 10px;
+}
+
+.nav {
+  display:grid;
+  gap:5px;
+}
+
+.nav a,.nav button {
+  width:100%;
+  text-align:left;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:0;
+  background:transparent;
+  color:#637188;
+  padding:12px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:650;
+}
+
+.nav a:hover,.nav button:hover {
+  background:#F1F5FC;
+  color:var(--blue);
+}
+
+.nav a.active {
+  background:#EAF0FF;
+  color:var(--blue);
+  font-weight:800;
+}
+
+.nav-icon {
+  width:22px;
+  text-align:center;
+  font-size:16px;
+}
+
+.sidebar-bottom {
+  margin-top:auto;
+}
+
+.sidebar-card {
+  background:#F0F5FF;
+  border:1px solid #E1EAFE;
+  border-radius:12px;
+  padding:14px;
+  margin:15px 4px;
+}
+
+.sidebar-card strong {
+  display:block;
+  font-size:12px;
+  margin-bottom:6px;
+}
+
+.sidebar-card p {
+  font-size:10px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.sidebar-footer {
+  padding:12px;
+  font-size:10px;
+  color:#9AA6B7;
+}
+
+/* MAIN */
+
+.main {
+  min-width:0;
+  padding:28px 36px 55px;
+  max-width:1600px;
+  width:100%;
+  margin:0 auto;
+}
+
+.topbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:30px;
+}
+
+.breadcrumb {
+  font-size:11px;
+  color:var(--muted);
+}
+
+.member-mini {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.avatar {
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#E6EEFF;
+  color:var(--blue);
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:900;
+}
+
+.member-mini strong {
+  display:block;
+  font-size:11px;
+}
+
+.member-mini span {
+  font-size:10px;
+  color:var(--muted);
+}
+
+/* PAGE HEADER */
+
+.eyebrow {
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:var(--blue);
+  margin-bottom:11px;
+}
+
+.page-heading {
+  margin-bottom:25px;
+}
+
+.page-heading h1 {
+  font-size:clamp(27px,3vw,36px);
+  letter-spacing:-1.5px;
+  font-weight:900;
+}
+
+.page-heading p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+  margin-top:10px;
+}
+
+/* HERO */
+
+.hero {
+  background:linear-gradient(120deg,#1455D9,#103E9C);
+  color:white;
+  border-radius:17px;
+  padding:28px;
+  margin-bottom:23px;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero:after {
+  content:"";
+  position:absolute;
+  width:230px;
+  height:230px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+  right:35px;
+  top:-130px;
+  box-shadow:0 0 0 35px rgba(255,255,255,.025),
+             0 0 0 70px rgba(255,255,255,.02);
+}
+
+.hero-content {
+  position:relative;
+  z-index:1;
+}
+
+.hero-label {
+  color:var(--lime);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:2px;
+  margin-bottom:13px;
+}
+
+.hero h2 {
+  font-size:25px;
+  letter-spacing:-1px;
+  margin-bottom:10px;
+}
+
+.hero p {
+  color:#DCE8FF;
+  font-size:11px;
+  line-height:1.7;
+  max-width:570px;
+}
+
+/* REFERRAL LINK */
+
+.link-card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:22px;
+  box-shadow:var(--shadow);
+  margin-bottom:22px;
+}
+
+.link-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:17px;
+}
+
+.link-header h3 {
+  font-size:14px;
+  font-weight:900;
+}
+
+.link-header p {
+  font-size:10px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.active-badge {
+  color:var(--green);
+  background:#E8F7EA;
+  font-size:9px;
+  font-weight:900;
+  padding:8px 11px;
+  border-radius:20px;
+  white-space:nowrap;
+}
+
+.link-box {
+  display:flex;
+  gap:9px;
+  background:#F6F8FC;
+  border:1px solid var(--border);
+  padding:9px;
+  border-radius:9px;
+  align-items:center;
+}
+
+.link-box input {
+  min-width:0;
+  flex:1;
+  background:transparent;
+  border:0;
+  outline:none;
+  color:var(--navy);
+  font-size:11px;
+  padding:8px;
+}
+
+.primary-btn {
+  background:var(--blue);
+  color:white;
+  border:0;
+  border-radius:7px;
+  padding:12px 16px;
+  font-size:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.primary-btn:hover {
+  background:var(--blue-dark);
+}
+
+.secondary-btn {
+  background:#EAF0FF;
+  color:var(--blue);
+  border:0;
+  border-radius:7px;
+  padding:12px 16px;
+  font-size:10px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.link-actions {
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.link-note {
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.7;
+  margin-top:13px;
+}
+
+/* STATS */
+
+.stats-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:24px;
+}
+
+.stat-card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  min-width:0;
+}
+
+.stat-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.stat-label {
+  font-size:10px;
+  color:var(--muted);
+  font-weight:650;
+}
+
+.stat-icon {
+  width:31px;
+  height:31px;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  background:#EDF3FF;
+  color:var(--blue);
+  font-size:14px;
+}
+
+.stat-value {
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:-1px;
+  margin-top:15px;
+  overflow-wrap:anywhere;
+}
+
+.stat-caption {
+  font-size:9px;
+  color:var(--muted);
+  margin-top:7px;
+}
+
+/* COMMISSION SUMMARY */
+
+.commission-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:26px;
+}
+
+.commission-card {
+  border-radius:12px;
+  background:white;
+  border:1px solid var(--border);
+  padding:18px;
+}
+
+.commission-card.pending {
+  border-top:3px solid #E9B44B;
+}
+
+.commission-card.available {
+  border-top:3px solid var(--green);
+}
+
+.commission-card.paid {
+  border-top:3px solid var(--blue);
+}
+
+.commission-card span {
+  color:var(--muted);
+  font-size:10px;
+}
+
+.commission-card strong {
+  display:block;
+  font-size:24px;
+  margin-top:11px;
+  font-weight:900;
+}
+
+/* TABLE */
+
+.section {
+  margin-top:27px;
+}
+
+.section-heading {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:15px;
+}
+
+.section-heading h2 {
+  font-size:15px;
+  font-weight:900;
+}
+
+.section-heading p {
+  font-size:10px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.table-wrap {
+  width:100%;
+  overflow-x:auto;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:13px;
+}
+
+table {
+  width:100%;
+  min-width:650px;
+  border-collapse:collapse;
+}
+
+th {
+  padding:15px;
+  background:#FAFBFE;
+  text-align:left;
+  font-size:9px;
+  letter-spacing:.5px;
+  color:#8794A8;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+td {
+  padding:15px;
+  border-top:1px solid var(--border);
+  font-size:10px;
+}
+
+td strong {
+  font-size:10px;
+}
+
+.empty-cell {
+  text-align:center;
+  padding:35px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.status {
+  display:inline-block;
+  font-size:9px;
+  font-weight:900;
+  padding:7px 10px;
+  border-radius:20px;
+  text-transform:capitalize;
+  white-space:nowrap;
+}
+
+.status.pending,.status.delivery_pending {
+  background:#FFF5E2;
+  color:var(--orange);
+}
+
+.status.available,.status.approved,.status.completed {
+  background:#E8F7EA;
+  color:var(--green);
+}
+
+.status.paid {
+  background:#EAF0FF;
+  color:var(--blue);
+}
+
+.status.rejected,.status.refunded,.status.cancelled {
+  background:#FFF0F0;
+  color:var(--red);
+}
+
+/* PROGRAM DETAILS */
+
+.program-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.program-card {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:18px;
+}
+
+.program-card h3 {
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:9px;
+}
+
+.program-card p {
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.7;
+}
+
+.program-reward {
+  color:var(--blue);
+  font-size:18px;
+  font-weight:900;
+  margin-top:13px;
+}
+
+/* NOTE */
+
+.notice {
+  background:#EEF4FF;
+  border:1px solid #DCE8FF;
+  border-radius:11px;
+  padding:17px;
+  margin-top:23px;
+}
+
+.notice strong {
+  display:block;
+  font-size:11px;
+  margin-bottom:7px;
+}
+
+.notice p {
+  font-size:10px;
+  line-height:1.7;
+  color:#60718B;
+}
+
+/* FOOTER */
+
+.footer {
+  text-align:center;
+  padding:35px 0;
+  color:#9AA6B7;
+  font-size:10px;
+}
+
+/* MOBILE */
+
+.mobile-header {
+  display:none;
+}
+
+.loading-screen {
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  background:var(--bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:15px;
+}
+
+.spinner {
+  width:26px;
+  height:26px;
+  border:3px solid #DDE6F7;
+  border-top-color:var(--blue);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform:rotate(360deg); }
+}
+
+.toast {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:1200;
+  max-width:330px;
+  background:var(--navy);
+  color:white;
+  border-radius:10px;
+  padding:14px 18px;
+  font-size:11px;
+  display:none;
+}
+
+.toast.show {
+  display:block;
+}
+
+@media(max-width:1150px) {
+  .stats-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+}
+
+@media(max-width:760px) {
+  .app {
+    display:block;
+  }
+
+  .sidebar {
+    display:none;
+  }
+
+  .mobile-header {
+    display:flex;
+    background:white;
+    padding:13px 16px;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+
+  .mobile-brand {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:12px;
+    font-weight:900;
+  }
+
+  .mobile-brand .brand-icon {
+    width:33px;
+    height:33px;
+    font-size:12px;
+  }
+
+  .mobile-header a {
+    background:#EDF3FF;
+    color:var(--blue);
+    padding:9px 11px;
+    border-radius:8px;
+    font-size:10px;
+    font-weight:800;
+  }
+
+  .main {
+    padding:22px 15px 45px;
+  }
+
+  .hero {
+    padding:22px;
+  }
+
+  .stats-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .stat-card {
+    padding:14px;
+  }
+
+  .stat-value {
+    font-size:22px;
+  }
+
+  .commission-grid {
+    grid-template-columns:1fr;
+  }
+
+  .program-grid {
+    grid-template-columns:1fr;
+  }
+
+  .link-header {
+    align-items:flex-start;
+  }
+
+  .link-box {
+    flex-wrap:wrap;
+  }
+
+  .link-box input {
+    flex-basis:100%;
+  }
+
+  .link-box button {
+    flex:1;
+  }
+}
+
+@media(max-width:380px) {
+  .stats-grid {
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="loading-screen" id="loadingScreen">
+  <div style="width:45px;height:45px;border-radius:50%;background:#1455D9;color:#B8FF3B;display:grid;place-items:center;font-weight:900;">CM</div>
+  <div class="spinner"></div>
+  <p style="font-size:11px;color:#718096;">Loading referral centre...</p>
+</div>
+
+<header class="mobile-header">
+  <div class="mobile-brand">
+    <div class="brand-icon">CM</div>
+    CAMPUS <span style="color:#1455D9;">MONEY</span>
+  </div>
+  <a href="account.html">MY ACCOUNT</a>
+</header>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="brand-icon">CM</div>
+      <div class="brand-name">CAMPUS <span>MONEY</span></div>
+    </div>
+
+    <div class="nav-label">MEMBER PORTAL</div>
+
+    <nav class="nav">
+      <a href="account.html">
+        <span class="nav-icon">⌂</span>
+        Dashboard
+      </a>
+
+      <a href="missions.html">
+        <span class="nav-icon">◎</span>
+        Earn Missions
+      </a>
+
+      <a href="referrals.html" class="active">
+        <span class="nav-icon">↗</span>
+        Referral Centre
+      </a>
+
+      <a href="rewards.html">
+        <span class="nav-icon">◈</span>
+        Rewards & Payouts
+      </a>
+
+      <a href="profile.html">
+        <span class="nav-icon">♙</span>
+        My Profile
+      </a>
+
+      <a href="leaderboard.html">
+        <span class="nav-icon">★</span>
+        Leaderboard
+      </a>
+    </nav>
+
+    <div class="nav-label">COMMUNITY</div>
+
+    <nav class="nav">
+      <a href="https://t.me/" target="_blank" rel="noopener noreferrer">
+        <span class="nav-icon">◉</span>
+        Telegram Community
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <div class="sidebar-card">
+        <strong>Every referral counts.</strong>
+        <p>Share opportunities and track your verified commercial activity.</p>
+      </div>
+
+      <nav class="nav">
+        <button onclick="logout()">
+          <span class="nav-icon">⇥</span>
+          Sign out
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        CAMPUS MONEY × KOVÉR
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <div class="topbar">
+      <div class="breadcrumb">Member Portal / Referral Centre</div>
+
+      <div class="member-mini">
+        <div class="avatar" id="avatar">CM</div>
+        <div>
+          <strong id="memberName">Guild Member</strong>
+          <span id="memberEmail">Loading...</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="page-heading">
+      <div class="eyebrow">YOUR COMMERCIAL NETWORK</div>
+      <h1>Referral Centre.</h1>
+      <p>
+        Your personal gateway to KOVÉR sales, commissions
+        and referral performance.
+      </p>
+    </section>
+
+    <!-- HERO -->
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-label">CAMPUS MONEY × KOVÉR</div>
+        <h2>Share the brand. Build your network.</h2>
+        <p>
+          Share your unique referral link with potential customers.
+          When an eligible purchase is completed and verified,
+          your commission is recorded in your Guild account.
+        </p>
+      </div>
+    </section>
+
+    <!-- REFERRAL LINK -->
+
+    <section class="link-card">
+
+      <div class="link-header">
+        <div>
+          <h3>Your Personal Referral Link</h3>
+          <p>Share this link to attribute eligible KOVÉR orders to your account.</p>
+        </div>
+
+        <span class="active-badge" id="linkStatus">ACCOUNT ACTIVE</span>
+      </div>
+
+      <div class="link-box">
+        <input id="referralLink" type="text" readonly
+          placeholder="Your referral link will appear here">
+
+        <button class="primary-btn" onclick="copyReferralLink()">
+          COPY LINK
+        </button>
+      </div>
+
+      <div class="link-actions">
+        <button class="secondary-btn" onclick="shareReferralLink()">
+          SHARE LINK ↗
+        </button>
+
+        <button class="secondary-btn" onclick="copyReferralCode()">
+          COPY REFERRAL CODE
+        </button>
+      </div>
+
+      <p class="link-note" id="referralCodeText">
+        Referral code: generating...
+      </p>
+
+      <p class="link-note">
+        Your link must be connected to the live KOVÉR storefront
+        and referral tracking system. A copied link alone does not
+        prove a click or completed purchase.
+      </p>
+
+    </section>
+
+    <!-- PERFORMANCE STATS -->
+
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">Referral Clicks</span>
+          <div class="stat-icon">↗</div>
+        </div>
+        <div class="stat-value" id="clicksStat">0</div>
+        <div class="stat-caption">Recorded tracked visits</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">Attributed Orders</span>
+          <div class="stat-icon">▣</div>
+        </div>
+        <div class="stat-value" id="ordersStat">0</div>
+        <div class="stat-caption">Orders attributed to your code</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">Conversion Rate</span>
+          <div class="stat-icon">◉</div>
+        </div>
+        <div class="stat-value" id="conversionStat">0%</div>
+        <div class="stat-caption">Attributed orders divided by clicks</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-top">
+          <span class="stat-label">Commission Earned</span>
+          <div class="stat-icon">◈</div>
+        </div>
+        <div class="stat-value" id="earnedStat">$0.00</div>
+        <div class="stat-caption">Total recorded commissions</div>
+      </div>
+
+    </section>
+
+    <!-- COMMISSIONS -->
+
+    <section class="section">
+
+      <div class="section-heading">
+        <div>
+          <h2>Your Commission Summary</h2>
+          <p>See how your referral commissions move through the payment process.</p>
+        </div>
+      </div>
+
+      <div class="commission-grid">
+
+        <div class="commission-card pending">
+          <span>Pending / Awaiting Delivery</span>
+          <strong id="pendingCommission">$0.00</strong>
+        </div>
+
+        <div class="commission-card available">
+          <span>Available for Withdrawal</span>
+          <strong id="availableCommission">$0.00</strong>
+        </div>
+
+        <div class="commission-card paid">
+          <span>Already Paid</span>
+          <strong id="paidCommission">$0.00</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- REFERRAL ACTIVITY -->
+
+    <section class="section">
+
+      <div class="section-heading">
+        <div>
+          <h2>Recent Referral Activity</h2>
+          <p>Orders and commissions attributed to your referral account.</p>
+        </div>
+
+        <a href="rewards.html"
+           style="font-size:10px;font-weight:900;color:#1455D9;">
+          VIEW REWARDS →
+        </a>
+      </div>
+
+      <div class="table-wrap">
+
+        <table>
+          <thead>
+            <tr>
+              <th>Order Reference</th>
+              <th>Product / Description</th>
+              <th>Commission</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+
+          <tbody id="referralTable">
+            <tr>
+              <td colspan="5" class="empty-cell">
+                Loading referral activity...
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </section>
+
+    <!-- PROGRAMME RATES -->
+
+    <section class="section">
+
+      <div class="section-heading">
+        <div>
+          <h2>Guild Commission Structure</h2>
+          <p>Current proposed KOVÉR referral commission rates.</p>
+        </div>
+      </div>
+
+      <div class="program-grid">
+
+        <div class="program-card">
+          <h3>KOVÉR Sales Ambassador</h3>
+          <p>
+            Earn a commission for each qualifying KOVÉR sale
+            attributed to your unique referral code.
+          </p>
+          <div class="program-reward">$10 / sale</div>
+        </div>
+
+        <div class="program-card">
+          <h3>Creator Guild</h3>
+          <p>
+            Create original content and generate qualifying
+            purchases through your tracked creator referral link.
+          </p>
+          <div class="program-reward">$15 / sale</div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- IMPORTANT NOTICE -->
+
+    <section class="notice">
+      <strong>How referral commissions work</strong>
+      <p>
+        1. A customer visits KOVÉR using your tracked referral link.<br>
+        2. The customer completes a qualifying purchase.<br>
+        3. The payment provider confirms the transaction.<br>
+        4. The commission is recorded as pending.<br>
+        5. Once the watch is delivered and applicable refund,
+        cancellation and chargeback checks are complete,
+        the commission may become available.<br>
+        6. Withdrawals follow the published Guild payout rules.
+      </p>
+    </section>
+
+    <div class="footer">
+      © <span id="year"></span> CAMPUS MONEY · YOUR CAMPUS. YOUR MONEY. YOUR OPPORTUNITIES.
+    </div>
+
+  </main>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+/* ==========================================
+   SUPABASE CONFIGURATION
+========================================== */
+
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+/*
+  IMPORTANT:
+  Set this to your actual live KOVÉR storefront domain.
+  Example: https://your-kover-domain.com
+*/
+
+const KOVER_STORE_URL = "https://YOUR-KOVER-DOMAIN.com";
+
+let supabaseClient = null;
+let currentUser = null;
+let profile = null;
+
+let sales = [];
+let rewards = [];
+let clicks = [];
+
+const $ = id => document.getElementById(id);
+
+if (
+  SUPABASE_URL !== "YOUR_SUPABASE_URL" &&
+  SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY"
+) {
+  const { createClient } = window.supabase;
+
+  supabaseClient = createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
+    {
+      auth:{
+        persistSession:true,
+        autoRefreshToken:true,
+        detectSessionInUrl:true
+      }
+    }
+  );
+}
+
+/* ==========================================
+   HELPERS
+========================================== */
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g,char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  })[char]);
+}
+
+function money(value) {
+  const amount = Number(value || 0);
+
+  return "$" + amount.toLocaleString("en-US",{
+    minimumFractionDigits:2,
+    maximumFractionDigits:2
+  });
+}
+
+function formatDate(value) {
+
+  if (!value) return "—";
+
+  const date = new Date(value);
+
+  if (isNaN(date.getTime())) return "—";
+
+  return date.toLocaleDateString(undefined,{
+    day:"numeric",
+    month:"short",
+    year:"numeric"
+  });
+}
+
+function hideLoading() {
+  $("loadingScreen").style.display = "none";
+}
+
+function toast(message) {
+
+  const el = $("toast");
+
+  el.textContent = message;
+  el.classList.add("show");
+
+  setTimeout(() => el.classList.remove("show"),3500);
+}
+
+function getMetadata() {
+  return currentUser?.user_metadata || {};
+}
+
+function getMemberName() {
+
+  const metadata = getMetadata();
+
+  return metadata.full_name ||
+    metadata.name ||
+    currentUser?.email?.split("@")[0] ||
+    "Guild Member";
+}
+
+function getInitials(name) {
+
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0,2)
+    .map(x => x[0].toUpperCase())
+    .join("");
+}
+
+/* ==========================================
+   REFERRAL CODE
+========================================== */
+
+/*
+  The referral code should ideally be generated
+  and stored once by a trusted backend.
+
+  This fallback is for displaying a provisional
+  code only. It is not a secure attribution system.
+*/
+
+function provisionalCode(userId) {
+
+  return "CM" + userId
+    .replace(/-/g,"")
+    .substring(0,10)
+    .toUpperCase();
+}
+
+function getReferralCode() {
+
+  if (profile?.referral_code) {
+    return String(profile.referral_code);
+  }
+
+  return provisionalCode(currentUser.id);
+}
+
+/* ==========================================
+   BUILD REFERRAL LINK
+========================================== */
+
+function buildReferralLink() {
+
+  const code = getReferralCode();
+
+  if (
+    KOVER_STORE_URL.includes("YOUR-KOVER-DOMAIN")
+  ) {
+    $("referralLink").value =
+      "Configure your KOVÉR storefront domain first";
+
+    $("linkStatus").textContent = "SETUP REQUIRED";
+
+    return "";
+  }
+
+  const url = new URL("/",KOVER_STORE_URL);
+
+  url.searchParams.set("ref",code);
+
+  $("referralLink").value = url.toString();
+
+  $("referralCodeText").textContent =
+    "Your referral code: " + code;
+
+  $("linkStatus").textContent = "ACCOUNT ACTIVE";
+
+  return url.toString();
+}
+
+/* ==========================================
+   COPY AND SHARE
+========================================== */
+
+async function copyReferralLink() {
+
+  const link = buildReferralLink();
+
+  if (!link) {
+    toast("Configure your KOVÉR storefront domain first.");
+    return;
+  }
+
+  try {
+
+    await navigator.clipboard.writeText(link);
+
+    toast("Referral link copied.");
+
+  } catch(error) {
+
+    $("referralLink").select();
+    document.execCommand("copy");
+
+    toast("Referral link copied.");
+
+  }
+}
+
+async function copyReferralCode() {
+
+  const code = getReferralCode();
+
+  try {
+
+    await navigator.clipboard.writeText(code);
+
+    toast("Referral code copied.");
+
+  } catch(error) {
+
+    toast("Unable to copy referral code.");
+
+  }
+}
+
+async function shareReferralLink() {
+
+  const link = buildReferralLink();
+
+  if (!link) {
+    toast("Configure your KOVÉR storefront domain first.");
+    return;
+  }
+
+  const shareData = {
+    title:"KOVÉR | Engineered for Legacy",
+    text:"Discover KOVÉR luxury watches.",
+    url:link
+  };
+
+  if (navigator.share) {
+
+    try {
+      await navigator.share(shareData);
+    } catch(error) {
+      if (error.name !== "AbortError") {
+        toast("Unable to share this link.");
+      }
+    }
+
+  } else {
+
+    await copyReferralLink();
+
+  }
+}
+
+/* ==========================================
+   PROFILE
+========================================== */
+
+async function loadProfile() {
+
+  /*
+    Expected optional table:
+    guild_profiles
+
+    Fields used:
+    user_id
+    referral_code
+    role
+    application_status
+
+    If your existing schema differs, adapt
+    this query to the actual column names.
+  */
+
+  const { data,error } = await supabaseClient
+    .from("guild_profiles")
+    .select("user_id,referral_code,role,application_status")
+    .eq("user_id",currentUser.id)
+    .maybeSingle();
+
+  if (error) {
+
+    console.warn("Guild profile unavailable:",error.message);
+
+    profile = null;
+
+  } else {
+
+    profile = data;
+  }
+
+  const name = getMemberName();
+
+  $("memberName").textContent = name;
+  $("memberEmail").textContent = currentUser.email || "";
+  $("avatar").textContent = getInitials(name) || "CM";
+
+  buildReferralLink();
+}
+
+/* ==========================================
+   LOAD REFERRAL DATA
+========================================== */
+
+async function loadReferralData() {
+
+  /*
+    Expected table: guild_sales
+
+    Suggested fields:
+    id
+    user_id
+    order_reference
+    product_name
+    commission_amount
+    status
+    created_at
+
+    The backend must insert sales after
+    payment-provider confirmation.
+
+    Members must not be allowed to insert
+    their own sales or commission amounts.
+  */
+
+  const salesResult = await supabaseClient
+    .from("guild_sales")
+    .select("id,order_reference,product_name,commission_amount,status,created_at")
+    .eq("user_id",currentUser.id)
+    .order("created_at",{ascending:false})
+    .limit(100);
+
+  if (salesResult.error) {
+
+    console.error("Guild sales:",salesResult.error);
+
+    sales = [];
+
+    $("referralTable").innerHTML = `
+      <tr>
+        <td colspan="5" class="empty-cell">
+          Sales tracking is not configured yet.
+        </td>
+      </tr>
+    `;
+
+  } else {
+
+    sales = salesResult.data || [];
+
+  }
+
+  /*
+    Expected table: guild_rewards_ledger
+
+    Suggested fields:
+    id
+    user_id
+    amount
+    status
+    description
+    created_at
+
+    Commission values should be recorded
+    by a trusted backend.
+  */
+
+  const rewardResult = await supabaseClient
+    .from("guild_rewards_ledger")
+    .select("id,amount,status,description,created_at")
+    .eq("user_id",currentUser.id)
+    .order("created_at",{ascending:false})
+    .limit(200);
+
+  if (rewardResult.error) {
+
+    console.error("Reward ledger:",rewardResult.error);
+
+    rewards = [];
+
+  } else {
+
+    rewards = rewardResult.data || [];
+
+  }
+
+  /*
+    Optional table: guild_referral_clicks
+
+    Suggested fields:
+    id
+    referrer_user_id
+    created_at
+
+    The backend records actual clicks.
+    This page only reads the member's count.
+  */
+
+  const clickResult = await supabaseClient
+    .from("guild_referral_clicks")
+    .select("id", {count:"exact",head:true})
+    .eq("referrer_user_id",currentUser.id);
+
+  if (clickResult.error) {
+
+    console.warn("Referral click tracking:",clickResult.error.message);
+
+    clicks = [];
+
+    $("clicksStat").textContent = "—";
+
+  } else {
+
+    $("clicksStat").textContent =
+      Number(clickResult.count || 0).toLocaleString();
+
+  }
+
+  renderStats();
+  renderSales();
+}
+
+/* ==========================================
+   COMMISSION CALCULATIONS
+========================================== */
+
+function renderStats() {
+
+  let pending = 0;
+  let available = 0;
+  let paid = 0;
+
+  rewards.forEach(item => {
+
+    const amount = Number(item.amount || 0);
+    const status = String(item.status || "").toLowerCase();
+
+    if ([
+      "pending",
+      "delivery_pending",
+      "pending_delivery",
+      "awaiting_delivery",
+      "awaiting_approval"
+    ].includes(status)) {
+
+      pending += amount;
+
+    } else if ([
+      "available",
+      "approved",
+      "unlocked"
+    ].includes(status)) {
+
+      available += amount;
+
+    } else if (status === "paid") {
+
+      paid += amount;
+
+    }
+
+  });
+
+  const total = pending + available + paid;
+
+  $("pendingCommission").textContent = money(pending);
+  $("availableCommission").textContent = money(available);
+  $("paidCommission").textContent = money(paid);
+  $("earnedStat").textContent = money(total);
+
+  const orderCount = sales.length;
+
+  $("ordersStat").textContent =
+    orderCount.toLocaleString();
+
+  const clicksCount =
+    Number($("clicksStat").textContent.replace(/,/g,"")) || 0;
+
+  const conversion =
+    clicksCount > 0
+      ? (orderCount / clicksCount) * 100
+      : 0;
+
+  $("conversionStat").textContent =
+    conversion.toFixed(1) + "%";
+}
+
+/* ==========================================
+   RENDER SALES
+========================================== */
+
+function renderSales() {
+
+  const table = $("referralTable");
+
+  if (!sales.length) {
+
+    table.innerHTML = `
+      <tr>
+        <td colspan="5" class="empty-cell">
+          No attributed sales have been recorded yet.<br><br>
+          Share your referral link to start building your network.
+        </td>
+      </tr>
+    `;
+
+    return;
+  }
+
+  table.innerHTML = sales.map(sale => {
+
+    const status = String(sale.status || "pending").toLowerCase();
+
+    return `
+      <tr>
+
+        <td>
+          <strong>${escapeHTML(sale.order_reference || "Pending reference")}</strong>
+        </td>
+
+        <td>
+          ${escapeHTML(sale.product_name || "KOVÉR purchase")}
+        </td>
+
+        <td>
+          <strong>${money(sale.commission_amount)}</strong>
+        </td>
+
+        <td>
+          <span class="status ${escapeHTML(status)}">
+            ${escapeHTML(status.replaceAll("_"," "))}
+          </span>
+        </td>
+
+        <td>
+          ${escapeHTML(formatDate(sale.created_at))}
+        </td>
+
+      </tr>
+    `;
+
+  }).join("");
+}
+
+/* ==========================================
+   AUTHENTICATION
+========================================== */
+
+async function initialize() {
+
+  if (!supabaseClient) {
+
+    hideLoading();
+
+    toast("Configure your Supabase credentials first.");
+
+    return;
+  }
+
+  try {
+
+    const { data,error } =
+      await supabaseClient.auth.getSession();
+
+    if (error) throw error;
+
+    if (!data.session) {
+
+      window.location.replace("auth.html");
+
+      return;
+    }
+
+    currentUser = data.session.user;
+
+    await loadProfile();
+
+    await loadReferralData();
+
+    hideLoading();
+
+  } catch(error) {
+
+    console.error(error);
+
+    window.location.replace("auth.html");
+  }
+}
+
+if (supabaseClient) {
+
+  supabaseClient.auth.onAuthStateChange((event,session) => {
+
+    if (event === "SIGNED_OUT" || !session) {
+      window.location.replace("auth.html");
+    }
+
+  });
+
+}
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+async function logout() {
+
+  if (!supabaseClient) {
+    window.location.replace("auth.html");
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    toast("Unable to sign out.");
+    return;
+  }
+
+  window.location.replace("auth.html");
+}
+
+/* ==========================================
+   START
+========================================== */
+
+$("year").textContent = new Date().getFullYear();
+
+initialize();
+
+</script>
+
+</body>
+</html>
