@@ -1,0 +1,1337 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080807">
+
+<title>The Collection | KOVÉR</title>
+<meta name="description" content="Explore the KOVÉR watch collections. Discover Heritage, Prestige and Legacy. Time. Presence. Legacy.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black:#080807;
+  --dark:#11110f;
+  --panel:#151512;
+  --gold:#c6a36b;
+  --gold-light:#e4c99b;
+  --white:#f4f0e8;
+  --muted:#aaa49a;
+  --line:rgba(255,255,255,.12);
+}
+
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+  background:var(--black);
+  color:var(--white);
+  font-family:Inter,sans-serif;
+  overflow-x:hidden;
+}
+
+a {
+  text-decoration:none;
+  color:inherit;
+}
+
+button {
+  font:inherit;
+}
+
+img {
+  display:block;
+  max-width:100%;
+}
+
+.container {
+  width:min(1250px,90%);
+  margin:auto;
+}
+
+.serif {
+  font-family:"Cormorant Garamond",Georgia,serif;
+}
+
+.eyebrow {
+  color:var(--gold);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:4px;
+  text-transform:uppercase;
+}
+
+.gold-line {
+  width:55px;
+  height:1px;
+  background:var(--gold);
+  margin:24px 0;
+}
+
+.button {
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  min-height:48px;
+  padding:0 26px;
+  border:1px solid var(--gold);
+  color:var(--gold-light);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transition:.3s;
+  cursor:pointer;
+}
+
+.button:hover {
+  background:var(--gold);
+  color:var(--black);
+}
+
+.button-filled {
+  background:var(--gold);
+  color:var(--black);
+}
+
+.button-filled:hover {
+  background:var(--gold-light);
+}
+
+/* NAVIGATION */
+
+header {
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(8,8,7,.96);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid var(--line);
+}
+
+.nav {
+  height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.logo-name {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  color:var(--gold-light);
+  font-size:30px;
+  font-weight:500;
+  letter-spacing:8px;
+}
+
+.logo-sub {
+  font-size:7px;
+  color:#b5a58c;
+  letter-spacing:3px;
+}
+
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:32px;
+}
+
+.nav-links a {
+  color:#d3ccc1;
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transition:.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color:var(--gold);
+}
+
+.nav-right {
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.nav-contact {
+  color:var(--gold);
+  font-size:9px;
+  letter-spacing:2px;
+  border-bottom:1px solid var(--gold);
+  padding-bottom:7px;
+  text-transform:uppercase;
+}
+
+.menu-button {
+  display:none;
+  background:transparent;
+  color:var(--gold);
+  border:1px solid var(--line);
+  width:42px;
+  height:42px;
+  font-size:20px;
+  cursor:pointer;
+}
+
+/* HERO */
+
+.hero {
+  min-height:570px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.88),rgba(0,0,0,.22)),
+    url("kover-collection-hero.jpg") center/cover no-repeat;
+}
+
+.hero-content {
+  position:relative;
+  z-index:2;
+  max-width:680px;
+  padding:100px 0;
+}
+
+.hero h1 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-weight:300;
+  font-size:clamp(65px,9vw,112px);
+  line-height:.95;
+  margin:25px 0;
+}
+
+.hero h1 span {
+  color:var(--gold-light);
+}
+
+.hero-description {
+  color:#c5beb4;
+  font-size:12px;
+  line-height:2;
+  max-width:440px;
+  margin-bottom:30px;
+}
+
+/* COLLECTION INTRO */
+
+.intro {
+  padding:90px 0 60px;
+  text-align:center;
+}
+
+.intro h2 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(38px,5vw,64px);
+  font-weight:400;
+  margin:20px 0;
+}
+
+.intro p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:2;
+  max-width:620px;
+  margin:auto;
+}
+
+/* CATEGORY FILTER */
+
+.filter-section {
+  padding:35px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.filters {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.filter-btn {
+  padding:13px 22px;
+  border:1px solid var(--line);
+  background:transparent;
+  color:#bcb5aa;
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  color:var(--gold-light);
+  border-color:var(--gold);
+  background:rgba(198,163,107,.08);
+}
+
+/* FAMILY FEATURE */
+
+.family-section {
+  padding:95px 0;
+}
+
+.family-heading {
+  text-align:center;
+  margin-bottom:55px;
+}
+
+.family-heading h2 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(42px,6vw,70px);
+  font-weight:400;
+  margin:15px 0;
+}
+
+.family-heading p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.9;
+}
+
+.family-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+}
+
+.family-card {
+  background:#11110f;
+  border:1px solid var(--line);
+  transition:.35s;
+}
+
+.family-card:hover {
+  border-color:var(--gold);
+  transform:translateY(-5px);
+}
+
+.family-image {
+  height:390px;
+  position:relative;
+  overflow:hidden;
+  background:#171714;
+}
+
+.family-image img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .7s;
+}
+
+.family-card:hover .family-image img {
+  transform:scale(1.05);
+}
+
+.family-info {
+  padding:28px;
+}
+
+.family-number {
+  color:var(--gold);
+  font-size:9px;
+  letter-spacing:3px;
+}
+
+.family-info h3 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:35px;
+  font-weight:400;
+  margin:10px 0;
+}
+
+.family-info p {
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.9;
+  min-height:62px;
+}
+
+.family-link {
+  display:inline-block;
+  margin-top:24px;
+  color:var(--gold-light);
+  font-size:9px;
+  letter-spacing:2px;
+  border-bottom:1px solid var(--gold);
+  padding-bottom:8px;
+  text-transform:uppercase;
+}
+
+/* PRODUCTS */
+
+.products-section {
+  padding:100px 0;
+  background:#0e0e0c;
+}
+
+.products-heading {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:25px;
+  margin-bottom:50px;
+}
+
+.products-heading h2 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(42px,5vw,65px);
+  font-weight:400;
+  margin-top:15px;
+}
+
+.products-heading p {
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.9;
+  max-width:340px;
+}
+
+.products-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+
+.product-card {
+  background:#141411;
+  border:1px solid rgba(255,255,255,.08);
+  transition:.35s;
+}
+
+.product-card:hover {
+  border-color:rgba(198,163,107,.6);
+  transform:translateY(-5px);
+}
+
+.product-image {
+  height:340px;
+  position:relative;
+  background:
+    radial-gradient(circle,rgba(198,163,107,.10),transparent 70%),
+    #191916;
+  overflow:hidden;
+}
+
+.product-image img {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:16px;
+  transition:transform .5s;
+}
+
+.product-card:hover .product-image img {
+  transform:scale(1.06);
+}
+
+.product-tag {
+  position:absolute;
+  top:17px;
+  left:17px;
+  z-index:2;
+  color:var(--gold-light);
+  font-size:8px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  border:1px solid rgba(198,163,107,.5);
+  padding:8px 10px;
+  background:rgba(0,0,0,.45);
+}
+
+.product-info {
+  padding:24px;
+}
+
+.product-category {
+  color:var(--gold);
+  font-size:8px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+
+.product-info h3 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:30px;
+  font-weight:400;
+  margin:10px 0 5px;
+}
+
+.product-reference {
+  color:#77736b;
+  font-size:9px;
+  letter-spacing:1px;
+}
+
+.product-description {
+  color:#a8a197;
+  font-size:10px;
+  line-height:1.9;
+  margin:17px 0;
+  min-height:40px;
+}
+
+.product-price {
+  color:var(--gold-light);
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:25px;
+  margin-bottom:18px;
+}
+
+.product-price-note {
+  display:block;
+  color:#77736b;
+  font-family:Inter,sans-serif;
+  font-size:8px;
+  letter-spacing:1px;
+  margin-top:3px;
+}
+
+.product-actions {
+  display:grid;
+  grid-template-columns:1fr;
+}
+
+.product-actions .button {
+  width:100%;
+}
+
+/* STORY */
+
+.story {
+  min-height:580px;
+  display:flex;
+  align-items:center;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.86),rgba(0,0,0,.2)),
+    url("kover-collection-story.jpg") center/cover no-repeat;
+}
+
+.story-content {
+  max-width:600px;
+  padding:100px 0;
+}
+
+.story h2 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(48px,6vw,78px);
+  font-weight:300;
+  line-height:1;
+  margin:25px 0;
+}
+
+.story p {
+  color:#c1baaf;
+  font-size:12px;
+  line-height:2;
+  max-width:430px;
+  margin-bottom:30px;
+}
+
+/* SERVICE */
+
+.service {
+  padding:90px 0;
+  text-align:center;
+}
+
+.service h2 {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(40px,5vw,60px);
+  font-weight:400;
+  margin:20px 0;
+}
+
+.service p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:2;
+  max-width:550px;
+  margin:0 auto 30px;
+}
+
+/* FOOTER */
+
+footer {
+  background:#050504;
+  border-top:1px solid rgba(198,163,107,.2);
+  padding:65px 0 25px;
+}
+
+.footer-top {
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:50px;
+  padding-bottom:50px;
+}
+
+.footer-logo {
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:38px;
+  color:var(--gold-light);
+  letter-spacing:8px;
+}
+
+.footer-brand p {
+  color:#88837b;
+  font-size:11px;
+  line-height:2;
+  max-width:330px;
+  margin-top:18px;
+}
+
+.footer-column h4 {
+  color:var(--gold);
+  font-size:9px;
+  letter-spacing:3px;
+  margin-bottom:22px;
+}
+
+.footer-column a {
+  display:block;
+  color:#99938a;
+  font-size:11px;
+  margin:15px 0;
+  transition:.3s;
+}
+
+.footer-column a:hover {
+  color:var(--gold-light);
+}
+
+.parent-brand {
+  border-top:1px solid var(--line);
+  padding:27px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+
+.parent-brand p {
+  color:#777;
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.parent-logo {
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.parent-logo img {
+  width:35px;
+  height:35px;
+  object-fit:contain;
+}
+
+.parent-logo strong {
+  color:var(--white);
+  font-size:11px;
+  letter-spacing:2px;
+}
+
+.parent-logo strong span {
+  color:#b8ff3b;
+}
+
+.footer-bottom {
+  border-top:1px solid var(--line);
+  padding-top:22px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  color:#68645e;
+  font-size:9px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px) {
+  .nav-links {
+    gap:17px;
+  }
+
+  .family-grid,
+  .products-grid {
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .family-card:last-child {
+    grid-column:1/-1;
+  }
+
+  .family-card:last-child .family-image {
+    height:430px;
+  }
+}
+
+@media(max-width:760px) {
+  .nav {
+    height:74px;
+  }
+
+  .menu-button {
+    display:block;
+  }
+
+  .nav-contact {
+    display:none;
+  }
+
+  .nav-links {
+    display:none;
+    position:absolute;
+    top:74px;
+    left:0;
+    right:0;
+    padding:28px 5%;
+    background:#080807;
+    border-bottom:1px solid var(--line);
+    flex-direction:column;
+    align-items:flex-start;
+    gap:25px;
+  }
+
+  .nav-links.open {
+    display:flex;
+  }
+
+  .products-heading {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .footer-top {
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+  }
+
+  .footer-brand {
+    grid-column:1/-1;
+  }
+}
+
+@media(max-width:540px) {
+  .hero {
+    min-height:530px;
+  }
+
+  .hero h1 {
+    font-size:67px;
+  }
+
+  .family-grid,
+  .products-grid {
+    grid-template-columns:1fr;
+  }
+
+  .family-card:last-child {
+    grid-column:auto;
+  }
+
+  .family-image {
+    height:370px;
+  }
+
+  .family-card:last-child .family-image {
+    height:370px;
+  }
+
+  .product-image {
+    height:350px;
+  }
+
+  .family-section,
+  .products-section {
+    padding:75px 0;
+  }
+
+  .footer-top {
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+
+  .parent-brand {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .footer-bottom {
+    flex-direction:column;
+    line-height:1.8;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  html {
+    scroll-behavior:auto;
+  }
+
+  *,
+  *:before,
+  *:after {
+    transition-duration:.01ms!important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+
+    <a href="index.html" class="logo">
+      <span class="logo-name">KOVÉR</span>
+      <span class="logo-sub">TIME · PRESENCE · LEGACY</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="collection.html" class="active">Collection</a>
+      <a href="about-kover.html">Our Story</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-right">
+      <a href="contact.html" class="nav-contact">Client Services</a>
+      <button class="menu-button" id="menuButton" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+<!-- COLLECTION HERO -->
+
+<section class="hero">
+  <div class="container">
+
+    <div class="hero-content">
+
+      <div class="eyebrow">The world of KOVÉR</div>
+
+      <h1>
+        Discover<br>
+        <span>the collection.</span>
+      </h1>
+
+      <div class="gold-line"></div>
+
+      <p class="hero-description">
+        Three expressions of character. One distinctive identity.
+        Explore the KOVÉR watch collections and discover a
+        signature that reflects your own sense of style.
+      </p>
+
+      <a href="#collections" class="button button-filled">
+        Explore the collections
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- INTRODUCTION -->
+
+<section class="intro">
+
+  <div class="container">
+
+    <div class="eyebrow">Time · Presence · Legacy</div>
+
+    <h2>A collection with character.</h2>
+
+    <p>
+      Every KOVÉR collection has its own personality.
+      From classic elegance to modern distinction and bold expression,
+      discover the designs that define the KOVÉR identity.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- FILTERS -->
+
+<section class="filter-section" id="collections">
+
+  <div class="container">
+
+    <div class="filters">
+
+      <button class="filter-btn active" data-filter="all">All Collections</button>
+      <button class="filter-btn" data-filter="heritage">Heritage</button>
+      <button class="filter-btn" data-filter="prestige">Prestige</button>
+      <button class="filter-btn" data-filter="legacy">Legacy</button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- COLLECTION FAMILIES -->
+
+<section class="family-section">
+
+  <div class="container">
+
+    <div class="family-heading">
+      <div class="eyebrow">The three expressions</div>
+      <h2>Find your KOVÉR.</h2>
+      <p>Explore the identity behind each collection.</p>
+    </div>
+
+    <div class="family-grid">
+
+      <article class="family-card" data-family="heritage">
+
+        <a href="#products" data-select="heritage">
+          <div class="family-image">
+            <img src="kover-heritage.jpg"
+                 alt="KOVÉR Heritage collection"
+                 loading="lazy">
+          </div>
+        </a>
+
+        <div class="family-info">
+          <div class="family-number">COLLECTION 01</div>
+          <h3>Heritage</h3>
+          <p>
+            Classic elegance. A considered expression of timeless
+            design and refined personal style.
+          </p>
+          <a href="#products" class="family-link" data-select="heritage">
+            Discover Heritage →
+          </a>
+        </div>
+
+      </article>
+
+      <article class="family-card" data-family="prestige">
+
+        <a href="#products" data-select="prestige">
+          <div class="family-image">
+            <img src="kover-prestige.jpg"
+                 alt="KOVÉR Prestige collection"
+                 loading="lazy">
+          </div>
+        </a>
+
+        <div class="family-info">
+          <div class="family-number">COLLECTION 02</div>
+          <h3>Prestige</h3>
+          <p>
+            Modern distinction. Confident design for those who
+            appreciate individuality and presence.
+          </p>
+          <a href="#products" class="family-link" data-select="prestige">
+            Discover Prestige →
+          </a>
+        </div>
+
+      </article>
+
+      <article class="family-card" data-family="legacy">
+
+        <a href="#products" data-select="legacy">
+          <div class="family-image">
+            <img src="kover-legacy.jpg"
+                 alt="KOVÉR Legacy collection"
+                 loading="lazy">
+          </div>
+        </a>
+
+        <div class="family-info">
+          <div class="family-number">COLLECTION 03</div>
+          <h3>Legacy</h3>
+          <p>
+            Distinctive character. A bold expression of design
+            and a lasting personal impression.
+          </p>
+          <a href="#products" class="family-link" data-select="legacy">
+            Discover Legacy →
+          </a>
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- WATCH CATALOGUE -->
+
+<section class="products-section" id="products">
+
+  <div class="container">
+
+    <div class="products-heading">
+
+      <div>
+        <div class="eyebrow">The KOVÉR catalogue</div>
+        <h2>Selected timepieces.</h2>
+      </div>
+
+      <p>
+        Explore individual models from the KOVÉR collections.
+        Select a timepiece to discover its details.
+      </p>
+
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+
+      <!-- HERITAGE WATCH -->
+
+      <article class="product-card" data-category="heritage">
+
+        <a href="product.html?id=heritage-01">
+          <div class="product-image">
+            <span class="product-tag">Heritage</span>
+            <img src="kover-heritage.jpg"
+                 alt="KOVÉR Heritage 01"
+                 loading="lazy">
+          </div>
+        </a>
+
+        <div class="product-info">
+
+          <div class="product-category">Heritage Collection</div>
+
+          <h3>Heritage 01</h3>
+
+          <div class="product-reference">REFERENCE: KVR-H01</div>
+
+          <p class="product-description">
+            A classic design direction with a refined leather-strap aesthetic.
+          </p>
+
+          <div class="product-price">
+            Price to be confirmed
+            <span class="product-price-note">Final price shown on product page</span>
+          </div>
+
+          <div class="product-actions">
+            <a href="product.html?id=heritage-01" class="button">
+              Discover this watch
+            </a>
+          </div>
+
+        </div>
+
+      </article>
+
+      <!-- PRESTIGE WATCH -->
+
+      <article class="product-card" data-category="prestige">
+
+        <a href="product.html?id=prestige-01">
+          <div class="product-image">
+            <span class="product-tag">Prestige</span>
+            <img src="kover-prestige.jpg"
+                 alt="KOVÉR Prestige 01"
+                 loading="lazy">
+          </div>
+        </a>
+
+        <div class="product-info">
+
+          <div class="product-category">Prestige Collection</div>
+
+          <h3>Prestige 01</h3>
+
+          <div class="product-reference">REFERENCE: KVR-P01</div>
+
+          <p class="product-description">
+            A modern expression with confident proportions and distinctive detailing.
+          </p>
+
+          <div class="product-price">
+            Price to be confirmed
+            <span class="product-price-note">Final price shown on product page</span>
+          </div>
+
+          <div class="product-actions">
+            <a href="product.html?id=prestige-01" class="button">
+              Discover this watch
+            </a>
+          </div>
+
+        </div>
+
+      </article>
+
+      <!-- LEGACY WATCH -->
+
+      <article class="product-card" data-category="legacy">
+
+        <a href="product.html?id=legacy-01">
+          <div class="product-image">
+            <span class="product-tag">Legacy</span>
+            <img src="kover-legacy.jpg"
+                 alt="KOVÉR Legacy 01"
+                 loading="lazy">
+          </div>
+        </a>
+
+        <div class="product-info">
+
+          <div class="product-category">Legacy Collection</div>
+
+          <h3>Legacy 01</h3>
+
+          <div class="product-reference">REFERENCE: KVR-L01</div>
+
+          <p class="product-description">
+            A bold design direction for those who appreciate a distinctive presence.
+          </p>
+
+          <div class="product-price">
+            Price to be confirmed
+            <span class="product-price-note">Final price shown on product page</span>
+          </div>
+
+          <div class="product-actions">
+            <a href="product.html?id=legacy-01" class="button">
+              Discover this watch
+            </a>
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+    <p id="emptyMessage" style="display:none;text-align:center;color:#aaa49a;padding:45px 0;font-size:12px">
+      More timepieces from this collection will be introduced here.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- BRAND STORY -->
+
+<section class="story">
+
+  <div class="container">
+
+    <div class="story-content">
+
+      <div class="eyebrow">The KOVÉR philosophy</div>
+
+      <h2>
+        A distinctive<br>
+        expression of time.
+      </h2>
+
+      <div class="gold-line"></div>
+
+      <p>
+        KOVÉR is built around a simple idea: a timepiece should
+        reflect the character of the person who wears it.
+        Our collections explore design, individuality and
+        contemporary elegance.
+      </p>
+
+      <a href="about-kover.html" class="button">
+        Discover our story
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CUSTOMER SERVICE -->
+
+<section class="service">
+
+  <div class="container">
+
+    <div class="eyebrow">The KOVÉR experience</div>
+
+    <h2>Every detail matters.</h2>
+
+    <p>
+      From selecting your timepiece to receiving your order,
+      our customer care team is available to help you with
+      product information, ordering and fulfilment enquiries.
+    </p>
+
+    <a href="contact.html" class="button button-filled">
+      Contact client services
+    </a>
+
+  </div>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container">
+
+    <div class="footer-top">
+
+      <div class="footer-brand">
+
+        <div class="footer-logo">KOVÉR</div>
+
+        <div class="eyebrow" style="margin-top:5px">
+          Time · Presence · Legacy
+        </div>
+
+        <p>
+          An independent watch house exploring distinctive design
+          and modern expressions of personal style.
+        </p>
+
+      </div>
+
+      <div class="footer-column">
+
+        <h4>Explore</h4>
+
+        <a href="index.html">Home</a>
+        <a href="collection.html">The Collection</a>
+        <a href="about-kover.html">Our Story</a>
+        <a href="contact.html">Contact</a>
+
+      </div>
+
+      <div class="footer-column">
+
+        <h4>Customer Care</h4>
+
+        <a href="contact.html">Contact Us</a>
+        <a href="track-order.html">Track Your Order</a>
+        <a href="policies.html">Shipping & Returns</a>
+        <a href="policies.html">Privacy & Terms</a>
+
+      </div>
+
+    </div>
+
+    <div class="parent-brand">
+
+      <p>Presented by</p>
+
+      <a href="https://campusmoney.xyz" class="parent-logo">
+        <img src="campus-money-logo.jpeg" alt="Campus Money logo">
+        <strong>CAMPUS<span>MONEY</span></strong>
+      </a>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> KOVÉR. All rights reserved.</span>
+      <span>Time · Presence · Legacy.</span>
+    </div>
+
+  </div>
+
+</footer>
+
+<script>
+const menuButton = document.getElementById("menuButton");
+const navLinks = document.getElementById("navLinks");
+
+menuButton.addEventListener("click", function() {
+  const open = navLinks.classList.toggle("open");
+  menuButton.textContent = open ? "×" : "☰";
+  menuButton.setAttribute("aria-expanded", String(open));
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    menuButton.textContent = "☰";
+    menuButton.setAttribute("aria-expanded", "false");
+  });
+});
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+const productCards = document.querySelectorAll(".product-card");
+const familyCards = document.querySelectorAll(".family-card");
+const emptyMessage = document.getElementById("emptyMessage");
+
+function filterCollection(category) {
+
+  let visibleProducts = 0;
+
+  filterButtons.forEach(button => {
+    button.classList.toggle("active", button.dataset.filter === category);
+  });
+
+  productCards.forEach(card => {
+    const show = category === "all" || card.dataset.category === category;
+    card.style.display = show ? "" : "none";
+    if (show) visibleProducts++;
+  });
+
+  familyCards.forEach(card => {
+    const show = category === "all" || card.dataset.family === category;
+    card.style.display = show ? "" : "none";
+  });
+
+  emptyMessage.style.display = visibleProducts ? "none" : "block";
+}
+
+filterButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    filterCollection(button.dataset.filter);
+  });
+});
+
+document.querySelectorAll("[data-select]").forEach(link => {
+  link.addEventListener("click", () => {
+    const category = link.dataset.select;
+    filterCollection(category);
+  });
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
