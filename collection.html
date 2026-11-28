@@ -4,1435 +4,2193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080807">
+<meta name="theme-color" content="#064b32">
 
-<title>Secure Checkout | KOVÉR</title>
-<meta name="description" content="Complete your KOVÉR timepiece order securely.">
+<title>Collections | KOVÉR® Luxury Timepieces</title>
+
+<meta name="description" content="Explore the KOVÉR collection. Discover K001, our signature expression of modern luxury and distinctive watch design.">
+
+<meta name="keywords" content="KOVÉR, KOVER, KOVÉR K001, luxury watches, skeleton watches, premium timepieces, designer watches">
+
+<meta property="og:title" content="KOVÉR Collections">
+<meta property="og:description" content="Discover the art of time. Explore the KOVÉR signature collection.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/k001.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Italiana&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+
 :root {
-  --black:#080807;
-  --dark:#11110f;
-  --panel:#151512;
-  --gold:#c6a36b;
-  --gold-light:#e4c99b;
-  --white:#f4f0e8;
-  --muted:#aaa49a;
-  --line:rgba(255,255,255,.12);
-  --error:#e59b8e;
+    --emerald:#064b32;
+    --deep:#032d20;
+    --forest:#173b2d;
+    --gold:#d5b36a;
+    --gold-light:#ebd49b;
+    --ivory:#f7f4ec;
+    --white:#fff;
+    --charcoal:#242424;
+    --muted:#77766f;
+    --border:rgba(6,75,50,.13);
+
+    --serif:'Italiana',serif;
+    --sans:'DM Sans',sans-serif;
+    --modern:'Manrope',sans-serif;
 }
 
 * {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html {
+    scroll-behavior:smooth;
+    scroll-padding-top:100px;
 }
 
 body {
-  background:var(--black);
-  color:var(--white);
-  font-family:Inter,sans-serif;
-  overflow-x:hidden;
+    font-family:var(--sans);
+    background:var(--ivory);
+    color:var(--charcoal);
+    overflow-x:hidden;
 }
 
 a {
-  color:inherit;
-  text-decoration:none;
+    text-decoration:none;
+    color:inherit;
 }
 
-button,input,select,textarea {
-  font:inherit;
+button,input,select {
+    font-family:inherit;
 }
 
-.container {
-  width:min(1120px,90%);
-  margin:auto;
+button {
+    cursor:pointer;
 }
 
-.serif {
-  font-family:"Cormorant Garamond",Georgia,serif;
+img {
+    display:block;
+    max-width:100%;
+}
+
+button,a {
+    -webkit-tap-highlight-color:transparent;
+}
+
+/* ANNOUNCEMENT */
+
+.announcement {
+    background:var(--deep);
+    color:var(--gold-light);
+    text-align:center;
+    padding:10px 15px;
+    font-size:9px;
+    letter-spacing:2px;
+    font-weight:600;
+}
+
+/* HEADER */
+
+.header {
+    height:85px;
+    background:rgba(247,244,236,.97);
+    backdrop-filter:blur(15px);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    border-bottom:1px solid var(--border);
+}
+
+.nav-left,.nav-right {
+    display:flex;
+    align-items:center;
+    gap:30px;
+    flex:1;
+}
+
+.nav-right {
+    justify-content:flex-end;
+}
+
+.nav-link {
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+    transition:.3s;
+}
+
+.nav-link:hover {
+    color:#a27e3f;
+}
+
+.brand {
+    min-width:170px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.brand img {
+    width:145px;
+    height:62px;
+    object-fit:contain;
+    mix-blend-mode:multiply;
+}
+
+.brand-name {
+    display:none;
+    font-family:var(--serif);
+    font-size:34px;
+    letter-spacing:5px;
+    color:var(--emerald);
+}
+
+.brand-caption {
+    color:#987b43;
+    font-size:7px;
+    letter-spacing:3px;
+    margin-top:-3px;
+}
+
+.header-action {
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:1px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.cart-count {
+    background:var(--emerald);
+    color:white;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:10px;
+}
+
+.mobile-toggle {
+    display:none;
+    border:0;
+    background:none;
+    color:var(--emerald);
+    font-size:25px;
+}
+
+/* MOBILE MENU */
+
+.mobile-menu {
+    display:none;
+    position:fixed;
+    inset:0;
+    background:var(--deep);
+    z-index:2000;
+    padding:30px;
+    flex-direction:column;
+}
+
+.mobile-menu.active {
+    display:flex;
+}
+
+.mobile-menu-top {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:55px;
+}
+
+.mobile-menu-top span {
+    color:var(--gold-light);
+    font-family:var(--serif);
+    font-size:30px;
+    letter-spacing:4px;
+}
+
+.mobile-close {
+    background:none;
+    border:0;
+    color:white;
+    font-size:30px;
+}
+
+.mobile-menu>a {
+    color:white;
+    font-family:var(--serif);
+    font-size:29px;
+    padding:17px 0;
+    border-bottom:1px solid rgba(255,255,255,.13);
+}
+
+.mobile-caption {
+    margin-top:auto;
+    color:var(--gold);
+    font-size:9px;
+    letter-spacing:3px;
+}
+
+/* BUTTONS */
+
+.btn-gold {
+    background:var(--gold);
+    color:var(--deep);
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    padding:17px 27px;
+    border:1px solid var(--gold);
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1.7px;
+    text-transform:uppercase;
+    transition:.3s;
+}
+
+.btn-gold:hover {
+    background:var(--gold-light);
+    transform:translateY(-3px);
+}
+
+.btn-outline {
+    border:1px solid rgba(255,255,255,.65);
+    color:white;
+    padding:16px 25px;
+    font-size:9px;
+    letter-spacing:1.6px;
+    font-weight:700;
+    text-transform:uppercase;
+    transition:.3s;
+}
+
+.btn-outline:hover {
+    background:white;
+    color:var(--emerald);
+}
+
+/* COLLECTION HERO */
+
+.hero {
+    min-height:570px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+    background:
+      linear-gradient(90deg,
+      rgba(3,45,32,.92),
+      rgba(3,45,32,.67) 48%,
+      rgba(3,45,32,.12)),
+      url('https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=2000&q=90')
+      center/cover;
+    color:white;
+}
+
+.hero-content {
+    position:relative;
+    z-index:2;
+    padding:90px 10%;
+    max-width:800px;
+    animation:reveal 1s ease both;
+}
+
+@keyframes reveal {
+    from {
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 .eyebrow {
-  color:var(--gold);
-  font-size:9px;
-  font-weight:600;
-  letter-spacing:3px;
-  text-transform:uppercase;
+    color:var(--gold-light);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:4px;
+    margin-bottom:25px;
 }
 
-.gold-line {
-  height:1px;
-  width:50px;
-  background:var(--gold);
-  margin:20px 0;
+.hero h1 {
+    font-family:var(--serif);
+    font-size:clamp(55px,8vw,95px);
+    font-weight:400;
+    line-height:1;
+    margin-bottom:25px;
 }
 
-header {
-  position:sticky;
-  top:0;
-  z-index:20;
-  background:rgba(8,8,7,.96);
-  border-bottom:1px solid var(--line);
-  backdrop-filter:blur(15px);
+.hero h1 span {
+    color:var(--gold-light);
+    display:block;
+    font-style:italic;
 }
 
-.nav {
-  height:78px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+.hero p {
+    color:rgba(255,255,255,.8);
+    font-size:13px;
+    line-height:2;
+    max-width:410px;
+    margin-bottom:32px;
 }
 
-.logo {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-
-.logo-name {
-  color:var(--gold-light);
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:30px;
-  letter-spacing:8px;
-}
-
-.logo-sub {
-  color:#b5a58c;
-  font-size:7px;
-  letter-spacing:3px;
-}
-
-.nav-links {
-  display:flex;
-  gap:28px;
-}
-
-.nav-links a {
-  color:#d3ccc1;
-  font-size:9px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
-
-.nav-links a:hover {
-  color:var(--gold);
-}
-
-.secure-label {
-  color:var(--gold-light);
-  font-size:9px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
-
-.page-heading {
-  padding:65px 0 45px;
-  text-align:center;
-}
-
-.page-heading h1 {
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:clamp(48px,7vw,76px);
-  font-weight:400;
-  margin:14px 0;
-}
-
-.page-heading p {
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.9;
-}
-
-.checkout-layout {
-  display:grid;
-  grid-template-columns:1.35fr .85fr;
-  gap:35px;
-  align-items:start;
-  padding-bottom:100px;
-}
-
-.panel {
-  background:var(--dark);
-  border:1px solid var(--line);
-  padding:30px;
-  margin-bottom:20px;
-}
-
-.panel-title {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:26px;
-}
-
-.panel-title h2 {
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:30px;
-  font-weight:400;
-}
-
-.step-number {
-  color:var(--gold);
-  font-size:9px;
-  letter-spacing:2px;
-}
-
-.form-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:17px;
-}
-
-.field {
-  margin-bottom:17px;
-}
-
-.field.full {
-  grid-column:1/-1;
-}
-
-.field label {
-  display:block;
-  color:#bdb5aa;
-  font-size:9px;
-  letter-spacing:1.5px;
-  text-transform:uppercase;
-  margin-bottom:9px;
-}
-
-.field input,
-.field select,
-.field textarea {
-  width:100%;
-  min-height:49px;
-  background:#080807;
-  border:1px solid var(--line);
-  color:var(--white);
-  padding:13px 14px;
-  border-radius:0;
-  outline:none;
-  font-size:11px;
-}
-
-.field textarea {
-  min-height:85px;
-  resize:vertical;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  border-color:var(--gold);
-}
-
-.field input::placeholder,
-.field textarea::placeholder {
-  color:#68645e;
-}
-
-.field select option {
-  background:#11110f;
-}
-
-.helper {
-  color:#77736b;
-  font-size:9px;
-  line-height:1.8;
-  margin-top:8px;
-}
-
-.wallet-box {
-  border:1px solid rgba(198,163,107,.35);
-  background:rgba(198,163,107,.05);
-  padding:20px;
-}
-
-.wallet-top {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-}
-
-.wallet-name {
-  color:var(--gold-light);
-  font-size:11px;
-  font-weight:600;
-}
-
-.wallet-description {
-  color:var(--muted);
-  font-size:10px;
-  line-height:1.8;
-  margin-top:8px;
-}
-
-.wallet-status {
-  margin-top:15px;
-  color:#aaa49a;
-  font-size:10px;
-  line-height:1.8;
-  overflow-wrap:anywhere;
-}
-
-.wallet-connected {
-  color:var(--gold-light);
-}
-
-.button {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:49px;
-  padding:0 22px;
-  border:1px solid var(--gold);
-  background:transparent;
-  color:var(--gold-light);
-  font-size:9px;
-  font-weight:600;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  cursor:pointer;
-  transition:.3s;
-}
-
-.button:hover:not(:disabled) {
-  background:var(--gold);
-  color:var(--black);
-}
-
-.button-filled {
-  background:var(--gold);
-  color:var(--black);
-}
-
-.button:disabled {
-  opacity:.45;
-  cursor:not-allowed;
-}
-
-.wallet-button {
-  min-height:42px;
-  white-space:nowrap;
-}
-
-.payment-method {
-  display:flex;
-  align-items:center;
-  gap:13px;
-  padding:17px;
-  border:1px solid var(--gold);
-  background:rgba(198,163,107,.06);
-}
-
-.payment-icon {
-  width:39px;
-  height:39px;
-  display:grid;
-  place-items:center;
-  background:#24231e;
-  color:var(--gold-light);
-  font-size:11px;
-  font-weight:700;
-  border-radius:50%;
-}
-
-.payment-method strong {
-  display:block;
-  font-size:11px;
-  font-weight:500;
-}
-
-.payment-method span {
-  display:block;
-  color:var(--muted);
-  font-size:9px;
-  margin-top:5px;
-}
-
-.check-row {
-  display:flex;
-  align-items:flex-start;
-  gap:11px;
-  margin:20px 0;
-  color:#aaa49a;
-  font-size:10px;
-  line-height:1.8;
-}
-
-.check-row input {
-  margin-top:3px;
-  accent-color:var(--gold);
-  flex-shrink:0;
-}
-
-.summary-panel {
-  position:sticky;
-  top:105px;
-}
-
-.product-summary {
-  display:flex;
-  gap:17px;
-  align-items:center;
-  padding-bottom:23px;
-  border-bottom:1px solid var(--line);
-}
-
-.product-summary img {
-  width:100px;
-  height:115px;
-  object-fit:contain;
-  background:#191916;
-  padding:8px;
-}
-
-.product-summary h3 {
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:24px;
-  font-weight:400;
-}
-
-.product-summary p {
-  color:#8d877d;
-  font-size:9px;
-  margin-top:7px;
-}
-
-.summary-row {
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:13px 0;
-  border-bottom:1px solid rgba(255,255,255,.07);
-  color:#aaa49a;
-  font-size:10px;
-}
-
-.summary-row strong {
-  color:#e5dfd4;
-  font-weight:500;
-  text-align:right;
-}
-
-.summary-total {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:22px 0;
-  color:var(--gold-light);
-}
-
-.summary-total span {
-  font-size:9px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
-
-.summary-total strong {
-  font-family:"Cormorant Garamond",Georgia,serif;
-  font-size:29px;
-  font-weight:400;
-}
-
-.summary-note {
-  color:#77736b;
-  font-size:9px;
-  line-height:1.9;
-}
-
-.summary-links {
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  margin-top:23px;
-  padding-top:18px;
-  border-top:1px solid var(--line);
-  color:#aaa49a;
-  font-size:9px;
-}
-
-.summary-links a:hover {
-  color:var(--gold);
-}
-
-.pay-button {
-  width:100%;
-  margin-top:18px;
-}
-
-.status-message {
-  display:none;
-  margin-top:17px;
-  padding:15px;
-  border:1px solid var(--line);
-  color:var(--gold-light);
-  font-size:10px;
-  line-height:1.8;
-  overflow-wrap:anywhere;
-}
-
-.status-message.error {
-  border-color:rgba(229,155,142,.45);
-  color:var(--error);
-}
-
-.status-message.success {
-  border-color:rgba(198,163,107,.6);
-  color:var(--gold-light);
-}
-
-.transaction-link {
-  display:inline-block;
-  margin-top:10px;
-  color:var(--gold-light);
-  text-decoration:underline;
-}
-
-footer {
-  background:#050504;
-  border-top:1px solid rgba(198,163,107,.2);
-  padding:35px 0;
-}
-
-.footer-inner {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-}
-
-.footer-inner p {
-  color:#77736b;
-  font-size:9px;
-  line-height:1.8;
-}
-
-.footer-inner a {
-  color:var(--gold-light);
-  font-size:9px;
-}
-
-@media(max-width:850px) {
-  .checkout-layout {
-    grid-template-columns:1fr;
-  }
-
-  .summary-panel {
-    position:relative;
-    top:auto;
-  }
-}
-
-@media(max-width:600px) {
-  .nav {
-    height:70px;
-  }
-
-  .nav-links {
+.hero-buttons {
+    display:flex;
     gap:13px;
-  }
-
-  .nav-links a {
-    font-size:8px;
-  }
-
-  .secure-label {
-    display:none;
-  }
-
-  .panel {
-    padding:21px;
-  }
-
-  .form-grid {
-    grid-template-columns:1fr;
-  }
-
-  .field.full {
-    grid-column:auto;
-  }
-
-  .wallet-top {
-    align-items:flex-start;
-    flex-direction:column;
-  }
-
-  .wallet-button {
-    width:100%;
-  }
-
-  .footer-inner {
-    align-items:flex-start;
-    flex-direction:column;
-  }
+    flex-wrap:wrap;
 }
+
+.hero-caption {
+    position:absolute;
+    bottom:30px;
+    left:10%;
+    font-size:9px;
+    letter-spacing:3px;
+    color:var(--gold-light);
+}
+
+/* COLLECTION INTRO */
+
+.intro {
+    padding:85px 7% 60px;
+    text-align:center;
+}
+
+.section-label {
+    font-size:9px;
+    color:#a27e3f;
+    font-weight:800;
+    letter-spacing:3px;
+    margin-bottom:18px;
+}
+
+.intro h2 {
+    font-family:var(--serif);
+    font-size:clamp(38px,5vw,58px);
+    font-weight:400;
+    color:var(--emerald);
+    margin-bottom:17px;
+}
+
+.intro p {
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.9;
+    max-width:570px;
+    margin:auto;
+}
+
+/* FEATURED K001 */
+
+.featured {
+    padding:30px 7% 100px;
+}
+
+.featured-card {
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    background:white;
+    min-height:520px;
+    overflow:hidden;
+}
+
+.featured-image {
+    position:relative;
+    min-height:500px;
+    background:#e9e5da;
+    overflow:hidden;
+}
+
+.featured-image img {
+    width:100%;
+    height:100%;
+    min-height:500px;
+    object-fit:cover;
+    transition:transform .8s;
+}
+
+.featured-card:hover .featured-image img {
+    transform:scale(1.035);
+}
+
+.featured-badge {
+    position:absolute;
+    top:25px;
+    left:25px;
+    background:var(--emerald);
+    color:var(--gold-light);
+    padding:10px 15px;
+    font-size:8px;
+    letter-spacing:2px;
+    font-weight:700;
+}
+
+.featured-info {
+    padding:65px 10%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.featured-info h2 {
+    font-family:var(--serif);
+    color:var(--emerald);
+    font-size:clamp(45px,5vw,68px);
+    font-weight:400;
+    margin-bottom:10px;
+}
+
+.featured-subtitle {
+    color:#a27e3f;
+    font-size:9px;
+    letter-spacing:2px;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.featured-info p {
+    color:var(--muted);
+    font-size:12px;
+    line-height:2;
+    margin-bottom:20px;
+}
+
+.spec-list {
+    list-style:none;
+    margin:10px 0 28px;
+    border-top:1px solid var(--border);
+}
+
+.spec-list li {
+    padding:12px 0;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    font-size:10px;
+}
+
+.spec-list li span:first-child {
+    color:var(--muted);
+}
+
+.spec-list li span:last-child {
+    color:var(--emerald);
+    font-weight:700;
+    text-align:right;
+}
+
+.featured-buttons {
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.btn-green {
+    background:var(--emerald);
+    color:white;
+    padding:17px 25px;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    transition:.3s;
+}
+
+.btn-green:hover {
+    background:var(--deep);
+    transform:translateY(-3px);
+}
+
+/* CATALOGUE */
+
+.catalogue {
+    background:#f0ede4;
+    padding:100px 7%;
+}
+
+.catalogue-heading {
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:25px;
+    margin-bottom:38px;
+}
+
+.catalogue-heading h2 {
+    font-family:var(--serif);
+    font-size:clamp(38px,5vw,55px);
+    color:var(--emerald);
+    font-weight:400;
+}
+
+.catalogue-heading p {
+    font-size:11px;
+    color:var(--muted);
+    margin-top:8px;
+}
+
+/* FILTERS */
+
+.filter-area {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:20px 0;
+    margin-bottom:35px;
+}
+
+.filters {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    flex-wrap:wrap;
+}
+
+.filter-btn {
+    background:transparent;
+    border:1px solid transparent;
+    padding:10px 15px;
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:1px;
+    color:var(--muted);
+    text-transform:uppercase;
+    transition:.3s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background:var(--emerald);
+    color:white;
+}
+
+.catalogue-tools {
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.search-box {
+    border:1px solid var(--border);
+    background:white;
+    padding:11px 12px;
+    width:175px;
+    outline:none;
+    font-size:10px;
+    color:var(--emerald);
+}
+
+.sort-select {
+    border:1px solid var(--border);
+    background:white;
+    padding:11px;
+    font-size:10px;
+    color:var(--emerald);
+    outline:none;
+}
+
+.result-count {
+    color:var(--muted);
+    font-size:10px;
+    margin-bottom:22px;
+}
+
+/* PRODUCT GRID */
+
+.product-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.product-card {
+    background:white;
+    transition:.35s;
+    position:relative;
+}
+
+.product-card:hover {
+    transform:translateY(-7px);
+    box-shadow:0 20px 40px rgba(0,0,0,.07);
+}
+
+.product-card[hidden] {
+    display:none;
+}
+
+.product-photo {
+    height:380px;
+    background:#e9e5da;
+    overflow:hidden;
+    position:relative;
+}
+
+.product-photo img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .7s;
+}
+
+.product-card:hover .product-photo img {
+    transform:scale(1.06);
+}
+
+.product-label {
+    position:absolute;
+    top:17px;
+    left:17px;
+    background:var(--emerald);
+    color:var(--gold-light);
+    padding:9px 12px;
+    font-size:8px;
+    letter-spacing:1.5px;
+    font-weight:700;
+}
+
+.product-details {
+    padding:25px 20px;
+    text-align:center;
+}
+
+.product-category {
+    color:#a27e3f;
+    font-size:8px;
+    letter-spacing:2px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.product-details h3 {
+    font-family:var(--serif);
+    color:var(--emerald);
+    font-size:28px;
+    font-weight:400;
+    margin-bottom:9px;
+}
+
+.product-details p {
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.8;
+    margin-bottom:18px;
+}
+
+.product-action {
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    padding:14px 22px;
+    border:1px solid var(--emerald);
+    color:var(--emerald);
+    font-size:9px;
+    letter-spacing:1.4px;
+    font-weight:800;
+    text-transform:uppercase;
+    transition:.3s;
+}
+
+.product-action:hover {
+    background:var(--emerald);
+    color:white;
+}
+
+.empty-state {
+    display:none;
+    text-align:center;
+    padding:60px 20px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.empty-state.visible {
+    display:block;
+}
+
+/* UPCOMING COLLECTIONS */
+
+.future {
+    padding:100px 7%;
+    background:white;
+}
+
+.future-heading {
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.future-heading h2 {
+    font-family:var(--serif);
+    font-size:clamp(38px,5vw,55px);
+    color:var(--emerald);
+    font-weight:400;
+    margin-bottom:15px;
+}
+
+.future-heading p {
+    color:var(--muted);
+    font-size:12px;
+    line-height:1.8;
+}
+
+.future-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+}
+
+.future-card {
+    position:relative;
+    height:350px;
+    overflow:hidden;
+    background:var(--emerald);
+}
+
+.future-card img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .7s;
+}
+
+.future-card:hover img {
+    transform:scale(1.05);
+}
+
+.future-overlay {
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        0deg,
+        rgba(3,45,32,.88),
+        rgba(3,45,32,.05) 80%
+    );
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:30px;
+    color:white;
+}
+
+.future-overlay span {
+    color:var(--gold-light);
+    font-size:8px;
+    letter-spacing:2px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+.future-overlay h3 {
+    font-family:var(--serif);
+    font-size:37px;
+    font-weight:400;
+    margin-bottom:8px;
+}
+
+.future-overlay p {
+    font-size:10px;
+    color:rgba(255,255,255,.75);
+}
+
+/* HERITAGE BANNER */
+
+.heritage {
+    min-height:470px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    background:
+      linear-gradient(90deg,
+      rgba(3,45,32,.94),
+      rgba(3,45,32,.68)),
+      url('https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=2000&q=85')
+      center/cover;
+    color:white;
+}
+
+.heritage-content {
+    max-width:750px;
+    padding:90px 10%;
+}
+
+.heritage-content .section-label {
+    color:var(--gold-light);
+}
+
+.heritage-content h2 {
+    font-family:var(--serif);
+    font-size:clamp(43px,6vw,70px);
+    font-weight:400;
+    line-height:1.1;
+    margin-bottom:22px;
+}
+
+.heritage-content h2 span {
+    color:var(--gold-light);
+    font-style:italic;
+}
+
+.heritage-content p {
+    max-width:430px;
+    color:rgba(255,255,255,.75);
+    font-size:12px;
+    line-height:2;
+    margin-bottom:28px;
+}
+
+/* CONFIDENCE */
+
+.confidence {
+    padding:65px 7%;
+    background:var(--ivory);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.confidence-item {
+    text-align:center;
+}
+
+.confidence-icon {
+    font-size:27px;
+    color:#a27e3f;
+    margin-bottom:14px;
+}
+
+.confidence-item h3 {
+    color:var(--emerald);
+    font-family:var(--serif);
+    font-size:21px;
+    font-weight:400;
+    margin-bottom:9px;
+}
+
+.confidence-item p {
+    font-size:10px;
+    color:var(--muted);
+    line-height:1.8;
+}
+
+/* NEWSLETTER */
+
+.newsletter {
+    background:var(--emerald);
+    color:white;
+    text-align:center;
+    padding:85px 20px;
+}
+
+.newsletter .section-label {
+    color:var(--gold-light);
+}
+
+.newsletter h2 {
+    font-family:var(--serif);
+    font-size:clamp(38px,5vw,57px);
+    font-weight:400;
+    margin-bottom:15px;
+}
+
+.newsletter p {
+    color:rgba(255,255,255,.72);
+    font-size:12px;
+    line-height:1.8;
+    margin-bottom:28px;
+}
+
+.newsletter-form {
+    display:flex;
+    max-width:480px;
+    margin:auto;
+    border-bottom:1px solid var(--gold);
+}
+
+.newsletter-form input {
+    flex:1;
+    min-width:0;
+    background:transparent;
+    border:0;
+    outline:0;
+    color:white;
+    padding:16px 10px;
+    font-size:12px;
+}
+
+.newsletter-form input::placeholder {
+    color:rgba(255,255,255,.65);
+}
+
+.newsletter-form button {
+    background:var(--gold);
+    border:0;
+    color:var(--deep);
+    padding:0 20px;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+/* FOOTER */
+
+.footer {
+    background:#02271c;
+    color:white;
+    padding:70px 7% 25px;
+}
+
+.footer-grid {
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;
+    gap:45px;
+    padding-bottom:50px;
+}
+
+.footer-brand {
+    font-family:var(--serif);
+    color:var(--gold-light);
+    font-size:39px;
+    letter-spacing:5px;
+    margin-bottom:15px;
+}
+
+.footer-about {
+    color:rgba(255,255,255,.6);
+    font-size:11px;
+    line-height:2;
+    max-width:270px;
+}
+
+.footer-column h4 {
+    color:var(--gold-light);
+    font-size:9px;
+    letter-spacing:2px;
+    margin-bottom:22px;
+}
+
+.footer-column a {
+    display:block;
+    color:rgba(255,255,255,.65);
+    font-size:10px;
+    margin-bottom:15px;
+    transition:.3s;
+}
+
+.footer-column a:hover {
+    color:var(--gold-light);
+}
+
+.social-links {
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.social-links a {
+    color:var(--gold-light);
+    font-size:9px;
+    font-weight:700;
+}
+
+.footer-bottom {
+    border-top:1px solid rgba(255,255,255,.13);
+    padding-top:24px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:15px;
+    color:rgba(255,255,255,.45);
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+/* TOAST */
+
+.toast {
+    position:fixed;
+    left:50%;
+    bottom:25px;
+    transform:translate(-50%,120px);
+    padding:16px 24px;
+    background:var(--deep);
+    color:white;
+    z-index:3000;
+    font-size:11px;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+    transition:.4s;
+    text-align:center;
+}
+
+.toast.show {
+    transform:translate(-50%,0);
+}
+
+/* REVEAL */
+
+.reveal {
+    opacity:0;
+    transform:translateY(25px);
+    transition:.8s;
+}
+
+.reveal.visible {
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1000px) {
+
+    .header {
+        padding:0 4%;
+    }
+
+    .nav-left,.nav-right {
+        gap:15px;
+    }
+
+    .product-photo {
+        height:300px;
+    }
+
+    .featured-info {
+        padding:45px 7%;
+    }
+}
+
+@media(max-width:760px) {
+
+    .announcement {
+        font-size:8px;
+        letter-spacing:1px;
+    }
+
+    .header {
+        height:72px;
+        padding:0 18px;
+    }
+
+    .nav-left,
+    .desktop-action {
+        display:none;
+    }
+
+    .mobile-toggle {
+        display:block;
+        width:40px;
+    }
+
+    .brand {
+        flex:1;
+        min-width:auto;
+    }
+
+    .brand img {
+        width:120px;
+        height:53px;
+    }
+
+    .brand-caption {
+        display:none;
+    }
+
+    .nav-right {
+        flex:1;
+    }
+
+    .hero {
+        min-height:550px;
+        background-position:60% center;
+    }
+
+    .hero-content {
+        padding:70px 7%;
+    }
+
+    .hero h1 {
+        font-size:62px;
+    }
+
+    .hero p {
+        font-size:12px;
+    }
+
+    .hero-caption {
+        left:7%;
+    }
+
+    .intro {
+        padding:65px 7% 40px;
+    }
+
+    .featured {
+        padding:20px 5% 70px;
+    }
+
+    .featured-card {
+        grid-template-columns:1fr;
+    }
+
+    .featured-image,
+    .featured-image img {
+        min-height:360px;
+        height:360px;
+    }
+
+    .featured-info {
+        padding:40px 8%;
+    }
+
+    .catalogue {
+        padding:75px 5%;
+    }
+
+    .catalogue-heading {
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .filter-area {
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .filters {
+        width:100%;
+    }
+
+    .filter-btn {
+        padding:9px 11px;
+        font-size:8px;
+    }
+
+    .catalogue-tools {
+        width:100%;
+    }
+
+    .search-box {
+        flex:1;
+        width:auto;
+    }
+
+    .product-grid {
+        grid-template-columns:1fr;
+        gap:23px;
+    }
+
+    .product-photo {
+        height:390px;
+    }
+
+    .future {
+        padding:75px 5%;
+    }
+
+    .future-grid {
+        grid-template-columns:1fr;
+    }
+
+    .future-card {
+        height:300px;
+    }
+
+    .heritage-content {
+        padding:70px 7%;
+    }
+
+    .confidence {
+        grid-template-columns:repeat(2,1fr);
+        padding:50px 5%;
+        row-gap:35px;
+    }
+
+    .footer {
+        padding:60px 7% 25px;
+    }
+
+    .footer-grid {
+        grid-template-columns:repeat(2,1fr);
+        gap:35px 20px;
+    }
+
+    .footer-brand-column {
+        grid-column:1/-1;
+    }
+
+    .footer-bottom {
+        flex-direction:column;
+        text-align:center;
+    }
+
+}
+
+@media(max-width:380px) {
+
+    .hero h1 {
+        font-size:52px;
+    }
+
+    .btn-gold,.btn-outline {
+        padding:14px 17px;
+        font-size:8px;
+    }
+
+    .product-photo {
+        height:320px;
+    }
+
+    .featured-image,
+    .featured-image img {
+        min-height:300px;
+        height:300px;
+    }
+
+}
+
+@media(prefers-reduced-motion:reduce) {
+    html {
+        scroll-behavior:auto;
+    }
+
+    *,*::before,*::after {
+        animation-duration:.01ms!important;
+        transition-duration:.01ms!important;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="container nav">
+<!-- ANNOUNCEMENT -->
 
-    <a href="index.html" class="logo">
-      <span class="logo-name">KOVÉR</span>
-      <span class="logo-sub">TIME · PRESENCE · LEGACY</span>
-    </a>
+<div class="announcement">
+    THE WORLD OF KOVÉR · BEYOND TIME. ROOTED IN LEGACY.
+</div>
 
-    <nav class="nav-links">
-      <a href="collection.html">Collection</a>
-      <a href="about-kover.html">Our Story</a>
-      <a href="contact.html">Contact</a>
+<!-- HEADER -->
+
+<header class="header">
+
+    <button class="mobile-toggle"
+            onclick="openMenu()"
+            aria-label="Open navigation">
+        ☰
+    </button>
+
+    <nav class="nav-left">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="collection.html" class="nav-link">Collections</a>
+        <a href="about.html" class="nav-link">Our Story</a>
     </nav>
 
-    <div class="secure-label">Secure checkout</div>
+    <a href="index.html" class="brand">
 
-  </div>
+        <img
+            src="assets/kover-logo.png"
+            alt="KOVÉR"
+            onerror="this.style.display='none';document.getElementById('brandFallback').style.display='block';"
+        >
+
+        <span class="brand-name" id="brandFallback">KOVÉR</span>
+
+        <span class="brand-caption">BEYOND TIME</span>
+
+    </a>
+
+    <nav class="nav-right">
+
+        <a href="contact.html" class="nav-link desktop-action">
+            Contact
+        </a>
+
+        <a href="checkout.html" class="header-action">
+            BAG
+            <span class="cart-count" id="cartCount">0</span>
+        </a>
+
+    </nav>
+
 </header>
 
-<main>
+<!-- MOBILE MENU -->
 
-  <section class="page-heading container">
-    <div class="eyebrow">The KOVÉR experience</div>
-    <h1>Complete your order.</h1>
-    <p>Confirm your timepiece and delivery details.</p>
-  </section>
+<div class="mobile-menu" id="mobileMenu">
 
-  <div class="container checkout-layout">
+    <div class="mobile-menu-top">
+        <span>KOVÉR</span>
+        <button class="mobile-close" onclick="closeMenu()">×</button>
+    </div>
 
-    <!-- LEFT: CUSTOMER AND PAYMENT DETAILS -->
+    <a href="index.html" onclick="closeMenu()">Home</a>
+    <a href="collection.html" onclick="closeMenu()">Collections</a>
+    <a href="about.html" onclick="closeMenu()">Our Story</a>
+    <a href="contact.html" onclick="closeMenu()">Contact</a>
+    <a href="tracking.html" onclick="closeMenu()">Track Order</a>
+    <a href="checkout.html" onclick="closeMenu()">Shopping Bag</a>
 
-    <div>
+    <div class="mobile-caption">
+        BEYOND TIME. ROOTED IN LEGACY.
+    </div>
 
-      <form id="checkoutForm">
+</div>
 
-        <!-- CUSTOMER DETAILS -->
+<!-- HERO -->
 
-        <section class="panel">
+<section class="hero">
 
-          <div class="panel-title">
-            <h2>Customer information</h2>
-            <span class="step-number">01 / 03</span>
-          </div>
+    <div class="hero-content">
 
-          <div class="form-grid">
+        <div class="eyebrow">
+            THE KOVÉR COLLECTION
+        </div>
 
-            <div class="field">
-              <label for="firstName">First name *</label>
-              <input id="firstName" name="firstName" required autocomplete="given-name" placeholder="First name">
-            </div>
+        <h1>
+            The Art of
+            <span>Time.</span>
+        </h1>
 
-            <div class="field">
-              <label for="lastName">Last name *</label>
-              <input id="lastName" name="lastName" required autocomplete="family-name" placeholder="Last name">
-            </div>
+        <p>
+            Discover a new expression of modern luxury.
+            Explore distinctive designs created for
+            those who appreciate individuality,
+            confidence and timeless style.
+        </p>
 
-            <div class="field">
-              <label for="email">Email address *</label>
-              <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
-            </div>
+        <div class="hero-buttons">
 
-            <div class="field">
-              <label for="phone">Phone number *</label>
-              <input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="+27...">
-            </div>
+            <a href="#signature" class="btn-gold">
+                Discover K001
+            </a>
 
-          </div>
+            <a href="#all-watches" class="btn-outline">
+                Explore Collection
+            </a>
 
-        </section>
-
-        <!-- DELIVERY DETAILS -->
-
-        <section class="panel">
-
-          <div class="panel-title">
-            <h2>Delivery information</h2>
-            <span class="step-number">02 / 03</span>
-          </div>
-
-          <div class="form-grid">
-
-            <div class="field full">
-              <label for="country">Country *</label>
-              <select id="country" name="country" required autocomplete="country-name">
-                <option value="">Select your country</option>
-                <option value="South Africa">South Africa</option>
-                <option value="Ghana">Ghana</option>
-                <option value="Nigeria">Nigeria</option>
-                <option value="Kenya">Kenya</option>
-                <option value="United Kingdom">United Kingdom</option>
-                <option value="United States">United States</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <label for="address">Street address *</label>
-              <input id="address" name="address" required autocomplete="street-address" placeholder="Street and building">
-            </div>
-
-            <div class="field">
-              <label for="city">City *</label>
-              <input id="city" name="city" required autocomplete="address-level2" placeholder="City">
-            </div>
-
-            <div class="field">
-              <label for="province">State / Province</label>
-              <input id="province" name="province" autocomplete="address-level1" placeholder="Province">
-            </div>
-
-            <div class="field">
-              <label for="postalCode">Postal code *</label>
-              <input id="postalCode" name="postalCode" required autocomplete="postal-code" placeholder="Postal code">
-            </div>
-
-            <div class="field">
-              <label for="deliveryPreference">Delivery preference</label>
-              <select id="deliveryPreference" name="deliveryPreference">
-                <option value="Standard delivery">Standard delivery</option>
-                <option value="Contact me before dispatch">Contact me before dispatch</option>
-              </select>
-            </div>
-
-            <div class="field full">
-              <label for="deliveryNotes">Additional delivery instructions</label>
-              <textarea id="deliveryNotes" name="deliveryNotes" placeholder="Optional instructions for delivery"></textarea>
-            </div>
-
-          </div>
-
-          <p class="helper">
-            Delivery charges and estimated delivery dates must be confirmed
-            for your destination before payment.
-          </p>
-
-        </section>
-
-        <!-- PAYMENT -->
-
-        <section class="panel">
-
-          <div class="panel-title">
-            <h2>Payment method</h2>
-            <span class="step-number">03 / 03</span>
-          </div>
-
-          <div class="payment-method">
-            <div class="payment-icon">$</div>
-            <div>
-              <strong>USD Coin (USDC)</strong>
-              <span>Base Network · Native USDC</span>
-            </div>
-          </div>
-
-          <div style="height:20px"></div>
-
-          <div class="wallet-box">
-
-            <div class="wallet-top">
-              <div>
-                <div class="wallet-name">Connect your wallet</div>
-                <p class="wallet-description">
-                  Connect a compatible wallet holding native USDC on Base.
-                  Your wallet will ask you to approve the payment.
-                </p>
-              </div>
-
-              <button type="button" class="button wallet-button" id="connectWallet">
-                Connect wallet
-              </button>
-            </div>
-
-            <div class="wallet-status" id="walletStatus" aria-live="polite">
-              No wallet connected.
-            </div>
-
-          </div>
-
-          <div class="check-row">
-            <input type="checkbox" id="terms" required>
-            <label for="terms">
-              I have reviewed the order details and agree to the
-              <a href="policies.html" style="color:var(--gold-light);text-decoration:underline">Terms, Shipping and Returns Policy</a>.
-            </label>
-          </div>
-
-          <div class="check-row">
-            <input type="checkbox" id="cryptoAcknowledgement" required>
-            <label for="cryptoAcknowledgement">
-              I understand that this payment uses USDC on the Base blockchain.
-              I will verify the amount and destination shown in my wallet before approving.
-            </label>
-          </div>
-
-          <button type="submit" class="button button-filled pay-button" id="payButton" disabled>
-            Checkout unavailable
-          </button>
-
-          <p class="helper" id="paymentAvailability">
-            Online payments are not yet activated. Please contact KOVÉR
-            to confirm your order while checkout is being configured.
-          </p>
-
-          <div class="status-message" id="statusMessage" role="status"></div>
-
-        </section>
-
-      </form>
+        </div>
 
     </div>
 
-    <!-- RIGHT: ORDER SUMMARY -->
+    <div class="hero-caption">
+        SIGNATURE · IDENTITY · LEGACY
+    </div>
 
-    <aside class="panel summary-panel">
+</section>
 
-      <div class="panel-title">
-        <h2>Your order</h2>
-        <span class="step-number">SUMMARY</span>
-      </div>
+<!-- INTRO -->
 
-      <div class="product-summary">
+<section class="intro">
 
-        <img id="summaryImage" src="kover-heritage.jpg" alt="KOVÉR watch">
+    <div class="section-label">
+        THE WORLD OF KOVÉR
+    </div>
 
-        <div>
-          <div class="eyebrow" id="summaryCollection">Heritage</div>
-          <h3 id="summaryName">Heritage 01</h3>
-          <p id="summaryReference">KVR-H01</p>
-          <p>Quantity: <strong id="summaryQuantity">1</strong></p>
-        </div>
+    <h2>
+        An Expression of Individuality.
+    </h2>
 
-      </div>
-
-      <div style="height:20px"></div>
-
-      <div class="summary-row">
-        <span>Timepiece</span>
-        <strong id="itemPrice">To be confirmed</strong>
-      </div>
-
-      <div class="summary-row">
-        <span>Quantity</span>
-        <strong id="quantityDisplay">1</strong>
-      </div>
-
-      <div class="summary-row">
-        <span>Delivery</span>
-        <strong id="shippingDisplay">To be confirmed</strong>
-      </div>
-
-      <div class="summary-total">
-        <span>Order total</span>
-        <strong id="totalDisplay">To be confirmed</strong>
-      </div>
-
-      <p class="summary-note">
-        Your final USDC amount will be calculated by the secure order
-        service after product pricing and delivery have been confirmed.
-      </p>
-
-      <div class="summary-links">
-        <a href="collection.html">← Continue shopping</a>
-        <a href="contact.html">Need help?</a>
-      </div>
-
-    </aside>
-
-  </div>
-
-</main>
-
-<footer>
-  <div class="container footer-inner">
     <p>
-      © <span id="year"></span> KOVÉR. All rights reserved.<br>
-      Time · Presence · Legacy.
+        Each KOVÉR timepiece begins with a vision.
+        Discover our signature design and the
+        philosophy behind the collection.
     </p>
 
-    <a href="https://campusmoney.xyz">A Campus Money brand</a>
-  </div>
+</section>
+
+<!-- FEATURED K001 -->
+
+<section class="featured" id="signature">
+
+    <div class="featured-card reveal">
+
+        <div class="featured-image">
+
+            <span class="featured-badge">
+                THE SIGNATURE TIMEPIECE
+            </span>
+
+            <!-- Replace with actual K001 photograph -->
+
+            <img
+                src="assets/k001.jpg"
+                alt="KOVÉR K001 signature luxury watch"
+                onerror="this.src='https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=85';"
+            >
+
+        </div>
+
+        <div class="featured-info">
+
+            <div class="section-label">
+                SIGNATURE SERIES
+            </div>
+
+            <h2>K001</h2>
+
+            <div class="featured-subtitle">
+                BEYOND ORDINARY.
+            </div>
+
+            <p>
+                Meet the KOVÉR K001. A distinctive
+                expression of modern watch design,
+                bringing together bold proportions,
+                architectural detailing and a
+                recognisable identity.
+            </p>
+
+            <ul class="spec-list">
+
+                <li>
+                    <span>Collection</span>
+                    <span>Signature</span>
+                </li>
+
+                <li>
+                    <span>Model</span>
+                    <span>K001</span>
+                </li>
+
+                <li>
+                    <span>Design</span>
+                    <span>Contemporary</span>
+                </li>
+
+                <li>
+                    <span>Availability</span>
+                    <span>Check Product Page</span>
+                </li>
+
+            </ul>
+
+            <div class="featured-buttons">
+
+                <a href="product.html?id=k001" class="btn-green">
+                    Discover K001 →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ALL WATCHES -->
+
+<section class="catalogue" id="all-watches">
+
+    <div class="catalogue-heading reveal">
+
+        <div>
+
+            <div class="section-label">
+                EXPLORE KOVÉR
+            </div>
+
+            <h2>
+                The Collection.
+            </h2>
+
+            <p>
+                Discover the KOVÉR signature timepiece.
+            </p>
+
+        </div>
+
+        <div class="section-label">
+            SIGNATURE SERIES
+        </div>
+
+    </div>
+
+    <!-- FILTERS -->
+
+    <div class="filter-area">
+
+        <div class="filters" id="filters">
+
+            <button class="filter-btn active"
+                    data-filter="all">
+                All
+            </button>
+
+            <button class="filter-btn"
+                    data-filter="signature">
+                Signature
+            </button>
+
+            <button class="filter-btn"
+                    data-filter="future">
+                Future
+            </button>
+
+            <button class="filter-btn"
+                    data-filter="exclusive">
+                Exclusive
+            </button>
+
+            <button class="filter-btn"
+                    data-filter="heritage">
+                Heritage
+            </button>
+
+        </div>
+
+        <div class="catalogue-tools">
+
+            <input
+                class="search-box"
+                id="productSearch"
+                type="search"
+                placeholder="Search timepieces..."
+                aria-label="Search timepieces"
+            >
+
+            <select class="sort-select"
+                    id="sortProducts"
+                    aria-label="Sort products">
+
+                <option value="featured">Featured</option>
+                <option value="name">Name A–Z</option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+    <div class="result-count" id="resultCount">
+        1 signature timepiece
+    </div>
+
+    <!-- PRODUCT GRID -->
+
+    <div class="product-grid" id="productGrid">
+
+        <article class="product-card reveal"
+                 data-category="signature"
+                 data-name="K001"
+                 data-search="k001 signature luxury contemporary skeleton watch">
+
+            <a href="product.html?id=k001">
+
+                <div class="product-photo">
+
+                    <span class="product-label">
+                        SIGNATURE
+                    </span>
+
+                    <img
+                        src="assets/k001.jpg"
+                        alt="KOVÉR K001 watch"
+                        loading="lazy"
+                        onerror="this.src='https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=900&q=85';"
+                    >
+
+                </div>
+
+                <div class="product-details">
+
+                    <div class="product-category">
+                        SIGNATURE SERIES
+                    </div>
+
+                    <h3>K001</h3>
+
+                    <p>
+                        A distinctive statement
+                        in contemporary watch design.
+                    </p>
+
+                    <span class="product-action">
+                        View Timepiece →
+                    </span>
+
+                </div>
+
+            </a>
+
+        </article>
+
+    </div>
+
+    <div class="empty-state" id="emptyState">
+        No timepieces found. Try another search.
+    </div>
+
+</section>
+
+<!-- FUTURE COLLECTIONS -->
+
+<section class="future">
+
+    <div class="future-heading reveal">
+
+        <div class="section-label">
+            THE FUTURE OF KOVÉR
+        </div>
+
+        <h2>
+            A Legacy in Motion.
+        </h2>
+
+        <p>
+            Discover the design directions
+            shaping the future of KOVÉR.
+        </p>
+
+    </div>
+
+    <div class="future-grid">
+
+        <div class="future-card reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=1000&q=85"
+                alt="Future watch collection concept"
+                loading="lazy"
+            >
+
+            <div class="future-overlay">
+
+                <span>FUTURE SERIES</span>
+
+                <h3>Tomorrow, Defined.</h3>
+
+                <p>
+                    A vision of what comes next.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="future-card reveal">
+
+            <img
+                src="https://images.unsplash.com/photo-1547996160-81dfa63595aa?auto=format&fit=crop&w=1000&q=85"
+                alt="Exclusive watch collection concept"
+                loading="lazy"
+            >
+
+            <div class="future-overlay">
+
+                <span>EXCLUSIVE SERIES</span>
+
+                <h3>Distinct by Nature.</h3>
+
+                <p>
+                    A vision of individual expression.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <p style="
+        text-align:center;
+        margin-top:22px;
+        color:#77766f;
+        font-size:10px;
+        letter-spacing:1px;
+    ">
+        FUTURE COLLECTIONS · CONCEPT PREVIEWS
+    </p>
+
+</section>
+
+<!-- HERITAGE -->
+
+<section class="heritage">
+
+    <div class="heritage-content reveal">
+
+        <div class="section-label">
+            THE KOVÉR PHILOSOPHY
+        </div>
+
+        <h2>
+            Rooted in Legacy.
+            <span>Designed for Tomorrow.</span>
+        </h2>
+
+        <p>
+            Our emblem represents the strength of
+            our roots, the beauty of growth and
+            the possibilities of the future.
+            At KOVÉR, we believe that what we
+            create should carry meaning beyond
+            the moment.
+        </p>
+
+        <a href="about.html" class="btn-gold">
+            Discover Our Story
+        </a>
+
+    </div>
+
+</section>
+
+<!-- CUSTOMER CONFIDENCE -->
+
+<section class="confidence">
+
+    <div class="confidence-item reveal">
+
+        <div class="confidence-icon">✧</div>
+
+        <h3>Authenticity</h3>
+
+        <p>
+            Genuine KOVÉR timepieces
+            and product information.
+        </p>
+
+    </div>
+
+    <div class="confidence-item reveal">
+
+        <div class="confidence-icon">◇</div>
+
+        <h3>Secure Shopping</h3>
+
+        <p>
+            A straightforward
+            shopping experience.
+        </p>
+
+    </div>
+
+    <div class="confidence-item reveal">
+
+        <div class="confidence-icon">⌖</div>
+
+        <h3>Order Tracking</h3>
+
+        <p>
+            Follow your purchase
+            through our tracking service.
+        </p>
+
+    </div>
+
+    <div class="confidence-item reveal">
+
+        <div class="confidence-icon">♧</div>
+
+        <h3>Customer Care</h3>
+
+        <p>
+            Assistance throughout
+            your KOVÉR experience.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- NEWSLETTER -->
+
+<section class="newsletter">
+
+    <div class="section-label">
+        THE WORLD OF KOVÉR
+    </div>
+
+    <h2>
+        A Legacy Worth Discovering.
+    </h2>
+
+    <p>
+        Discover new collections, exclusive releases
+        and the latest from KOVÉR.
+    </p>
+
+    <form class="newsletter-form" id="newsletterForm">
+
+        <input
+            type="email"
+            id="newsletterEmail"
+            placeholder="Enter your email address"
+            required
+            aria-label="Email address"
+        >
+
+        <button type="submit">
+            JOIN US →
+        </button>
+
+    </form>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+    <div class="footer-grid">
+
+        <div class="footer-brand-column">
+
+            <div class="footer-brand">
+                KOVÉR
+            </div>
+
+            <p class="footer-about">
+                Beyond Time. Rooted in Legacy.
+
+                A new expression of modern luxury.
+                Discover distinctive timepieces
+                and the world of KOVÉR.
+            </p>
+
+            <div class="social-links">
+
+                <!-- Add official social media links -->
+
+                <a href="#" aria-label="Instagram">INSTAGRAM</a>
+                <a href="#" aria-label="TikTok">TIKTOK</a>
+                <a href="#" aria-label="Facebook">FACEBOOK</a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h4>Discover</h4>
+
+            <a href="index.html">Home</a>
+            <a href="collection.html">Collections</a>
+            <a href="product.html?id=k001">K001</a>
+            <a href="about.html">Our Story</a>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h4>Customer Care</h4>
+
+            <a href="contact.html">Contact Us</a>
+            <a href="tracking.html">Track Order</a>
+            <a href="shipping.html">Shipping</a>
+            <a href="returns.html">Returns</a>
+            <a href="warranty.html">Warranty</a>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h4>Information</h4>
+
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms & Conditions</a>
+            <a href="faq.html">FAQs</a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <span>
+            © <span id="year"></span> KOVÉR®. ALL RIGHTS RESERVED.
+        </span>
+
+        <span>
+            BEYOND TIME. ROOTED IN LEGACY.
+        </span>
+
+    </div>
+
 </footer>
 
+<div class="toast" id="toast"></div>
+
 <script>
-/*
-=========================================================
-KOVÉR CHECKOUT CONFIGURATION
-=========================================================
 
-This page is intentionally payment-locked until the backend
-and verified product prices are configured.
+/* ===================================
+   MOBILE MENU
+=================================== */
 
-Required backend endpoints:
+function openMenu() {
 
-POST /api/checkout/create-order
+    document.getElementById('mobileMenu')
+        .classList.add('active');
 
-Request JSON:
-{
-  productId,
-  quantity,
-  customer: {
-    firstName, lastName, email, phone,
-    country, address, city, province,
-    postalCode, deliveryPreference, deliveryNotes
-  }
+    document.body.style.overflow='hidden';
+
 }
 
-Expected response JSON:
-{
-  orderId: "KVR-...",
-  amountUsdc: "599.00",
-  receivingAddress: "0x...",
-  productName: "Heritage 01"
+function closeMenu() {
+
+    document.getElementById('mobileMenu')
+        .classList.remove('active');
+
+    document.body.style.overflow='';
+
 }
 
-The backend must calculate prices and shipping itself.
-Never trust prices submitted by the browser.
+/* ===================================
+   SHOPPING BAG COUNTER
+   Uses same key as homepage
+=================================== */
 
-POST /api/checkout/verify-payment
+function updateCartCount() {
 
-Request JSON:
-{
-  orderId: "...",
-  transactionHash: "0x..."
-}
+    let count=0;
 
-Expected response JSON:
-{
-  verified: true,
-  orderId: "KVR-..."
-}
+    try {
 
-The backend must independently verify:
-- Base mainnet chain ID (8453)
-- Native USDC contract address
-- Correct recipient address
-- Correct USDC amount
-- Correct transaction and order association
-- Successful transaction receipt and sufficient confirmations
-- That the transaction has not already been used for another order
+        const cart=JSON.parse(
+            localStorage.getItem('kover_cart') || '[]'
+        );
 
-Do not put private keys, seed phrases or signing secrets here.
-=========================================================
-*/
+        count=Array.isArray(cart)
+            ? cart.reduce((total,item)=>{
+                return total+(Number(item.quantity)||1);
+            },0)
+            : 0;
 
-const CONFIG = {
-  paymentEnabled: false,
-
-  // Circle native USDC contract on Base mainnet.
-  usdcContract: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-
-  chainId: 8453,
-
-  apiCreateOrder: "/api/checkout/create-order",
-  apiVerifyPayment: "/api/checkout/verify-payment"
-};
-
-/*
-  Keep the catalogue aligned with product.html.
-  Set priceUsdc only after the actual selling prices are approved.
-  These values are display data only. The backend must hold
-  and validate its own authoritative catalogue.
-*/
-
-const catalogue = {
-  "heritage-01": {
-    name: "Heritage 01",
-    collection: "Heritage",
-    reference: "KVR-H01",
-    image: "kover-heritage.jpg",
-    priceUsdc: null
-  },
-
-  "prestige-01": {
-    name: "Prestige 01",
-    collection: "Prestige",
-    reference: "KVR-P01",
-    image: "kover-prestige.jpg",
-    priceUsdc: null
-  },
-
-  "legacy-01": {
-    name: "Legacy 01",
-    collection: "Legacy",
-    reference: "KVR-L01",
-    image: "kover-legacy.jpg",
-    priceUsdc: null
-  }
-};
-
-const params = new URLSearchParams(window.location.search);
-const productId = params.get("id") || "heritage-01";
-const product = catalogue[productId] || catalogue["heritage-01"];
-
-const quantityParam = Number(params.get("quantity") || 1);
-let quantity = Number.isInteger(quantityParam)
-  ? Math.min(5, Math.max(1, quantityParam))
-  : 1;
-
-let connectedAddress = null;
-let walletProvider = null;
-let walletSigner = null;
-let currentOrder = null;
-let paymentInProgress = false;
-
-const $ = id => document.getElementById(id);
-
-function showStatus(message, type = "") {
-  const box = $("statusMessage");
-  box.textContent = message;
-  box.className = "status-message" + (type ? " " + type : "");
-  box.style.display = "block";
-}
-
-function hideStatus() {
-  $("statusMessage").style.display = "none";
-}
-
-function renderSummary() {
-  $("summaryImage").src = product.image;
-  $("summaryImage").alt = product.name;
-  $("summaryCollection").textContent = product.collection;
-  $("summaryName").textContent = product.name;
-  $("summaryReference").textContent = product.reference;
-  $("summaryQuantity").textContent = quantity;
-  $("quantityDisplay").textContent = quantity;
-
-  if (product.priceUsdc !== null) {
-    const subtotal = product.priceUsdc * quantity;
-    $("itemPrice").textContent = product.priceUsdc.toFixed(2) + " USDC";
-    $("totalDisplay").textContent = subtotal.toFixed(2) + " USDC";
-  } else {
-    $("itemPrice").textContent = "To be confirmed";
-    $("totalDisplay").textContent = "To be confirmed";
-  }
-
-  $("shippingDisplay").textContent = "To be confirmed";
-}
-
-renderSummary();
-
-document.title = product.name + " | KOVÉR Checkout";
-$("year").textContent = new Date().getFullYear();
-
-/* CONNECT WALLET */
-
-async function connectWallet() {
-  hideStatus();
-
-  if (!window.ethereum) {
-    showStatus(
-      "No compatible wallet was detected. Open this page in a browser with a compatible wallet, such as MetaMask or Coinbase Wallet.",
-      "error"
-    );
-    return;
-  }
-
-  try {
-    walletProvider = new ethers.BrowserProvider(window.ethereum);
-
-    await walletProvider.send("eth_requestAccounts", []);
-
-    walletSigner = await walletProvider.getSigner();
-    connectedAddress = await walletSigner.getAddress();
-
-    const network = await walletProvider.getNetwork();
-
-    if (Number(network.chainId) !== CONFIG.chainId) {
-      $("walletStatus").textContent =
-        "Wallet connected, but please switch to Base Mainnet.";
-
-      $("walletStatus").className = "wallet-status";
-      $("connectWallet").textContent = "Switch to Base";
-
-      return;
+    } catch(error) {
+        count=0;
     }
 
-    $("walletStatus").textContent =
-      "Connected: " + connectedAddress;
+    document.getElementById('cartCount')
+        .textContent=count;
 
-    $("walletStatus").className =
-      "wallet-status wallet-connected";
-
-    $("connectWallet").textContent = "Wallet connected";
-
-    updatePaymentAvailability();
-
-  } catch (error) {
-    showStatus(
-      error.message || "Wallet connection was not completed.",
-      "error"
-    );
-  }
 }
 
-async function switchToBase() {
-  if (!window.ethereum) {
-    throw new Error("A compatible wallet was not detected.");
-  }
+updateCartCount();
 
-  try {
-    await window.ethereum.request({
-      method: "wallet_switchEthereumChain",
-      params: [{ chainId: "0x2105" }]
+window.addEventListener('storage',function(event){
+
+    if(event.key==='kover_cart'){
+        updateCartCount();
+    }
+
+});
+
+/* ===================================
+   TOAST
+=================================== */
+
+let toastTimer;
+
+function showToast(message) {
+
+    const toast=document.getElementById('toast');
+
+    toast.textContent=message;
+    toast.classList.add('show');
+
+    clearTimeout(toastTimer);
+
+    toastTimer=setTimeout(()=>{
+        toast.classList.remove('show');
+    },3500);
+
+}
+
+/* ===================================
+   PRODUCT FILTERING
+=================================== */
+
+let activeFilter='all';
+
+const productGrid=document.getElementById('productGrid');
+const searchInput=document.getElementById('productSearch');
+const sortSelect=document.getElementById('sortProducts');
+const resultCount=document.getElementById('resultCount');
+const emptyState=document.getElementById('emptyState');
+
+function filterProducts() {
+
+    const search=searchInput.value
+        .trim()
+        .toLowerCase();
+
+    const cards=[
+        ...productGrid.querySelectorAll('.product-card')
+    ];
+
+    let visible=0;
+
+    cards.forEach(card=>{
+
+        const category=card.dataset.category;
+        const name=card.dataset.name;
+        const searchText=card.dataset.search;
+
+        const matchesCategory=
+            activeFilter==='all' ||
+            category===activeFilter;
+
+        const matchesSearch=
+            name.toLowerCase().includes(search) ||
+            searchText.toLowerCase().includes(search);
+
+        const show=matchesCategory && matchesSearch;
+
+        card.hidden=!show;
+
+        if(show) visible++;
+
     });
-  } catch (error) {
 
-    if (error.code === 4902) {
-      await window.ethereum.request({
-        method: "wallet_addEthereumChain",
-        params: [{
-          chainId: "0x2105",
-          chainName: "Base Mainnet",
-          nativeCurrency: {
-            name: "Ether",
-            symbol: "ETH",
-            decimals: 18
-          },
-          rpcUrls: ["https://mainnet.base.org"],
-          blockExplorerUrls: ["https://basescan.org"]
-        }]
-      });
-    } else {
-      throw error;
-    }
-  }
+    resultCount.textContent=
+        visible===1
+        ? '1 signature timepiece'
+        : visible+' timepieces';
 
-  walletProvider = new ethers.BrowserProvider(window.ethereum);
-  walletSigner = await walletProvider.getSigner();
-  connectedAddress = await walletSigner.getAddress();
+    emptyState.classList.toggle('visible',visible===0);
 
-  $("walletStatus").textContent = "Connected to Base: " + connectedAddress;
-  $("walletStatus").className = "wallet-status wallet-connected";
-  $("connectWallet").textContent = "Wallet connected";
-
-  updatePaymentAvailability();
 }
 
-$("connectWallet").addEventListener("click", async () => {
+document.querySelectorAll('.filter-btn')
+.forEach(button=>{
 
-  if (connectedAddress) {
-    const network = await walletProvider.getNetwork();
+    button.addEventListener('click',()=>{
 
-    if (Number(network.chainId) !== CONFIG.chainId) {
-      try {
-        await switchToBase();
-      } catch (error) {
-        showStatus(error.message || "Could not switch networks.", "error");
-      }
-    }
+        document.querySelectorAll('.filter-btn')
+        .forEach(btn=>btn.classList.remove('active'));
 
-    return;
-  }
+        button.classList.add('active');
 
-  await connectWallet();
-});
+        activeFilter=button.dataset.filter;
 
-/* PAYMENT BUTTON STATE */
+        filterProducts();
 
-function updatePaymentAvailability() {
-  const ready =
-    CONFIG.paymentEnabled &&
-    connectedAddress &&
-    product.priceUsdc !== null &&
-    product.priceUsdc > 0;
-
-  $("payButton").disabled = !ready;
-
-  if (!CONFIG.paymentEnabled) {
-    $("payButton").textContent = "Checkout unavailable";
-    $("paymentAvailability").textContent =
-      "Online payments are not yet activated. Please contact KOVÉR to confirm your order.";
-  } else if (product.priceUsdc === null) {
-    $("payButton").textContent = "Price not configured";
-    $("paymentAvailability").textContent =
-      "The price for this model must be confirmed before checkout.";
-  } else if (!connectedAddress) {
-    $("payButton").textContent = "Connect wallet to continue";
-    $("paymentAvailability").textContent =
-      "Connect a compatible wallet on Base to continue.";
-  } else {
-    $("payButton").textContent = "Pay securely with USDC";
-    $("paymentAvailability").textContent =
-      "Review your order and approve the transaction in your wallet.";
-  }
-}
-
-updatePaymentAvailability();
-
-/* VALIDATE FORM */
-
-function getCustomerDetails() {
-  const form = $("checkoutForm");
-
-  if (!form.reportValidity()) {
-    throw new Error("Please complete all required customer and delivery fields.");
-  }
-
-  if (!$("terms").checked || !$("cryptoAcknowledgement").checked) {
-    throw new Error("Please accept both checkout acknowledgements.");
-  }
-
-  const data = new FormData(form);
-
-  return {
-    firstName: data.get("firstName").trim(),
-    lastName: data.get("lastName").trim(),
-    email: data.get("email").trim(),
-    phone: data.get("phone").trim(),
-    country: data.get("country"),
-    address: data.get("address").trim(),
-    city: data.get("city").trim(),
-    province: data.get("province").trim(),
-    postalCode: data.get("postalCode").trim(),
-    deliveryPreference: data.get("deliveryPreference"),
-    deliveryNotes: data.get("deliveryNotes").trim()
-  };
-}
-
-/* CREATE SERVER ORDER */
-
-async function createServerOrder(customer) {
-
-  const response = await fetch(CONFIG.apiCreateOrder, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    credentials: "same-origin",
-    body: JSON.stringify({
-      productId,
-      quantity,
-      customer
-    })
-  });
-
-  if (!response.ok) {
-    throw new Error("The order service could not create your order. Please try again.");
-  }
-
-  const order = await response.json();
-
-  if (
-    !order.orderId ||
-    !order.amountUsdc ||
-    !order.receivingAddress ||
-    !ethers.isAddress(order.receivingAddress)
-  ) {
-    throw new Error("The order service returned incomplete payment information.");
-  }
-
-  const amount = Number(order.amountUsdc);
-
-  if (!Number.isFinite(amount) || amount <= 0) {
-    throw new Error("The order amount is invalid. Please contact customer service.");
-  }
-
-  return order;
-}
-
-/* SEND NATIVE USDC ON BASE */
-
-async function sendUsdcPayment(order) {
-
-  const network = await walletProvider.getNetwork();
-
-  if (Number(network.chainId) !== CONFIG.chainId) {
-    throw new Error("Please switch your wallet to Base Mainnet before paying.");
-  }
-
-  const abi = [
-    "function transfer(address to, uint256 amount) returns (bool)"
-  ];
-
-  const usdc = new ethers.Contract(
-    CONFIG.usdcContract,
-    abi,
-    walletSigner
-  );
-
-  const amount = ethers.parseUnits(
-    String(order.amountUsdc),
-    6
-  );
-
-  showStatus(
-    "Your order has been prepared. Confirm the USDC transfer in your wallet. Check the recipient and amount carefully."
-  );
-
-  const transaction = await usdc.transfer(
-    order.receivingAddress,
-    amount
-  );
-
-  showStatus(
-    "Transaction submitted. Waiting for blockchain confirmation. Do not close this page."
-  );
-
-  const receipt = await transaction.wait();
-
-  if (!receipt || receipt.status !== 1) {
-    throw new Error("The blockchain transaction did not succeed.");
-  }
-
-  return transaction.hash;
-}
-
-/* ASK BACKEND TO VERIFY */
-
-async function verifyServerPayment(orderId, transactionHash) {
-
-  const response = await fetch(CONFIG.apiVerifyPayment, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    credentials: "same-origin",
-    body: JSON.stringify({
-      orderId,
-      transactionHash
-    })
-  });
-
-  if (!response.ok) {
-    throw new Error(
-      "Your transaction was submitted, but order verification is still pending. Keep your transaction reference."
-    );
-  }
-
-  const result = await response.json();
-
-  if (result.verified !== true) {
-    throw new Error(
-      "Your transaction has not yet been verified. Please keep your transaction reference and contact customer service."
-    );
-  }
-
-  return result;
-}
-
-/* CHECKOUT SUBMISSION */
-
-$("checkoutForm").addEventListener("submit", async event => {
-
-  event.preventDefault();
-
-  if (paymentInProgress) return;
-
-  hideStatus();
-
-  if (!CONFIG.paymentEnabled) {
-    showStatus(
-      "Checkout is not activated yet. Please contact KOVÉR to confirm your order.",
-      "error"
-    );
-    return;
-  }
-
-  if (!connectedAddress || !walletSigner) {
-    showStatus("Please connect your wallet first.", "error");
-    return;
-  }
-
-  if (product.priceUsdc === null) {
-    showStatus("The selling price for this watch has not been configured.", "error");
-    return;
-  }
-
-  paymentInProgress = true;
-  $("payButton").disabled = true;
-  $("payButton").textContent = "Preparing order...";
-
-  try {
-
-    const customer = getCustomerDetails();
-
-    const order = await createServerOrder(customer);
-    currentOrder = order;
-
-    $("payButton").textContent = "Awaiting wallet approval...";
-
-    const transactionHash = await sendUsdcPayment(order);
-
-    showStatus(
-      "Transaction submitted. Your order is awaiting independent payment verification. Transaction: " + transactionHash
-    );
-
-    $("payButton").textContent = "Verifying payment...";
-
-    const verification = await verifyServerPayment(
-      order.orderId,
-      transactionHash
-    );
-
-    if (verification.verified === true) {
-
-      showStatus(
-        "Payment verified. Your order reference is " + order.orderId + ".",
-        "success"
-      );
-
-      $("payButton").textContent = "Payment verified";
-
-      window.location.href =
-        "order-success.html?order=" +
-        encodeURIComponent(order.orderId);
-    }
-
-  } catch (error) {
-
-    showStatus(
-      error.message || "Checkout could not be completed.",
-      "error"
-    );
-
-    $("payButton").textContent = "Try again";
-
-  } finally {
-
-    paymentInProgress = false;
-
-    if (CONFIG.paymentEnabled) {
-      updatePaymentAvailability();
-    }
-
-  }
+    });
 
 });
 
-/* WALLET ACCOUNT CHANGES */
+searchInput.addEventListener('input',filterProducts);
 
-if (window.ethereum) {
+/* ===================================
+   PRODUCT SORTING
+=================================== */
 
-  window.ethereum.on("accountsChanged", accounts => {
+sortSelect.addEventListener('change',function(){
 
-    connectedAddress = accounts[0] || null;
-    walletSigner = null;
+    const cards=[
+        ...productGrid.querySelectorAll('.product-card')
+    ];
 
-    if (connectedAddress) {
-      connectWallet().catch(() => {});
-    } else {
-      $("walletStatus").textContent = "Wallet disconnected.";
-      $("walletStatus").className = "wallet-status";
-      $("connectWallet").textContent = "Connect wallet";
-      updatePaymentAvailability();
+    if(this.value==='name'){
+
+        cards.sort((a,b)=>
+            a.dataset.name.localeCompare(b.dataset.name)
+        );
+
     }
 
-  });
+    if(this.value==='featured'){
+        cards.sort((a,b)=>
+            a.dataset.name==='K001' ? -1 : 1
+        );
+    }
 
-  window.ethereum.on("chainChanged", () => {
-    window.location.reload();
-  });
+    cards.forEach(card=>{
+        productGrid.appendChild(card);
+    });
 
-}
+    filterProducts();
+
+});
+
+/* ===================================
+   NEWSLETTER
+   Connect to backend before launch
+=================================== */
+
+document.getElementById('newsletterForm')
+.addEventListener('submit',function(event){
+
+    event.preventDefault();
+
+    const email=document.getElementById('newsletterEmail')
+        .value.trim();
+
+    if(!email){
+        showToast('Please enter your email address.');
+        return;
+    }
+
+    showToast(
+        'Thank you for discovering KOVÉR.'
+    );
+
+    this.reset();
+
+});
+
+/* ===================================
+   SCROLL REVEAL
+=================================== */
+
+const observer=new IntersectionObserver(
+    (entries,observer)=>{
+
+        entries.forEach(entry=>{
+
+            if(entry.isIntersecting){
+
+                entry.target.classList.add('visible');
+
+                observer.unobserve(entry.target);
+
+            }
+
+        });
+
+    },
+    {
+        threshold:.12
+    }
+);
+
+document.querySelectorAll('.reveal')
+.forEach(element=>{
+    observer.observe(element);
+});
+
+/* ===================================
+   FOOTER YEAR
+=================================== */
+
+document.getElementById('year')
+.textContent=new Date().getFullYear();
+
 </script>
 
 </body>
